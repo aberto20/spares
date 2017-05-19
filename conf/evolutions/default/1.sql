@@ -18,7 +18,6 @@ create table user (
   delete_reason             varchar(255),
   done_by                   varchar(255),
   done_at                   datetime,
-  constraint uq_user_username unique (username),
   constraint pk_user primary key (id))
 ;
 
