@@ -5,7 +5,9 @@
 # An example controller showing a sample home page
 GET     /                           controllers.HomeController.index
 GET     /loadUsers/                 controllers.Application.loadUsers
-GET     /home/                      controllers.Application.home
+GET     /loginpage/                      controllers.Application.loginpage()
+GET     /adminHome/                      controllers.Application.adminHome()
+POST     /signin/                      controllers.Application.signin()
 
 
 # Map static resources from the /public folder to the /assets URL path

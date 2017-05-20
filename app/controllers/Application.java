@@ -5,7 +5,9 @@ import play.data.Form;
 import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
-import views.html.index;
+import views.html.admin;
+import views.html.login;
+
 
 import java.util.List;
 
@@ -13,8 +15,33 @@ import java.util.List;
  * Created by lenovo on 5/19/2017.
  */
 public class Application extends Controller {
-    public static Result home(){
-        return ok(index.render());
+    public static Result loginpage(){
+        return ok(login.render());
+    }
+    public static Result signin(){
+        Form<User>userForm=Form.form(User.class).bindFromRequest();
+        User user=userForm.get();
+        Boolean Auth=false;
+         session().clear();
+        for (User u:User.find.where().like("username",user.username).findList()){
+            if (u.password.equals(user.password)){
+                Auth=true;
+            }
+        }
+        if (Auth){
+            System.out.println("---------------------------------------\n Logged in !");
+            session("userId",user.username);
+            return ok("ok");
+        }else {
+            return ok("error");
+        }
+
+    }
+    public static Result adminHome(){
+        if(session("userId")==null ||session("userId").equals("") ){
+            return ok(login.render());
+        }
+        return ok(admin.render());
     }
     public static Result loadUsers(){
         List<User> userList=User.all();
