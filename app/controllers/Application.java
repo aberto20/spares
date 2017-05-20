@@ -5,8 +5,7 @@ import play.data.Form;
 import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
-import views.html.admin;
-import views.html.login;
+
 
 
 import java.util.List;
@@ -16,7 +15,15 @@ import java.util.List;
  */
 public class Application extends Controller {
     public static Result loginpage(){
-        return ok(login.render());
+        return ok(views.html.login.render());
+    }
+    public static Result logout(){
+        session().clear();
+        return ok(views.html.index.render());
+    }
+    public static Result loadCurrentUser(){
+        User user=User.findByUsername(session("userId"));
+        return ok(Json.toJson(user));
     }
     public static Result signin(){
         Form<User>userForm=Form.form(User.class).bindFromRequest();
@@ -39,9 +46,9 @@ public class Application extends Controller {
     }
     public static Result adminHome(){
         if(session("userId")==null ||session("userId").equals("") ){
-            return ok(login.render());
+            return ok(views.html.login.render());
         }
-        return ok(admin.render());
+        return ok(views.html.admin.render());
     }
     public static Result loadUsers(){
         List<User> userList=User.all();
