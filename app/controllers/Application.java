@@ -5,9 +5,12 @@ import play.data.Form;
 import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
+import views.html.bland;
+import views.html.series;
+import views.html.vehicle;
 
 
-
+import javax.swing.text.AbstractDocument;
 import java.util.List;
 
 /**
@@ -103,5 +106,42 @@ public class Application extends Controller {
         user1.update();
         List<User> userList=User.all();
         return ok(Json.toJson(userList));
+    }
+    public static Result blandPage(){
+        if(session("userId")==null ||session("userId").equals("") ){
+            return ok(views.html.login.render());
+        }
+        return ok(bland.render());
+    }
+    public static Result VehiclePage(){
+        if(session("userId")==null ||session("userId").equals("") ){
+            return ok(views.html.login.render());
+        }
+        return ok(vehicle.render());
+    }
+    public static Result SeriesPage(){
+        if(session("userId")==null ||session("userId").equals("") ){
+            return ok(views.html.login.render());
+        }
+        AbstractDocument series;
+        return ok(views.html.series.render());
+    }
+    public static Result dashboarAdmin(){
+        if(session("userId")==null ||session("userId").equals("") ){
+            return ok(views.html.login.render());
+        }
+        return ok(views.html.admin.render());
+    }
+    public static Result user(){
+        if(session("userId")==null ||session("userId").equals("") ){
+            return ok(views.html.login.render());
+        }
+        return ok(views.html.user.render());
+    }
+    public static Result sparePart(){
+        if(session("userId")==null ||session("userId").equals("") ){
+            return ok(views.html.login.render());
+        }
+        return ok(views.html.sparePart.render());
     }
 }

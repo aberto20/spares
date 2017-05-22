@@ -1,0 +1,162 @@
+
+@dashboardHome("Bland page"){
+    <div ng-controller="MainController">
+        @inHeader()
+        <div class="col-lg-2">
+
+
+
+            <div style="height:36px">
+
+            </div>
+
+
+
+            @sideBar("bland")
+
+
+        </div>
+        <div class="col-lg-8">
+            <div style="min-height:300px">
+
+                <h1 style="padding:0px; margin:0px">Bland control</h1>
+
+
+<br>
+
+
+                <div>
+
+
+
+                </div>
+
+                <div class="">
+                    <ul class="nav nav-tabs">
+                        <li role="presentation" ><a href="" class="btn btn-success" ng-click="new = !new">Add a new bland</a></li>
+                    </ul>
+                </div>
+                <form ng-submit="registerBland()" name="myForm" >
+                    <div ng-show="new" class="panel panel-default" style="border-top-style:none">
+
+
+                        <div class="panel-body">
+                            <div class="panel panel-default" style="background:whitesmoke">
+                                <div class="panel-heading">
+                                    <h3 style="padding:0px; margin:0px">New bland registration</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <label>
+                                        Bland name
+                                    </label>
+                                    <input required ng-model="newBlandInfo.blandName" placeholder="Bland name" class="form-control">
+                                    <label>
+                                        Description
+                                    </label>
+                                    <textarea  ng-model="newBlandInfo.description" placeholder="Description" class="form-control"></textarea>
+                                    <hr>
+
+                                    <button type="submit" ng-disabled="myForm.$invalid" class="btn btn-success">Save</button> <button ng-click="new = false" class="btn btn-default">Cancel</button>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
+
+
+                <br>
+                <form class="" role="search" style = "width:100%;">
+                    <div>
+                        <div class="input-group">
+                            <span class="input-group-addon" style="font-weight:bold; font-size:20px; padding:0px"><img src="@routes.Assets.at("images/rra.png")" style="height:45px" ></span><input ng-model="search" type="text" class="form-control" placeholder="Search " style = "height:50px">
+                            <span class = "input-group-btn">
+
+                                <button type="submit" ng-click="startsearch = true" class="btn btn-primary" style = "font-weight:bold; font-size:20px; height:50px">Search</button>
+                            </span>
+                        </div>
+
+                    </div>
+                </form>
+                <div style="min-height:400px" class="">
+
+
+                    <table ng-init="loadBlands()" class="table table-striped" style="">
+                        <tr>
+                            <th></th><th>Bland name</th><th>Description</th><th >Done by</th><th >date</th><th></th>
+                        </tr>
+
+                        <tr ng-repeat="a in blands |filter:search">
+                            <td><button ng-click="a.edit = true" ng-hide="a.edit" class="btn btn-primary"><span class="glyphicon glyphicon-pencil"></span></button>
+                                <div ng-show="a.edit" class="panel panel-default" style="z-index:1000; position:absolute; width:400px; background:whitesmoke">
+                                    <div style="padding:5px;">
+
+                                        <a href="" class="pull-right" ng-click="a.edit = false" style="color:red">X</a>
+                                    </div>
+
+                                    <div  style="text-align:center">
+                                        <button ng-hide="delete" ng-click="delete=true" class="btn btn-danger">
+                                            Delete
+                                        </button>
+                                        <br>
+                                        <div ng-show="delete" class="alert alert-danger">
+                                            <div class="panel-body">
+                                                This will be deleted permanently.<br>
+                                                <a href="" ng-click="deleteBland(a)">Yes</a> | <a href="" ng-click="delete=false">Abort</a>
+                                            </div>
+                                            <br>
+                                            <br>
+                                            <label>
+                                                Delete reason
+                                            </label>
+                                            <textarea class="form-control" ng-model="a.deleteReason"></textarea>
+
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="panel-body">
+                                        <div class="panel panel-warning">
+                                            <div class="panel-body">
+                                                <center>Total balance :<b>{{a.balance |currency:"RWF"}}</b></center>
+                                                <center>Total commission :<b>{{a.tigoAirtimeComm+a.mtnAirtimeComm+a.tigoCashOutComm+a.euclComm+a.tigoCashInComm+a.mtnCashOutComm+a.mtnCashInComm |currency:"RWF"}}</b></center>
+                                                <hr>
+
+                                            </div>
+                                        </div>
+
+                                        <hr>
+
+                                        <label>
+                                            Bland name
+                                        </label>
+                                        <input class="form-control" ng-model="a.blandName">
+                                        <label>
+                                            Description
+                                        </label>
+                                        <textarea class="form-control" ng-model="a.description"></textarea>
+
+                                        <hr>
+
+
+                                        <button ng-click="updateBland(a)" class="btn btn-success">Update</button> <button ng-click="a.edit = false" class="btn btn-default">Cancel</button>
+
+
+                                    </div>
+                                </div>
+                            </td><td>{{a.blandName}}</td><td>{{a.description}}</td><td >{{a.doneBy}}</td><td >{{a.doneAt}}</td><td><button type="button" ng-click="disableBland(a.id,a.blandName)"  class="btn btn-success" ng-if="a.active =='yes'"><span  class=" glyphicon glyphicon-ok"></span></button></td>
+                        </tr>
+
+                    </table>
+
+
+                </div>
+
+
+
+            </div>
+
+        </div>
+        <div class="col-lg-2"></div>
+    </div>
+}
