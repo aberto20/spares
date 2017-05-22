@@ -1,0 +1,11 @@
+@(page:String)
+
+<div  class="list-group success">
+    <a class="list-group-item @if(page=="dashboard"){active}"  href="/dashboarAdmin/">Dashboard</a>
+    <a class="list-group-item @if(page=="user"){active} "  href="/user/">Manage user</a>
+    <a class="list-group-item @if(page=="bland"){active}"  href="/blandPage/">Manage bland</a>
+    <a class="list-group-item @if(page=="vehicle"){active}"  href="/VehiclePage/">Mange vehicle</a>
+    <a class="list-group-item @if(page=="series"){active}"  href="/SeriesPage/">Mange vehicle series</a>
+    <a class="list-group-item @if(page=="sparePart"){active}"  href="/sparePart/">Manage spare part</a>
+    <a class="list-group-item @if(page=="sparePartType"){active}"  href="">Manage spare part type</a>
+</div>

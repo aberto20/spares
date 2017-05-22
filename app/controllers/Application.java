@@ -5,8 +5,14 @@ import play.data.Form;
 import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
+import views.html.bland;
+import views.html.vehicle;
 
 
+<<<<<<< HEAD
+=======
+import javax.swing.text.AbstractDocument;
+>>>>>>> abel
 import java.util.List;
 
 /**
@@ -146,6 +152,7 @@ public class Application extends Controller {
         List<User> userList=User.all();
         return ok(Json.toJson(userList));
     }
+<<<<<<< HEAD
     public static Result loadVehicles(){
         List<Vehicle> vehicles = Vehicle.all();
         return ok(Json.toJson(vehicles));
@@ -322,5 +329,43 @@ public class Application extends Controller {
         System.out.println("------------------- \n spare part updated successfully");
         List<SparePart> sparePartList = SparePart.all();
         return ok(Json.toJson(sparePart));
+=======
+    public static Result blandPage(){
+        if(session("userId")==null ||session("userId").equals("") ){
+            return ok(views.html.login.render());
+        }
+        return ok(bland.render());
+    }
+    public static Result VehiclePage(){
+        if(session("userId")==null ||session("userId").equals("") ){
+            return ok(views.html.login.render());
+        }
+        return ok(vehicle.render());
+    }
+    public static Result SeriesPage(){
+        if(session("userId")==null ||session("userId").equals("") ){
+            return ok(views.html.login.render());
+        }
+        AbstractDocument series;
+        return ok(views.html.series.render());
+    }
+    public static Result dashboarAdmin(){
+        if(session("userId")==null ||session("userId").equals("") ){
+            return ok(views.html.login.render());
+        }
+        return ok(views.html.admin.render());
+    }
+    public static Result user(){
+        if(session("userId")==null ||session("userId").equals("") ){
+            return ok(views.html.login.render());
+        }
+        return ok(views.html.user.render());
+    }
+    public static Result sparePart(){
+        if(session("userId")==null ||session("userId").equals("") ){
+            return ok(views.html.login.render());
+        }
+        return ok(views.html.sparePart.render());
+>>>>>>> abel
     }
 }
