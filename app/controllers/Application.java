@@ -97,15 +97,23 @@ public class Application extends Controller {
 
     public static Result saveUser(){
         Form<User> userForm=Form.form(User.class).bindFromRequest();
-
         User user=userForm.get();
         User u=User.findByUsername(user.username);
+        User phone=User.findByPhone(user.username);
+        User email=User.findByEmail(user.username);
         if (u!=null){
             return ok("usernameExist");
+        }
+        if (phone!=null){
+            return ok("phoneExist");
+        }
+        if (email!=null){
+            return ok("emailExist");
         }
         user.save();
 
         List<User> userList=User.all();
+        System.out.println("----------------------------------\n"+userList);
         return ok(Json.toJson(userList));
     }
     public static play.mvc.Result loadBlands(){
@@ -123,44 +131,43 @@ public class Application extends Controller {
             bland.save();
             System.out.println("-------------- \n bland saved successfully");
             List<Bland> blandList = Bland.all();
-            return ok(Json.toJson(bland));
+            return ok(Json.toJson(blandList));
     }
     public static Result updateBland(){
         Form<Bland> blandForm = Form.form(Bland.class).bindFromRequest();
-        Bland bland = blandForm.get();
-        Bland bland1 = Bland.finderById(bland.id);
-        bland1.blandName = bland.blandName;
-        bland1.description = bland.description;
-        bland1.doneBy = bland.doneBy;
-        bland.update();
+        long id=Long.parseLong(blandForm.field("id").value());
+        Bland bland1 = Bland.finderById(id);
+        bland1.blandName = blandForm.field("blandName").value();
+        bland1.description = blandForm.field("description").value();
+        bland1.doneBy = User.findByUsername(session("userId")).username;
+        bland1.update();
         System.out.println("----------------------- \n Bland list after update");
         List<Bland> blandList = Bland.all();
-        return ok(Json.toJson(bland));
+        return ok(Json.toJson(blandList));
     }
     public static Result deleteBland(long id){
         Form<Bland> blandForm = Form.form(Bland.class).bindFromRequest();
-        Bland bland = blandForm.get();
-        Bland bland1 = Bland.finderById(bland.id);
+        Bland bland1 = Bland.finderById(id);
         bland1.deleteStatus = true;
-        bland1.doneBy = bland.doneBy;
-        bland1.deleteReason = bland.deleteReason;
+        bland1.doneBy = User.findByUsername(session("userId")).username;
+        bland1.deleteReason =blandForm.field("deleteReason").value();
         bland1.save();
         System.out.println("---------------- \n bland deleted succesfully");
         List<Bland> blandList = Bland.all();
-        return ok(Json.toJson(bland));
+        return ok(Json.toJson(blandList));
     }
     public static Result updateUser(){
         Form<User> userForm=Form.form(User.class).bindFromRequest();
-        User user=userForm.get();
-
-        User user1=User.finderById(user.id);
-        user1.email=user.email;
-        user1.firstName=user.firstName;
-        user1.lastName=user.lastName;
-        user1.role=user.role;
-        user1.phone=user.phone;
-        user1.username=user.username;
-        user1.password=user.password;
+        System.out.println(userForm);
+         long id=Long.parseLong(userForm.field("id").value());
+        User user1=User.finderById(id);
+        user1.email=userForm.field("email").value();
+        user1.firstName=userForm.field("firstName").value();
+        user1.lastName=userForm.field("lastName").value();
+        user1.role=userForm.field("role").value();
+        user1.phone=userForm.field("phone").value();
+        user1.username=userForm.field("username").value();
+        user1.password=userForm.field("password").value();
         user1.update();
         System.out.println("------------------\n user updated successfully");
         List<User> userList=User.all();
@@ -168,10 +175,9 @@ public class Application extends Controller {
     }
     public static Result disableUser(long id){
         Form<User> userForm=Form.form(User.class).bindFromRequest();
-        User user=userForm.get();
         User user1=User.finderById(id);
         user1.deleteStatus=true;
-        user1.deleteReason=user.deleteReason;
+        user1.deleteReason=userForm.field("deleteReason").value();
         user1.update();
         System.out.println("-------------------- \n user disabled successfully");
         List<User> userList=User.all();

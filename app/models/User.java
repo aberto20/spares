@@ -44,6 +44,12 @@ public class User extends Model {
     public static User findByUsername(String username) {
         return find.where().eq("username", username).findUnique();
     }
+    public static User findByPhone(String phone) {
+        return find.where().eq("phone", phone).findUnique();
+    }
+    public static User findByEmail(String email) {
+        return find.where().eq("email", email).findUnique();
+    }
     public static User byUsername(String username) {
         return find.where().eq("username", username).findUnique();
     }
