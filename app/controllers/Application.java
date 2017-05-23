@@ -365,4 +365,45 @@ public class Application extends Controller {
         List<SparePart> sparePartList = SparePart.all();
         return ok(Json.toJson(sparePart));
     }
+    public static Result loadPartDetails(){
+        List<PartDetails> partDetailses = PartDetails.all();
+        return ok(Json.toJson(partDetailses));
+    }
+    public static Result savePartDetails(){
+        Form<PartDetails> partDetailsForm = Form.form(PartDetails.class).bindFromRequest();
+        PartDetails partDetails = partDetailsForm.get();
+        PartDetails p = PartDetails.findBytypeName(partDetails.typeName);
+        if (p.partType != null){
+            return ok("partNameExists");
+        }
+        partDetails.save();
+        System.out.println("--------------------- \n part details saved successfully");
+        List<PartDetails> partDetailsList = PartDetails.all();
+        return ok(Json.toJson(partDetails));
+    }
+    public static Result updatePartDetails(){
+        Form<PartDetails> partDetailsForm = Form.form(PartDetails.class).bindFromRequest();
+        PartDetails partDetails = partDetailsForm.get();
+        PartDetails partDetails1 = PartDetails.finderById(partDetails.id);
+        partDetails1.typeName = partDetails.typeName;
+        partDetails1.image = partDetails.image;
+        partDetails1.description = partDetails.description;
+        partDetails1.doneBy = partDetails.doneBy;
+        partDetails.update();
+        System.out.println("--------------------- \n part details updated successfully");
+        List<PartDetails> partDetailsList = PartDetails.all();
+        return ok(Json.toJson(partDetails));
+    }
+    public static Result deletePartDetails(){
+        Form<PartDetails> partDetailsForm = Form.form(PartDetails.class).bindFromRequest();
+        PartDetails partDetails = partDetailsForm.get();
+        PartDetails partDetails1 = PartDetails.finderById(partDetails.id);
+        partDetails1.deleteStatus = true;
+        partDetails1.deleteReason = partDetails.deleteReason;
+        partDetails1.doneBy = partDetails.doneBy;
+        partDetails.update();
+        System.out.println("--------------------- \n part details deleted successfully");
+        List<PartDetails> partDetailsList = PartDetails.all();
+        return ok(Json.toJson(partDetails));
+    }
 }
