@@ -9,7 +9,7 @@ GET     /loginpage/                      controllers.Application.loginpage()
 GET     /adminHome/                      controllers.Application.adminHome()
 GET     /loadCurrentUser/                controllers.Application.loadCurrentUser()
 GET     /logout/                         controllers.Application.logout()
-POST     /signin/                        controllers.Application.signin()
+POST    /signin/                         controllers.Application.signin()
 
 
 # Map static resources from the /public folder to the /assets URL path

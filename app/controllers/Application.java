@@ -366,6 +366,5 @@ public class Application extends Controller {
             return ok(views.html.login.render());
         }
         return ok(views.html.sparePart.render());
->>>>>>> abel
     }
 }
