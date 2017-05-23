@@ -3,6 +3,7 @@
 # ~~~~
 
 # An example controller showing a sample home page
+
 GET     /                                            controllers.HomeController.index
 GET     /loadUsers/                                  controllers.Application.loadUsers
 GET     /loginpage/                                  controllers.Application.loginpage()
@@ -18,6 +19,22 @@ GET     /list/vehicle/                               controllers.Application.loa
 POST    /save/vehicle/                               controllers.Application.saveVehicle()
 POST    /update/vehicle/                             controllers.Application.updateVehicle()
 POST    /delete/vehicle/                             controllers.Application.deleteVehicle()
+
+
+GET     /                                controllers.HomeController.index
+GET     /loadUsers/                      controllers.Application.loadUsers
+GET     /loginpage/                      controllers.Application.loginpage()
+GET     /adminHome/                      controllers.Application.adminHome()
+GET     /blandPage/                      controllers.Application.blandPage()
+GET     /VehiclePage/                    controllers.Application.VehiclePage()
+GET     /VehiclePage/                    controllers.Application.VehiclePage()
+GET     /SeriesPage/                     controllers.Application.SeriesPage()
+GET     /dashboarAdmin/                  controllers.Application.dashboarAdmin()
+GET     /user/                           controllers.Application.user()
+GET     /sparePart/                      controllers.Application.sparePart()
+GET     /loadCurrentUser/                controllers.Application.loadCurrentUser()
+GET     /logout/                         controllers.Application.logout()
+POST     /signin/                        controllers.Application.signin()
 
 
 

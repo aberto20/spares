@@ -15,46 +15,9 @@ import java.util.List;
  * Created by lenovo on 5/19/2017.
  */
 public class Application extends Controller {
-    public static Result loginpage(){
-        return ok(views.html.login.render());
-    }
-    public static Result logout(){
-        session().clear();
-        return ok(views.html.index.render());
-    }
-    public static Result loadCurrentUser(){
-        User user=User.findByUsername(session("userId"));
-        return ok(Json.toJson(user));
-    }
-    public static play.mvc.Result signin(){
-        Form<User>userForm=Form.form(User.class).bindFromRequest();
-        User user=userForm.get();
-        Boolean Auth=false;
-         session().clear();
-        for (User u:User.find.where().like("username",user.username).findList()){
-            if (u.password.equals(user.password)){
-                Auth=true;
-            }
-        }
-        if (Auth){
-            System.out.println("---------------------------------------\n Logged in !");
-            session("userId",user.username);
-            return ok("ok");
-        }else {
-            return ok("error");
-        }
 
-    }
-    public static play.mvc.Result adminHome(){
-        if(session("userId")==null ||session("userId").equals("") ){
-            return ok(views.html.login.render());
-        }
-        return ok(views.html.admin.render());
-    }
-    public static Result loadUsers(){
-        List<User> userList=User.all();
-        return ok(Json.toJson(userList));
-    }
+
+
     public static Result saveUser(){
         Form<User> userForm=Form.form(User.class).bindFromRequest();
 
