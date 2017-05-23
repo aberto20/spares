@@ -1,5 +1,6 @@
 package models;
 
+import com.avaje.ebean.Expr;
 import play.data.format.Formats;
 import play.data.validation.Constraints;
 import play.db.ebean.Model;
@@ -35,7 +36,7 @@ public class User extends Model {
 
     public static Model.Finder<Long, User> find = new Model.Finder<Long, User>(Long.class, User.class);
     public static List<User> all(){
-        return find.all();
+        return find.where().not(Expr.eq("delete_status", "1")).findList();
     }
     public static User finderById(long id){
         return find.ref(id);
