@@ -3,6 +3,8 @@
 # ~~~~
 
 # An example controller showing a sample home page
+
+
 GET     /                                controllers.HomeController.index
 GET     /loadUsers/                      controllers.Application.loadUsers
 GET     /loginpage/                      controllers.Application.loginpage()
@@ -17,6 +19,16 @@ GET     /sparePart/                      controllers.Application.sparePart()
 GET     /loadCurrentUser/                controllers.Application.loadCurrentUser()
 GET     /logout/                         controllers.Application.logout()
 POST     /signin/                        controllers.Application.signin()
+GET     /list/bland/                                 controllers.Application.loadBlands()
+POST    /save/bland/                                 controllers.Application.saveBland()
+POST    /update/bland/                               controllers.Application.updateBland()
+POST    /delete/bland/:id                            controllers.Application.deleteBland(id : Long)
+GET     /list/vehicle/                               controllers.Application.loadVehicles()
+POST    /save/vehicle/                               controllers.Application.saveVehicle()
+POST    /update/vehicle/                             controllers.Application.updateVehicle()
+POST    /delete/vehicle/                             controllers.Application.deleteVehicle()
+
+
 
 
 # Map static resources from the /public folder to the /assets URL path
