@@ -1,7 +1,7 @@
 package models;
 
+import com.avaje.ebean.Expr;
 import play.db.ebean.Model;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -9,7 +9,6 @@ import javax.persistence.ManyToOne;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
-
 /**
  * Created by lenovo on 5/20/2017.
  */
@@ -34,9 +33,12 @@ public class SparePart extends Model {
 
     public static Model.Finder<Long, SparePart> find = new Model.Finder<Long, SparePart>(Long.class, SparePart.class);
     public static List<SparePart> all(){
-        return find.all();
+        return find.where().not(Expr.eq("delete_status", "1")).findList();
     }
     public static SparePart finderById(long id){
         return find.ref(id);
+    }
+    public static SparePart findByPartName(String partName) {
+        return find.where().eq("part_name", partName).findUnique();
     }
 }

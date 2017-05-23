@@ -1,5 +1,6 @@
 package models;
 
+import com.avaje.ebean.Expr;
 import play.db.ebean.Model;
 
 import javax.persistence.CascadeType;
@@ -32,9 +33,12 @@ public class Vehicle extends Model {
 
     public static Model.Finder<Long, Vehicle> find = new Model.Finder<Long, Vehicle>(Long.class, Vehicle.class);
     public static List<Vehicle> all(){
-        return find.all();
+        return find.where().not(Expr.eq("delete_status", "1")).findList();
     }
     public static Vehicle finderById(long id){
         return find.ref(id);
+    }
+    public static Vehicle findByVehicleName(String vehicleName) {
+        return find.where().eq("vehicle_name", vehicleName).findUnique();
     }
 }

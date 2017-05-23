@@ -1,5 +1,6 @@
 package models;
 
+import com.avaje.ebean.Expr;
 import play.db.ebean.Model;
 
 import javax.persistence.CascadeType;
@@ -31,9 +32,12 @@ public class Series extends Model {
 
     public static Model.Finder<Long, Series> find = new Model.Finder<Long, Series>(Long.class, Series.class);
     public static List<Series> all(){
-        return find.all();
+        return find.where().not(Expr.eq("delete_status", "1")).findList();
     }
     public static Series finderById(long id){
         return find.ref(id);
+    }
+    public static Series findBySeries(String serieName) {
+        return find.where().eq("serie_name", serieName).findUnique();
     }
 }

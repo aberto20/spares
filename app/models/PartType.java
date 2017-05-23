@@ -1,7 +1,7 @@
 package models;
 
+import com.avaje.ebean.Expr;
 import play.db.ebean.Model;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -31,9 +31,12 @@ public class PartType extends Model {
 
     public static Model.Finder<Long, PartType> find = new Model.Finder<Long, PartType>(Long.class, PartType.class);
     public static List<PartType> all(){
-        return find.all();
+        return find.where().not(Expr.eq("delete_status", "1")).findList();
     }
     public static PartType finderById(long id){
         return find.ref(id);
+    }
+    public static PartType findByPartType(String typeName) {
+        return find.where().eq("type_name", typeName).findUnique();
     }
 }
