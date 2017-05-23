@@ -1,0 +1,209 @@
+
+@dashboardHome("Bland page"){
+    <div ng-controller="MainController">
+        @inHeader()
+        <div class="col-lg-2">
+
+
+
+            <div style="height:36px">
+
+            </div>
+
+
+
+            @sideBar("user")
+
+
+        </div>
+        <div class="col-lg-8">
+            <div style="min-height:300px">
+
+                <h1 style="padding:0px; margin:0px">User control</h1>
+
+
+                <br>
+
+
+                <div>
+
+
+
+                </div>
+
+                <div class="">
+                    <ul class="nav nav-tabs">
+                        <li role="presentation" ><a href="" class="btn btn-success" ng-click="new = !new">Add a new user</a></li>
+                    </ul>
+                </div>
+                <form ng-submit="registerUser()" name="myForm" >
+                    <div ng-show="new" class="panel panel-default" style="border-top-style:none">
+
+
+                        <div class="panel-body">
+                            <div class="panel panel-default" style="background:whitesmoke">
+                                <div class="panel-heading">
+                                    <h3 style="padding:0px; margin:0px">New user registration</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <label>
+                                        first name
+                                    </label>
+                                    <input required ng-model="newUserInfo.firstName" placeholder="First name" class="form-control">
+                                    <label>
+                                        last name
+                                    </label>
+                                    <input required ng-model="newUserInfo.lastName" placeholder="First name" class="form-control">
+                                    <label>
+                                        Role
+                                    </label>
+                                   <select ng-model="newUserInfo.role" class="form-control" >
+                                       <option value="admin">Admin</option>
+                                   </select>
+                                    <label>
+                                        Phone
+                                    </label>
+                                    <input required ng-model="newUserInfo.phone" placeholder="Phone" class="form-control">
+                                    <label>
+                                        Email
+                                    </label>
+                                    <input required ng-model="newUserInfo.email" placeholder="Email" class="form-control">
+                                    <label>
+                                        Photo
+                                    </label>
+                                    <input required ng-model="newUserInfo.photo" placeholder="Photo" class="form-control">
+                                    <label>
+                                        User name
+                                    </label>
+                                    <input required ng-model="newUserInfo.username" placeholder="Username" class="form-control">
+                                    <label>
+                                        Password
+                                    </label>
+                                    <input required ng-model="newUserInfo.password" placeholder="password" class="form-control">
+                                    <hr>
+
+                                    <button type="submit" ng-disabled="myForm.$invalid" class="btn btn-success">Save</button> <button ng-click="new = false" class="btn btn-default">Cancel</button>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
+
+
+                <br>
+                <form class="" role="search" style = "width:100%;">
+                    <div>
+                        <div class="input-group">
+                            <span class="input-group-addon" style="font-weight:bold; font-size:20px; padding:0px"><img src="@routes.Assets.at("images/rra.png")" style="height:45px" ></span><input ng-model="search" type="text" class="form-control" placeholder="Search " style = "height:50px">
+                            <span class = "input-group-btn">
+
+                                <button type="submit" ng-click="startsearch = true" class="btn btn-primary" style = "font-weight:bold; font-size:20px; height:50px">Search</button>
+                            </span>
+                        </div>
+
+                    </div>
+                </form>
+                <div style="min-height:400px" class="">
+
+
+                    <table ng-init="loadBlands()" class="table table-striped" style="">
+                        <tr>
+                            <th></th><th>First name</th><th>Last name</th><th>Role</th><th >Phone</th><th >email</th><th >Photo</th><th>Active</th>
+                        </tr>
+
+                        <tr ng-repeat="a in users |filter:search">
+                            <td><button ng-click="a.edit = true" ng-hide="a.edit" class="btn btn-primary"><span class="glyphicon glyphicon-pencil"></span></button>
+                                <div ng-show="a.edit" class="panel panel-default" style="z-index:1000; position:absolute; width:400px; background:whitesmoke">
+                                    <div style="padding:5px;">
+
+                                        <a href="" class="pull-right" ng-click="a.edit = false" style="color:red">X</a>
+                                    </div>
+
+                                    <div  style="text-align:center">
+                                        <button ng-hide="delete" ng-click="delete=true" class="btn btn-danger">
+                                            Delete
+                                        </button>
+                                        <br>
+                                        <div ng-show="delete" class="alert alert-danger">
+                                            <div class="panel-body">
+                                                This will be deleted permanently.<br>
+                                                <a href="" ng-click="deleteUser(a)">Yes</a> | <a href="" ng-click="delete=false">Abort</a>
+                                            </div>
+                                            <br>
+                                            <br>
+                                            <label>
+                                                Delete reason
+                                            </label>
+                                            <textarea class="form-control" ng-model="a.deleteReason"></textarea>
+
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="panel-body">
+                                        <div class="panel panel-warning">
+
+                                        </div>
+
+                                        <hr>
+
+                                        <label>
+                                            First name
+                                        </label>
+                                        <input class="form-control" ng-model="a.firstName">
+                                        <label>
+                                            Last name
+                                        </label>
+                                        <textarea class="form-control" ng-model="a.lastName"></textarea>
+                                        <label>
+                                            Role
+                                        </label>
+                                        <select class="form-control" ng-model="a.role">
+                                            <option ng-repeat=" m in users" value="m.role">{{m.role}}</option>
+                                        </select>
+                                        <label>
+                                            Phone
+                                        </label>
+                                        <input class="form-control" ng-model="a.phone">
+                                        <label>
+                                            Email
+                                        </label>
+                                        <input class="form-control" ng-model="a.email">
+                                        <label>
+                                            Photo
+                                        </label>
+                                        <input class="form-control" ng-model="a.photo">
+                                        <label>
+                                            User name
+                                        </label>
+                                        <input class="form-control" ng-model="a.username">
+                                        <label>
+                                            Password
+                                        </label>
+                                        <input class="form-control" ng-model="a.password">
+
+                                        <hr>
+
+
+                                        <button ng-click="updateUser(a)" class="btn btn-success">Update</button> <button ng-click="a.edit = false" class="btn btn-default">Cancel</button>
+
+
+                                    </div>
+                                </div>
+                            </td><td>{{a.firstName}}</td><td>{{a.lastName}}</td><td >{{a.role}}</td><td >{{a.phone}}</td><td >{{a.email}}</td><td >{{a.photo}}</td><td >{{a.doneAt}}</td><td><button type="button" ng-click="disableUser(a.id,a.userName)"  class="btn btn-success" ng-if="a.active =='yes'"><span  class=" glyphicon glyphicon-ok"></span></button></td>
+                        </tr>
+
+                    </table>
+
+
+                </div>
+
+
+
+            </div>
+
+        </div>
+        <div class="col-lg-2"></div>
+    </div>
+}
