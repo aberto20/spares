@@ -127,15 +127,17 @@ public class Application extends Controller {
     }
     public static Result updateBland(){
         Form<Bland> blandForm = Form.form(Bland.class).bindFromRequest();
-        Bland bland = blandForm.get();
-        Bland bland1 = Bland.finderById(bland.id);
-        bland1.blandName = bland.blandName;
-        bland1.description = bland.description;
-        bland1.doneBy = bland.doneBy;
-        bland.update();
-        System.out.println("----------------------- \n Bland list after update");
+        System.out.println(blandForm);
+        long id=Long.parseLong(blandForm.field("id").value());
+        Bland bland1 = Bland.finderById(id);
+        bland1.blandName=blandForm.field("blandName").value();
+        bland1.blandName=blandForm.field("blandName").value();
+        bland1.blandName=blandForm.field("description").value();
+        bland1.doneBy=blandForm.field("doneBy").value();
+        bland1.update();
+        System.out.println("----------------------- \n Bland updated successfully");
         List<Bland> blandList = Bland.all();
-        return ok(Json.toJson(bland));
+        return ok(Json.toJson(blandList));
     }
     public static Result deleteBland(long id){
         Form<Bland> blandForm = Form.form(Bland.class).bindFromRequest();
@@ -151,16 +153,17 @@ public class Application extends Controller {
     }
     public static Result updateUser(){
         Form<User> userForm=Form.form(User.class).bindFromRequest();
-        User user=userForm.get();
-
-        User user1=User.finderById(user.id);
-        user1.email=user.email;
-        user1.firstName=user.firstName;
-        user1.lastName=user.lastName;
-        user1.role=user.role;
-        user1.phone=user.phone;
-        user1.username=user.username;
-        user1.password=user.password;
+        System.out.println(userForm);
+        long id=Long.parseLong(userForm.field("id").value());
+        User user1 = User.finderById(id);
+        user1.email=userForm.field("email").value();
+        user1.firstName=userForm.field("firstName").value();
+        user1.lastName=userForm.field("lastName").value();
+        user1.role=userForm.field("role").value();
+        user1.phone=userForm.field("phone").value();
+        user1.phone=userForm.field("phone").value();
+        user1.username=userForm.field("username").value();
+        user1.password=userForm.field("password").value();
         user1.update();
         System.out.println("------------------\n user updated successfully");
         List<User> userList=User.all();
@@ -207,18 +210,20 @@ public class Application extends Controller {
     }
     public static Result updateVehicle(){
         Form<Vehicle> vehicleForm = Form.form(Vehicle.class).bindFromRequest();
-        Vehicle vehicle = vehicleForm.get();
-        Vehicle vehicle1 = Vehicle.finderById(vehicle.id);
-        vehicle1.vehicleName = vehicle.vehicleName;
-        vehicle1.description = vehicle.description;
-        vehicle1.image = vehicle.image;
-        vehicle1.fablicationYear = vehicle.fablicationYear;
-        vehicle1.doneBy = vehicle.doneBy;
-        vehicle.bland = Bland.finderById(vehicle.bland.id);
-        System.out.println("------------------- \n vehicle updated successfully");
+        System.out.println(vehicleForm);
+        long id=Long.parseLong(vehicleForm.field("id").value());
+        Vehicle vehicle1 = Vehicle.finderById(id);
+        vehicle1.vehicleName=vehicleForm.field("vehicleName").value();
+        vehicle1.description=vehicleForm.field("description").value();
+        vehicle1.image=vehicleForm.field("image").value();
+        vehicle1.fablicationYear=vehicleForm.field("fablicationYear").value();
+        vehicle1.doneBy=vehicleForm.field("doneBy").value();
+        long blandId = Long.parseLong(vehicleForm.field("blandId").value());
+        vehicle1.bland = Bland.finderById(blandId);
         vehicle1.update();
+        System.out.println("------------------- \n vehicle updated successfully");
         List<Vehicle> vehicles = Vehicle.all();
-        return ok(Json.toJson(vehicle));
+        return ok(Json.toJson(vehicles));
     }
     public static Result deleteVehicle(){
         Form<Vehicle> vehicleForm = Form.form(Vehicle.class).bindFromRequest();
@@ -252,14 +257,16 @@ public class Application extends Controller {
     }
     public static Result updateSeries(){
         Form<Series> seriesForm = Form.form(Series.class).bindFromRequest();
-        Series series = seriesForm.get();
-        Series series1 = Series.finderById(series.id);
-        series1.serieNo = series.serieNo;
-        series1.serieName = series.serieName;
-        series1.fablicationYear = series.fablicationYear;
-        series1.doneBy = series.doneBy;
-        series.vehicle = Vehicle.finderById(series.vehicle.id);
-        series.update();
+        System.out.println(seriesForm);
+        long id=Long.parseLong(seriesForm.field("id").value());
+        Series series1 = Series.finderById(id);
+        series1.serieNo=seriesForm.field("serieNo").value();
+        series1.serieName=seriesForm.field("serieName").value();
+        series1.fablicationYear=seriesForm.field("fablicationYear").value();
+        series1.doneBy=seriesForm.field("doneBy").value();
+        long vehicleId = Long.parseLong(seriesForm.field("vehicleId").value());
+        series1.vehicle = Vehicle.finderById(vehicleId);
+        series1.update();
         System.out.println("------------------- \n series updated successfully");
         List<Series> seriesList = Series.all();
         return ok(Json.toJson(seriesList));
@@ -295,14 +302,16 @@ public class Application extends Controller {
     }
     public static Result updatePartType(){
         Form<PartType> partTypeForm = Form.form(PartType.class).bindFromRequest();
-        PartType partType = partTypeForm.get();
-        PartType partType1 = PartType.finderById(partType.id);
-        partType1.typeName = partType.typeName;
-        partType1.image = partType.image;
-        partType1.description = partType.description;
-        partType1.doneBy = partType.doneBy;
-        partType.series = Series.finderById(partType.id);
-        partType.update();
+        System.out.println(partTypeForm);
+        long id=Long.parseLong(partTypeForm.field("id").value());
+        PartType partType1 = PartType.finderById(id);
+        partType1.typeName=partTypeForm.field("typeName").value();
+        partType1.image=partTypeForm.field("image").value();
+        partType1.description=partTypeForm.field("description").value();
+        partType1.doneBy=partTypeForm.field("doneBy").value();
+        long seriesId = Long.parseLong(partTypeForm.field("seriesId").value());
+        partType1.series = Series.finderById(seriesId);
+        partType1.update();
         System.out.println("------------------- \n part type updated successfully");
         List<PartType> partTypeList = PartType.all();
         return ok(Json.toJson(partTypeList));
@@ -337,21 +346,22 @@ public class Application extends Controller {
     }
     public static Result updateSparePart(){
         Form<SparePart> sparePartForm = Form.form(SparePart.class).bindFromRequest();
-        SparePart sparePart = sparePartForm.get();
-        SparePart sparePart1 = SparePart.finderById(sparePart.id);
-        sparePart1.partName = sparePart.partName;
-        sparePart1.description = sparePart.description;
-        sparePart1.modelNumber = sparePart.modelNumber;
-        sparePart1.image = sparePart.image;
-        sparePart1.manufacturerPrice = sparePart.manufacturerPrice;
-        sparePart1.fittingName = sparePart.fittingName;
-        sparePart1.originality = sparePart.originality;
-        sparePart1.fablicationYear = sparePart.fablicationYear;
-        sparePart1.doneBy = sparePart.doneBy;
-        sparePart.update();
+        System.out.println(sparePartForm);
+        long id=Long.parseLong(sparePartForm.field("id").value());
+        SparePart sparePart1 = SparePart.finderById(id);
+        sparePart1.partName=sparePartForm.field("partName").value();
+        sparePart1.description=sparePartForm.field("description").value();
+        sparePart1.modelNumber=sparePartForm.field("modelNumber").value();
+        sparePart1.image=sparePartForm.field("image").value();
+        sparePart1.manufacturerPrice=sparePartForm.field("manufacturerPrice").value();
+        sparePart1.fittingName=sparePartForm.field("fittingName").value();
+        sparePart1.originality=sparePartForm.field("originality").value();
+        sparePart1.fablicationYear=sparePartForm.field("fablicationYear").value();
+        sparePart1.doneBy=sparePartForm.field("doneBy").value();
+        sparePart1.update();
         System.out.println("------------------- \n spare part updated successfully");
         List<SparePart> sparePartList = SparePart.all();
-        return ok(Json.toJson(sparePart));
+        return ok(Json.toJson(sparePartList));
     }
     public static Result deleteSparePart(){
         Form<SparePart> sparePartForm = Form.form(SparePart.class).bindFromRequest();
@@ -383,16 +393,21 @@ public class Application extends Controller {
     }
     public static Result updatePartDetails(){
         Form<PartDetails> partDetailsForm = Form.form(PartDetails.class).bindFromRequest();
-        PartDetails partDetails = partDetailsForm.get();
-        PartDetails partDetails1 = PartDetails.finderById(partDetails.id);
-        partDetails1.typeName = partDetails.typeName;
-        partDetails1.image = partDetails.image;
-        partDetails1.description = partDetails.description;
-        partDetails1.doneBy = partDetails.doneBy;
-        partDetails.update();
+        System.out.println(partDetailsForm);
+        long id=Long.parseLong(partDetailsForm.field("id").value());
+        PartDetails partDetails1 = PartDetails.finderById(id);
+        partDetails1.typeName=partDetailsForm.field("typeName").value();
+        partDetails1.image=partDetailsForm.field("image").value();
+        partDetails1.description=partDetailsForm.field("description").value();
+        partDetails1.doneBy=partDetailsForm.field("doneBy").value();
+        long partTypeId = Long.parseLong(partDetailsForm.field("partTypeId").value());
+        partDetails1.partType = PartType.finderById(partTypeId);
+        long sparePartId = Long.parseLong(partDetailsForm.field("sparePartId").value());
+        partDetails1.sparePart = SparePart.finderById(sparePartId);
+        partDetails1.update();
         System.out.println("--------------------- \n part details updated successfully");
         List<PartDetails> partDetailsList = PartDetails.all();
-        return ok(Json.toJson(partDetails));
+        return ok(Json.toJson(partDetailsList));
     }
     public static Result deletePartDetails(){
         Form<PartDetails> partDetailsForm = Form.form(PartDetails.class).bindFromRequest();
