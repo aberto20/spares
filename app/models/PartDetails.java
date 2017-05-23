@@ -38,4 +38,7 @@ public class PartDetails extends Model {
     public static PartDetails finderById(long id){
         return find.ref(id);
     }
+    public static PartDetails findBytypeName(String typeName) {
+        return find.where().eq("type_name", typeName).findUnique();
+    }
 }
