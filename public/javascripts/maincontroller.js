@@ -126,6 +126,15 @@
         });
 
     };
+    $scope.loadVehicle = function () {
+        $http.get('/list/vehicle/').success(function (data, status, headers, config){
+            //alert(JSON.stringify(data));
+
+            $scope.vehicles=data;
+
+        });
+
+    };
     $scope.loadUser = function () {
         $http.get('/loadUsers/').success(function (data, status, headers, config){
             //alert(JSON.stringify(data));
@@ -145,5 +154,51 @@
     $scope.home=function(){
         window.location="/";
     }
+    $scope.saveVehicle = function () {
+        $scope.dataLoading = true;
+        $http.post('/save/vehicle/',$scope.newVehicleInfo ).success(function (data, status, headers, config){
+            //alert(JSON.stringify(data));
+            if (data=='vehicleNameExists'){
+                alert('Ethered vehicle name exist !');
+                return;
+            }
+
+            $scope.vehicles=data;
+            $scope.new=false;
+            $scope.newVehicleInfo=[];
+            $scope.dataLoading = false;
+
+        });
+
+    };
+    $scope.updateVehicle = function (vehicle) {
+        $scope.dataLoading = true;
+        $http.post('/update/vehicle/',vehicle).success(function (data, status, headers, config){
+            //alert(JSON.stringify(data));
+            $scope.vehicles=data;
+            for(var d in data){
+                if(data[d].id == vehicle.id){
+                    data[d].edit = false;
+                }
+            }
+            $scope.dataLoading = false;
+
+
+        });
+
+    };
+    $scope.disableVehicle=function (vehicle) {
+        if(confirm("do you real want to delete "+vehicle.vehicleName + "?")) {
+            $http.post('/delete/vehicle/' + vehicle.id, vehicle).success(function (data, status, headers, config) {
+                //alert(JSON.stringify(data));
+
+                $scope.vehicles = data;
+                data.edit = false;
+                window.location="/VehiclePage/";
+
+
+            });
+        }
+    };
 
 });

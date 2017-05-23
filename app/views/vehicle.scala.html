@@ -36,20 +36,24 @@
                         <li role="presentation" ><a href="" class="btn btn-success" ng-click="new = !new">Add a new vehicle</a></li>
                     </ul>
                 </div>
-                <form ng-submit="registerVehicle()" name="myForm" >
+                <form ng-submit="saveVehicle()" name="myForm" >
                     <div ng-show="new" class="panel panel-default" style="border-top-style:none">
-
-
                         <div class="panel-body">
                             <div class="panel panel-default" style="background:whitesmoke">
                                 <div class="panel-heading">
                                     <h3 style="padding:0px; margin:0px">New vehicle registration</h3>
                                 </div>
-                                <div class="panel-body">
+                                <div ng-init="loadBlands()" class="panel-body">
+                                    <label>
+                                        Bland name
+                                    </label>
+                                    <select required ng-model="newVehicleInfo.blandId"  class="form-control">
+                                        <option ng-repeat="m in blands" value="{{m.id}}">{{m.blandName}}</option>
+                                    </select>
                                     <label>
                                         Vehicle name
                                     </label>
-                                    <input required ng-model="newVehicleInfo.blandName" placeholder="Vehicle name" class="form-control">
+                                    <input required ng-model="newVehicleInfo.vehicleName" placeholder="Vehicle name" class="form-control">
                                     <label>
                                         description
                                     </label>
@@ -57,7 +61,7 @@
                                     <label>
                                         Image
                                     </label>
-                                    <input type="file" ng-model="newVehicleInfo.image" placeholder="Image" class="form-control"></input>
+                                    <input type="file" ng-model="newVehicleInfo.image" placeholder="Image" class="form-control">
                                     <div ng-if="newVehicleInfo.image!=''">image load</div>
                                     <label>
                                         fabrication year
@@ -94,10 +98,10 @@
 
                     <table ng-init="loadVehicle()" class="table table-striped" style="">
                         <tr>
-                            <th></th><th>Bland name</th><th>Description</th><th >Done by</th><th >date</th><th></th>
+                            <th></th><th>Bland name</th><th>Vehicle name</th><th>Description</th><th>Image</th><th>Fablication year</th><th >Done by</th><th >date</th><th></th>
                         </tr>
 
-                        <tr ng-repeat="a in blands |filter:search">
+                        <tr ng-repeat="a in vehicles |filter:search">
                             <td><button ng-click="a.edit = true" ng-hide="a.edit" class="btn btn-primary"><span class="glyphicon glyphicon-pencil"></span></button>
                                 <div ng-show="a.edit" class="panel panel-default" style="z-index:1000; position:absolute; width:400px; background:whitesmoke">
                                     <div style="padding:5px;">
@@ -105,39 +109,22 @@
                                         <a href="" class="pull-right" ng-click="a.edit = false" style="color:red">X</a>
                                     </div>
 
-                                    <div  style="text-align:center">
-                                        <button ng-hide="delete" ng-click="delete=true" class="btn btn-danger">
-                                            Delete
-                                        </button>
-                                        <br>
-                                        <div ng-show="delete" class="alert alert-danger">
-                                            <div class="panel-body">
-                                                This will be deleted permanently.<br>
-                                                <a href="" ng-click="deleteBland(a)">Yes</a> | <a href="" ng-click="delete=false">Abort</a>
-                                            </div>
-                                            <br>
-                                            <label>
-                                                Delete reason
-                                            </label>
-                                            <textarea class="form-control" ng-model="a.deleteReason"></textarea>
-                                        </div>
-                                    </div>
-                                    <hr>
                                     <div class="panel-body">
-
+                                        <label>
+                                            Bland name
+                                        </label>
+                                        <select required ng-model="a.blandId"  class="form-control">
+                                            <option value="{{a.bland.id}}">{{a.bland.blandName}}</option>
+                                            <option ng-repeat="m in blands" value="{{m.id}}">{{m.blandName}}</option>
+                                        </select>
                                         <label>
                                             Vehicle name
                                         </label>
-                                        <input required ng-model="a.blandName" placeholder="Vehicle name" class="form-control">
+                                        <input required ng-model="a.vehicleName" placeholder="Vehicle name" class="form-control">
                                         <label>
                                             description
                                         </label>
-                                        <textarea  ng-model="newVehicleInfo.description" placeholder="Description" class="form-control">{{newVehicleInfo.description}}</textarea>
-                                        <label>
-                                            Image
-                                        </label>
-                                        <input type="file" ng-model="a.image" placeholder="Image" class="form-control"></input>
-                                        <div ng-if="a.image!=''">image load</div>
+                                        <textarea  ng-model="a.description" placeholder="Description" class="form-control">{{newVehicleInfo.description}}</textarea>
                                         <label>
                                             fabrication year
                                         </label>
@@ -145,12 +132,38 @@
                                         <hr>
 
 
-                                        <button ng-click="updateBland(a)" class="btn btn-success">Update</button> <button ng-click="a.edit = false" class="btn btn-default">Cancel</button>
+                                        <button ng-click="updateVehicle(a)" class="btn btn-success">Update</button> <button ng-click="a.edit = false" class="btn btn-default">Cancel</button>
 
 
                                     </div>
                                 </div>
-                            </td><td>{{a.vehicleName}}</td><td>{{a.description}}</td><td >{{a.image}}</td><td >{{a.fablicationYear}}</td><td >{{a.doneBy}}</td><td >{{a.doneAt}}</td><td><button type="button" ng-click="disableBland(a.id,a.blandName)"  class="btn btn-success" ng-if="a.active =='yes'"><span  class=" glyphicon glyphicon-ok"></span></button></td>
+
+                                    <!-- Modal -->
+                                <div id="myModal{{a.id}}" class="modal fade" role="dialog">
+                                    <div class="modal-dialog">
+
+                                            <!-- Modal content-->
+                                        <div class="modal-content">
+                                            <form ng-submit="disableVehicle(a)" >
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                    <h4 class="modal-title">Do you want to delete {{a.vehicleName}} ?</h4>
+                                                </div>
+                                                <div class="modal-body">
+
+                                                    <label>Delete reason</label>
+                                                    <textarea class="form-control" ng-model="a.deleteReason" required></textarea>
+
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="submit" class="btn btn-success"  >Delete</button><button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                </div>
+                                            </form>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </td><td>{{a.bland.blandName}}</td><td>{{a.vehicleName}}</td><td>{{a.description}}</td><td >{{a.image}}</td><td >{{a.fablicationYear}}</td><td >{{a.doneBy}}</td><td >{{a.doneAt|date}}</td><td><button type="button"  data-toggle="modal" data-target="#myModal{{a.id}}"  class="btn btn-danger" ><span  class=" glyphicon glyphicon-remove"></span></button></td>
                         </tr>
 
                     </table>

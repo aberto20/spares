@@ -26,7 +26,7 @@ POST    /delete/bland/:id                controllers.Application.deleteBland(id 
 GET     /list/vehicle/                   controllers.Application.loadVehicles()
 POST    /save/vehicle/                   controllers.Application.saveVehicle()
 POST    /update/vehicle/                 controllers.Application.updateVehicle()
-POST    /delete/vehicle/                 controllers.Application.deleteVehicle()
+POST    /delete/vehicle/:id              controllers.Application.deleteVehicle(id:Long)
 POST    /saveUser/                       controllers.Application.saveUser()
 POST    /updateUser/                     controllers.Application.updateUser()
 POST    /disableUser/:id                 controllers.Application.disableUser(id:Long)

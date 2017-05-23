@@ -205,38 +205,39 @@ public class Application extends Controller {
         if (v != null){
             return ok("vehicleNameExists");
         }
-        vehicle.bland = Bland.finderById(vehicle.bland.id);
+        long blandId=Long.parseLong(vehicleFrom.field("blandId").value());
+        vehicle.bland = Bland.finderById(blandId);
+        vehicle.doneBy=User.findByUsername(session("userId")).username;
         System.out.println("------------------- \n vehicle saved successfully");
         vehicle.save();
-        List<Vehicle> vehicles = Vehicle.all();
-        return ok(Json.toJson(vehicle));
+        List<Vehicle> vehiclesList = Vehicle.all();
+        return ok(Json.toJson(vehiclesList));
     }
     public static Result updateVehicle(){
         Form<Vehicle> vehicleForm = Form.form(Vehicle.class).bindFromRequest();
-        Vehicle vehicle = vehicleForm.get();
-        Vehicle vehicle1 = Vehicle.finderById(vehicle.id);
-        vehicle1.vehicleName = vehicle.vehicleName;
-        vehicle1.description = vehicle.description;
-        vehicle1.image = vehicle.image;
-        vehicle1.fablicationYear = vehicle.fablicationYear;
-        vehicle1.doneBy = vehicle.doneBy;
-        vehicle.bland = Bland.finderById(vehicle.bland.id);
+        long id=Long.parseLong(vehicleForm.field("id").value());
+        long blandId=Long.parseLong(vehicleForm.field("blandId").value());
+        Vehicle vehicle1 = Vehicle.finderById(id);
+        vehicle1.vehicleName = vehicleForm.field("vehicleName").value();
+        vehicle1.description = vehicleForm.field("description").value();
+        vehicle1.fablicationYear =vehicleForm.field("fablicationYear").value();
+        vehicle1.doneBy = User.findByUsername(session("userId")).username;
+        vehicle1.bland = Bland.finderById(blandId);
         System.out.println("------------------- \n vehicle updated successfully");
         vehicle1.update();
         List<Vehicle> vehicles = Vehicle.all();
-        return ok(Json.toJson(vehicle));
+        return ok(Json.toJson(vehicles));
     }
-    public static Result deleteVehicle(){
+    public static Result deleteVehicle(long id){
         Form<Vehicle> vehicleForm = Form.form(Vehicle.class).bindFromRequest();
-        Vehicle vehicle = vehicleForm.get();
-        Vehicle vehicle1 = Vehicle.finderById(vehicle.id);
+        Vehicle vehicle1 = Vehicle.finderById(id);
         vehicle1.deleteStatus = true;
-        vehicle1.deleteReason = vehicle.deleteReason;
-        vehicle1.doneBy = vehicle.doneBy;
+        vehicle1.deleteReason =vehicleForm.field("deleteReason").value();
+        vehicle1.doneBy = User.findByUsername(session("userId")).username;
         System.out.println("------------------- \n vehicle deleted successfully");
         vehicle1.update();
         List<Vehicle> vehicles = Vehicle.all();
-        return ok(Json.toJson(vehicle));
+        return ok(Json.toJson(vehicles));
     }
     public static Result loadSeries(){
         List<Series> seriesList = Series.all();
