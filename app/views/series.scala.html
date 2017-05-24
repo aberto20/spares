@@ -3,43 +3,23 @@
     <div ng-controller="MainController">
         @inHeader()
         <div class="col-lg-2">
-
-
-
             <div style="height:36px">
-
             </div>
-
-
-
             @sideBar("series")
-
-
         </div>
         <div class="col-lg-8">
             <div style="min-height:300px">
-
                 <h1 style="padding:0px; margin:0px">Series control</h1>
-
-
                 <br>
-
-
                 <div>
-
-
-
                 </div>
-
                 <div class="">
                     <ul class="nav nav-tabs">
                         <li role="presentation" ><a href="" class="btn btn-success" ng-click="new = !new">Add a new Series</a></li>
                     </ul>
                 </div>
-                <form ng-submit="registerVehicle()" name="myForm" >
+                <form ng-submit="saveSeries()" name="myForm" >
                     <div ng-show="new" class="panel panel-default" style="border-top-style:none">
-
-
                         <div class="panel-body">
                             <div class="panel panel-default" style="background:whitesmoke">
                                 <div class="panel-heading">
@@ -49,24 +29,17 @@
                                     <label>
                                         serie#
                                     </label>
-                                    <input required ng-model="newVehicleInfo.serieNo" placeholder="Serie number" class="form-control">
+                                    <input required ng-model="newSeriesInfo.serieNo" placeholder="Serie number" class="form-control">
                                     <label>
                                         Serie name
                                     </label>
-                                    <input required ng-model="newVehicleInfo.blandName" placeholder="Vehicle name" class="form-control">
+                                    <input required ng-model="newSeriesInfo.serieName" placeholder="Serie name" class="form-control">
                                     <label>
-                                        description
+                                        Fabrication year
                                     </label>
-                                    <textarea  ng-model="newVehicleInfo.description" placeholder="Description" class="form-control"></textarea>
-                                    <label>
-                                        fabrication year
-                                    </label>
-                                    <input required ng-model="newVehicleInfo.fablicationYear" placeholder="Fabrication year" class="form-control">
+                                    <textarea  ng-model="newSeriesInfo.fablicationYear" placeholder="Description" class="form-control"></textarea>
                                     <hr>
-
-
                                     <button type="submit" ng-disabled="myForm.$invalid" class="btn btn-success">Save</button> <button ng-click="new = false" class="btn btn-default">Cancel</button>
-
                                 </div>
                             </div>
                         </div>

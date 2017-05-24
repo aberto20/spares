@@ -3,34 +3,16 @@
     <div ng-controller="MainController">
         @inHeader()
         <div class="col-lg-2">
-
-
-
             <div style="height:36px">
-
             </div>
-
-
-
             @sideBar("bland")
-
-
         </div>
         <div class="col-lg-8">
             <div style="min-height:300px">
-
                 <h1 style="padding:0px; margin:0px">Bland control</h1>
-
-
-<br>
-
-
+        <br>
                 <div>
-
-
-
                 </div>
-
                 <div class="">
                     <ul class="nav nav-tabs">
                         <li role="presentation" ><a href="" class="btn btn-success" ng-click="new = !new">Add a new bland</a></li>
@@ -38,8 +20,6 @@
                 </div>
                 <form ng-submit="saveBland()" name="myForm" >
                     <div ng-show="new" class="panel panel-default" style="border-top-style:none">
-
-
                         <div class="panel-body">
                             <div class="panel panel-default" style="background:whitesmoke">
                                 <div class="panel-heading">
@@ -55,17 +35,12 @@
                                     </label>
                                     <textarea  ng-model="newBlandInfo.description" placeholder="Description" class="form-control"></textarea>
                                     <hr>
-
                                     <button type="submit" ng-disabled="myForm.$invalid" class="btn btn-success">Save</button> <button ng-click="new = false" class="btn btn-default">Cancel</button>
-
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </form>
-
-
                 <br>
                 <form class="" role="search" style = "width:100%;">
                     <div>

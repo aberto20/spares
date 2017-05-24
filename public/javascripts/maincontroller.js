@@ -1,5 +1,4 @@
 ﻿app.controller("MainController", function ($scope,$location,$http) {
-
     $scope.saveUser = function () {
         $scope.dataLoading = true;
         $http.post('/saveUser/',$scope.newUserInfo ).success(function (data, status, headers, config){
@@ -63,7 +62,7 @@
         $http.post('/save/bland/',$scope.newBlandInfo ).success(function (data, status, headers, config){
             //alert(JSON.stringify(data));
             if (data=='blandNameExist'){
-                alert('Ethered bland name exist !');
+                alert('Entered bland name exist !');
                 return;
             }
 
@@ -74,6 +73,19 @@
 
         });
 
+    };
+    $scope.saveSeries = function(){
+     $scope.dataLoading = true;
+        $http.post('/save/series/', $scope.newSeriesInfo ).success(function (data, status, header, config){
+            if(data == 'seriesExists'){
+                alert('The inserted series already exist');
+                return;
+            }
+            $scope.series=data;
+            $scope.new=false;
+            $scope.newSeriesInfo=[];
+            $scope.dataLoading=false;
+        });
     };
     $scope.updateBland = function (bland) {
         $scope.dataLoading = true;

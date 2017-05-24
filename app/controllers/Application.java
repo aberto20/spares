@@ -1,5 +1,4 @@
 package controllers;
-
 import models.*;
 import play.data.Form;
 import play.libs.Json;
@@ -7,8 +6,8 @@ import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.bland;
 import views.html.vehicle;
-
 import java.util.List;
+
 
 /**
  * Created by lenovo on 5/19/2017.
@@ -73,7 +72,6 @@ public class Application extends Controller {
         if(session("userId")==null ||session("userId").equals("") ){
             return ok(views.html.login.render());
         }
-
         return ok(views.html.series.render());
     }
     public static Result dashboarAdmin(){
@@ -209,7 +207,7 @@ public class Application extends Controller {
         System.out.println("------------------- \n vehicle saved successfully");
         vehicle.save();
         List<Vehicle> vehicles = Vehicle.all();
-        return ok(Json.toJson(vehicle));
+        return ok(Json.toJson(vehicles));
     }
     public static Result updateVehicle(){
         Form<Vehicle> vehicleForm = Form.form(Vehicle.class).bindFromRequest();
@@ -224,7 +222,7 @@ public class Application extends Controller {
         System.out.println("------------------- \n vehicle updated successfully");
         vehicle1.update();
         List<Vehicle> vehicles = Vehicle.all();
-        return ok(Json.toJson(vehicle));
+        return ok(Json.toJson(vehicles));
     }
     public static Result deleteVehicle(){
         Form<Vehicle> vehicleForm = Form.form(Vehicle.class).bindFromRequest();
@@ -236,7 +234,7 @@ public class Application extends Controller {
         System.out.println("------------------- \n vehicle deleted successfully");
         vehicle1.update();
         List<Vehicle> vehicles = Vehicle.all();
-        return ok(Json.toJson(vehicle));
+        return ok(Json.toJson(vehicles));
     }
     public static Result loadSeries(){
         List<Series> seriesList = Series.all();
@@ -339,7 +337,7 @@ public class Application extends Controller {
         sparePart.save();
         System.out.println("------------------- \n spare part saved successfully");
         List<SparePart> sparePartList = SparePart.all();
-        return ok(Json.toJson(sparePart));
+        return ok(Json.toJson(sparePartList));
     }
     public static Result updateSparePart(){
         Form<SparePart> sparePartForm = Form.form(SparePart.class).bindFromRequest();
@@ -357,7 +355,7 @@ public class Application extends Controller {
         sparePart.update();
         System.out.println("------------------- \n spare part updated successfully");
         List<SparePart> sparePartList = SparePart.all();
-        return ok(Json.toJson(sparePart));
+        return ok(Json.toJson(sparePartList));
     }
     public static Result deleteSparePart(){
         Form<SparePart> sparePartForm = Form.form(SparePart.class).bindFromRequest();
@@ -369,6 +367,6 @@ public class Application extends Controller {
         sparePart.update();
         System.out.println("------------------- \n spare part updated successfully");
         List<SparePart> sparePartList = SparePart.all();
-        return ok(Json.toJson(sparePart));
+        return ok(Json.toJson(sparePartList));
     }
 }

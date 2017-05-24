@@ -4,8 +4,6 @@ var app = angular.module('spareApp', ['ngRoute']).config(function ($routeProvide
     .otherwise({redirectTo: '/'})
 
 });
-
-
 var appinside = angular.module('spareApploggedin', ['ngRoute','angularUtils.directives.dirPagination','ngTable', 'ngTableResizableColumns']).config(function ($routeProvider) {
     $routeProvider
     .when('/', { templateUrl: '/assets/partials/dashboad.html' })
@@ -16,7 +14,6 @@ var appinside = angular.module('spareApploggedin', ['ngRoute','angularUtils.dire
     .when('/allParent', { templateUrl: '/allParents/' })
     .when('/allneighbour', { templateUrl: '/allNeighbours/' })
     .when('/listConsult', { templateUrl: '/listConsultation/' })
-
 });
 
 
