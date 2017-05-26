@@ -36,16 +36,22 @@
                         <li role="presentation" ><a href="" class="btn btn-success" ng-click="new = !new">Add a new spare part</a></li>
                     </ul>
                 </div>
-                <form ng-submit="registerSparePart()" name="myForm" >
+                <form ng-submit="saveSparePart()" name="myForm" >
                     <div ng-show="new" class="panel panel-default" style="border-top-style:none">
 
 
-                        <div class="panel-body">
+                        <div ng-init="loadSparePartType()" class="panel-body">
                             <div class="panel panel-default" style="background:whitesmoke">
                                 <div class="panel-heading">
                                     <h3 style="padding:0px; margin:0px">New spare part registration</h3>
                                 </div>
                                 <div class="panel-body">
+                                    <label>
+                                        Part type
+                                    </label>
+                                    <select ng-model="newPartNameInfo.partTypeId" class="form-control">
+                                        <option ng-repeat="m in loadSparePartTypes" value="{{m.id}}">{{m.typeName}}</option>
+                                    </select>
                                     <label>
                                         part name
                                     </label>
@@ -109,10 +115,10 @@
 
                     <table ng-init="loadSparePart()" class="table table-striped" style="">
                         <tr>
-                            <th></th><th>Part name</th><th>Description</th><th>Model number</th><th>Manufacturer price</th><th>Fitting name</th><th>Originality</th><th>Fabrication year</th><th >Done by</th><th >date</th><th></th>
+                            <th></th><th>Type</th><th>Part name</th><th>Model</th><th>image</th><th>price</th><th>Fitting</th><th>Originality</th><th>Fabrication year</th><th >Done by</th><th >date</th><th></th>
                         </tr>
 
-                        <tr ng-repeat="a in sparePart |filter:search">
+                        <tr ng-repeat="a in spareParts |filter:search">
                             <td><button ng-click="a.edit = true" ng-hide="a.edit" class="btn btn-primary"><span class="glyphicon glyphicon-pencil"></span></button>
                                 <div ng-show="a.edit" class="panel panel-default" style="z-index:1000; position:absolute; width:400px; background:whitesmoke">
                                     <div style="padding:5px;">
@@ -120,26 +126,13 @@
                                         <a href="" class="pull-right" ng-click="a.edit = false" style="color:red">X</a>
                                     </div>
 
-                                    <div  style="text-align:center">
-                                        <button ng-hide="delete" ng-click="delete=true" class="btn btn-danger">
-                                            Delete
-                                        </button>
-                                        <br>
-                                        <div ng-show="delete" class="alert alert-danger">
-                                            <div class="panel-body">
-                                                This will be deleted permanently.<br>
-                                                <a href="" ng-click="deleteSparPart(a)">Yes</a> | <a href="" ng-click="delete=false">Abort</a>
-                                            </div>
-                                            <br>
-                                            <label>
-                                                Delete reason
-                                            </label>
-                                            <textarea class="form-control" ng-model="a.deleteReason"></textarea>
-                                        </div>
-                                    </div>
-                                    <hr>
                                     <div class="panel-body">
-
+                                        <label>
+                                            Part type
+                                        </label>
+                                        <select ng-model="a.partTypeId" class="form-control">
+                                            <option ng-repeat="m in loadSparePartTypes" value="{{m.id}}">{{m.typeName}}</option>
+                                        </select>
                                         <label>
                                             Spare part name
                                         </label>
@@ -147,7 +140,7 @@
                                         <label>
                                             description
                                         </label>
-                                        <textarea  ng-model="newVehicleInfo.description" placeholder="Description" class="form-control">{{newVehicleInfo.description}}</textarea>
+                                        <textarea  ng-model="a.description" placeholder="Description" class="form-control">{{a.description}}</textarea>
                                         <label>
                                             Model number
                                         </label>
@@ -176,7 +169,32 @@
 
                                     </div>
                                 </div>
-                            </td><td>{{a.partName}}</td><td>{{a.description}}</td><td>{{a.modelNumber}}</td><td >{{a.image}}</td><td >{{a.manufacturerPrice}}</td><td >{{a.fittingName}}</td><td >{{a.originality}}</td><td >{{a.fablicationYear}}</td><td >{{a.doneBy}}</td><td >{{a.doneAt}}</td><td><button type="button" ng-click="disableBland(a.id,a.blandName)"  class="btn btn-success" ng-if="a.active =='yes'"><span  class=" glyphicon glyphicon-ok"></span></button></td>
+                                    <!-- Modal -->
+                                <div id="myModal{{a.id}}" class="modal fade" role="dialog">
+                                    <div class="modal-dialog">
+
+                                            <!-- Modal content-->
+                                        <div class="modal-content">
+                                            <form ng-submit="disableSparePart(a)" >
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                    <h4 class="modal-title">Do you want to delete {{a.partName}} ?</h4>
+                                                </div>
+                                                <div class="modal-body">
+
+                                                    <label>Delete reason</label>
+                                                    <textarea class="form-control" ng-model="a.deleteReason" required></textarea>
+
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="submit" class="btn btn-success"  >Delete</button><button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                </div>
+                                            </form>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </td><td>{{a.partType.typeName}}</td><td>{{a.partName}}</td><td>{{a.modelNumber}}</td><td >{{a.image}}</td><td >{{a.manufacturerPrice}}</td><td >{{a.fittingName}}</td><td >{{a.originality}}</td><td >{{a.fablicationYear}}</td><td >{{a.doneBy}}</td><td >{{a.doneAt|date}}</td><td><button type="button"  data-toggle="modal" data-target="#myModal{{a.id}}"  class="btn btn-danger" ><span  class=" glyphicon glyphicon-remove"></span></button></td>
                         </tr>
 
                     </table>

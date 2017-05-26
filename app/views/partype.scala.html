@@ -1,5 +1,5 @@
 
-@dashboardHome("Series page"){
+@dashboardHome("Part type page"){
     <div ng-controller="MainController">
         @inHeader()
         <div class="col-lg-2">
@@ -12,14 +12,14 @@
 
 
 
-            @sideBar("series")
+            @sideBar("sparePartType")
 
 
         </div>
         <div class="col-lg-8">
             <div style="min-height:300px">
 
-                <h1 style="padding:0px; margin:0px">Series control</h1>
+                <h1 style="padding:0px; margin:0px">Spare party type control</h1>
 
 
                 <br>
@@ -33,38 +33,38 @@
 
                 <div class="">
                     <ul class="nav nav-tabs">
-                        <li role="presentation" ><a href="" class="btn btn-success" ng-click="new = !new">Add a new Series</a></li>
+                        <li role="presentation" ><a href="" class="btn btn-success" ng-click="new = !new">Add a new type</a></li>
                     </ul>
                 </div>
-                <form ng-submit="saveSeries()" name="myForm" >
+                <form ng-submit="savePartType()" name="myForm" >
                     <div ng-show="new" class="panel panel-default" style="border-top-style:none">
 
 
-                        <div ng-init="loadVehicle()" class="panel-body">
+                        <div ng-init="loadSerie()"  class="panel-body">
                             <div class="panel panel-default" style="background:whitesmoke">
                                 <div class="panel-heading">
-                                    <h3 style="padding:0px; margin:0px">New Series registration</h3>
+                                    <h3 style="padding:0px; margin:0px">New Part type registration</h3>
                                 </div>
                                 <div class="panel-body">
                                     <label>
-                                        Vehicle
+                                        Serie
                                     </label>
-                                    <select ng-model="newVehicleInfo.vehicleId" class="form-control">
-                                        <option ng-repeat="m in vehicles" value="{{m.id}}">{{m.vehicleName}}</option>
+                                    <select ng-model="newVehicleInfo.serieId" class="form-control">
+                                        <option ng-repeat="m in series" value="{{m.id}}">{{m.serieName}}</option>
                                     </select>
                                     <label>
-                                        serie#
+                                       Type name
                                     </label>
-                                    <input required ng-model="newVehicleInfo.serieNo" placeholder="Serie number" class="form-control">
+                                    <input required ng-model="newVehicleInfo.typeName" placeholder="typeName" class="form-control">
                                     <label>
-                                        Serie name
+                                       Image
                                     </label>
-                                    <input required ng-model="newVehicleInfo.blandName" placeholder="Serie name" class="form-control">
+                                    <input  ng-model="newVehicleInfo.image" placeholder="image" class="form-control">
 
                                     <label>
-                                        fabrication year
+                                        Description
                                     </label>
-                                    <input required ng-model="newVehicleInfo.fablicationYear" placeholder="Fabrication year" class="form-control">
+                                    <input required ng-model="newVehicleInfo.description" placeholder="description" class="form-control">
                                     <hr>
 
 
@@ -94,12 +94,12 @@
                 <div style="min-height:400px" class="">
 
 
-                    <table ng-init="loadSerie()" class="table table-striped" style="">
+                    <table ng-init="loadSparePartType()" class="table table-striped" style="">
                         <tr>
-                            <th></th><th>Vehicle</th><th>Serie number</th><th>Serie name</th><th>Fabrication year</th><th >Done by</th><th >date</th><th></th>
+                            <th></th><th>Serie</th><th>Type </th><th>image</th><th>Description</th><th >Done by</th><th >date</th><th></th>
                         </tr>
 
-                        <tr ng-repeat="a in series |filter:search">
+                        <tr ng-repeat="a in loadSparePartTypes |filter:search">
                             <td><button ng-click="a.edit = true" ng-hide="a.edit" class="btn btn-primary"><span class="glyphicon glyphicon-pencil"></span></button>
                                 <div ng-show="a.edit" class="panel panel-default" style="z-index:1000; position:absolute; width:400px; background:whitesmoke">
                                     <div style="padding:5px;">
@@ -110,28 +110,28 @@
                                     <hr>
                                     <div class="panel-body">
                                         <label>
-                                            Vehicle
+                                            Serie
                                         </label>
-                                        <select required ng-model="a.vehicleId" class="form-control">
-                                            <option ng-repeat="m in vehicles" value="{{m.id}}">{{m.vehicleName}}</option>
+                                        <select ng-model="a.serieId" class="form-control">
+                                            <option ng-repeat="m in series" value="{{m.id}}">{{m.serieName}}</option>
                                         </select>
                                         <label>
-                                            Serie Number
+                                            Type name
                                         </label>
-                                        <input required ng-model="a.serieNo" placeholder="Serie number " class="form-control">
+                                        <input required ng-model="a.typeName" placeholder="typeName" class="form-control">
                                         <label>
-                                            Serie name
+                                            Image
                                         </label>
-                                        <input required ng-model="a.serieName" placeholder="Vehicle name" class="form-control">
+                                        <input required ng-model="a.image" placeholder="image" class="form-control">
 
                                         <label>
-                                            fabrication year
+                                            Description
                                         </label>
-                                        <input required ng-model="a.fablicationYear" placeholder="Fabrication year" class="form-control">
+                                        <input required ng-model="a.description" placeholder="description" class="form-control">
                                         <hr>
 
 
-                                        <button ng-click="updateSeries(a)" class="btn btn-success">Update</button> <button ng-click="a.edit = false" class="btn btn-default">Cancel</button>
+                                        <button ng-click="updatePartType(a)" class="btn btn-success">Update</button> <button ng-click="a.edit = false" class="btn btn-default">Cancel</button>
 
 
                                     </div>
@@ -142,10 +142,10 @@
 
                                             <!-- Modal content-->
                                         <div class="modal-content">
-                                            <form ng-submit="disableSeries(a)" >
+                                            <form ng-submit="disablePartType(a)" >
                                                 <div class="modal-header">
                                                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                    <h4 class="modal-title">Do you want to delete {{a.serieName}} ?</h4>
+                                                    <h4 class="modal-title">Do you want to delete {{a.typeName}} ?</h4>
                                                 </div>
                                                 <div class="modal-body">
 
@@ -161,7 +161,7 @@
 
                                     </div>
                                 </div>
-                            </td><td>{{a.vehicle.vehicleName}}</td><td>{{a.serieNo}}</td><td>{{a.serieName}}</td><td >{{a.fablicationYear}}</td><td >{{a.doneBy}}</td><td >{{a.doneAt|date}}</td><td><button type="button"  data-toggle="modal" data-target="#myModal{{a.id}}"  class="btn btn-danger" ><span  class=" glyphicon glyphicon-remove"></span></button></td>
+                            </td><td>{{a.series.serieName}}</td><td>{{a.typeName}}</td><td>{{a.image}}</td><td >{{a.description}}</td><td >{{a.doneBy}}</td><td >{{a.doneAt|date}}</td><td><button type="button"  data-toggle="modal" data-target="#myModal{{a.id}}"  class="btn btn-danger" ><span  class=" glyphicon glyphicon-remove"></span></button></td>
                         </tr>
 
                     </table>
