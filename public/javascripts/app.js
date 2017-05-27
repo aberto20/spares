@@ -4,7 +4,7 @@ var app = angular.module('spareApp', ['ngRoute']).config(function ($routeProvide
     .otherwise({redirectTo: '/'})
 
 });
-var appinside = angular.module('spareApploggedin', ['ngRoute','angularUtils.directives.dirPagination','ngTable', 'ngTableResizableColumns']).config(function ($routeProvider) {
+    var appinside = angular.module('spareApploggedin', ['ngRoute','angularUtils.directives.dirPagination','ngTable', 'ngTableResizableColumns']).config(function ($routeProvider) {
     $routeProvider
     .when('/', { templateUrl: '/assets/partials/dashboad.html' })
     .when('/registeremployee', { templateUrl: '/viewEmployee/' })

@@ -132,7 +132,6 @@
     };
     $scope.loadCurrentUser = function () {
         $http.get('/loadCurrentUser/').success(function (data, status, headers, config){
-            //alert(JSON.stringify(data));
             $scope.currentUser=data;
 
         });
