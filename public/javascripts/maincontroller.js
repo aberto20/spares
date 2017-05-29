@@ -1,4 +1,9 @@
 ﻿app.controller("MainController", function ($scope,$location,$http) {
+    if($scope.new==false){
+        $scope.displaydata='Add a new user'
+    }else {
+        $scope.displaydata='Show list users';
+    }
     $scope.saveUser = function () {
         $scope.dataLoading = true;
         $http.post('/saveUser/',$scope.newUserInfo ).success(function (data, status, headers, config){
@@ -146,6 +151,15 @@
         });
 
     };
+    $scope.loadSerie = function () {
+        $http.get('/loadSeries/').success(function (data, status, headers, config){
+            //alert(JSON.stringify(data));
+
+            $scope.series=data;
+
+        });
+
+    };
     $scope.loadUser = function () {
         $http.get('/loadUsers/').success(function (data, status, headers, config){
             //alert(JSON.stringify(data));
@@ -173,14 +187,11 @@
                 alert('Ethered vehicle name exist !');
                 return;
             }
-
             $scope.vehicles=data;
             $scope.new=false;
             $scope.newVehicleInfo=[];
             $scope.dataLoading = false;
-
         });
-
     };
     $scope.updateVehicle = function (vehicle) {
         $scope.dataLoading = true;
@@ -193,10 +204,7 @@
                 }
             }
             $scope.dataLoading = false;
-
-
         });
-
     };
     $scope.disableVehicle=function (vehicle) {
         if(confirm("do you real want to delete "+vehicle.vehicleName + "?")) {
@@ -206,6 +214,156 @@
                 $scope.vehicles = data;
                 data.edit = false;
                 window.location="/VehiclePage/";
+
+
+            });
+        }
+    };
+    $scope.loadSparePart=function () {
+        $http.get('/loadSparePart/').success(function (data, status, headers, config){
+            //alert(JSON.stringify(data));
+            $scope.spareParts=data;
+
+        });
+    };
+    $scope.loadSparePartType=function () {
+        $http.get('/loadPartType/').success(function (data, status, headers, config){
+            //alert(JSON.stringify(data));
+            $scope.loadSparePartTypes=data;
+
+        });
+    };
+    $scope.saveSparePart=function () {
+        $scope.dataLoading = true;
+        $http.post('/saveSparePart/',$scope.newPartNameInfo ).success(function (data, status, headers, config){
+            //alert(JSON.stringify(data));
+            if (data=='partNameExists'){
+                alert('Entered spare part name exist !');
+                return;
+            }
+
+            $scope.spareParts=data;
+            $scope.new=false;
+            $scope.newPartNameInfo=[];
+            $scope.dataLoading = false;
+
+        });
+    };
+    $scope.updateSparePart=function (sparePart) {
+        $scope.dataLoading = true;
+        $http.post('/updateSparePart/',sparePart).success(function (data, status, headers, config){
+            //alert(JSON.stringify(data));
+            $scope.spareParts=data;
+            for(var d in data){
+                if(data[d].id == vehicle.id){
+                    data[d].edit = false;
+                }
+            }
+            $scope.dataLoading = false;
+
+
+        });
+    };
+    $scope.disableSparePart=function (sparePart) {
+        if(confirm("do you real want to delete "+sparePart.partName + "?")) {
+            $http.post('/deleteSparePart/' + sparePart.id, sparePart).success(function (data, status, headers, config) {
+                //alert(JSON.stringify(data));
+
+                $scope.spareParts = data;
+                data.edit = false;
+                window.location="/sparePart/";
+
+
+            });
+        }
+    };
+    $scope.saveSeries = function () {
+        $scope.dataLoading = true;
+        $http.post('/saveSeries/',$scope.newVehicleInfo ).success(function (data, status, headers, config){
+            //alert(JSON.stringify(data));
+            if (data=='seriesExists'){
+                alert('Ethered Serie name exist !');
+                return;
+            }
+
+            $scope.series=data;
+            $scope.new=false;
+            $scope.newVehicleInfo=[];
+            $scope.dataLoading = false;
+
+        });
+
+    };
+    $scope.updateSeries = function (series) {
+        $scope.dataLoading = true;
+        $http.post('/updateSeries/',series).success(function (data, status, headers, config){
+            //alert(JSON.stringify(data));
+            $scope.series=data;
+            for(var d in data){
+                if(data[d].id == series.id){
+                    data[d].edit = false;
+                }
+            }
+            $scope.dataLoading = false;
+
+
+        });
+
+    };
+    $scope.disableSeries=function (series) {
+        if(confirm("do you real want to delete "+series.serieName + "?")) {
+            $http.post('/deleteSeries/' + series.id, series).success(function (data, status, headers, config) {
+                //alert(JSON.stringify(data));
+
+                $scope.series = data;
+                data.edit = false;
+                window.location="/SeriesPage/";
+
+
+            });
+        }
+    };
+    $scope.savePartType = function () {
+        $scope.dataLoading = true;
+        $http.post('/savePartType/',$scope.newVehicleInfo ).success(function (data, status, headers, config){
+            //alert(JSON.stringify(data));
+            if (data=='partTypeExists'){
+                alert('Entered part type  exist !');
+                return;
+            }
+
+            $scope.loadSparePartTypes=data;
+            $scope.new=false;
+            $scope.newVehicleInfo=[];
+            $scope.dataLoading = false;
+
+        });
+
+    };
+    $scope.updatePartType = function (part) {
+        $scope.dataLoading = true;
+        $http.post('/updatePartType/',part).success(function (data, status, headers, config){
+            //alert(JSON.stringify(data));
+            $scope.loadSparePartTypes=data;
+            for(var d in data){
+                if(data[d].id == part.id){
+                    data[d].edit = false;
+                }
+            }
+            $scope.dataLoading = false;
+
+
+        });
+
+    };
+    $scope.disablePartType=function (partType) {
+        if(confirm("do you real want to delete "+partType.typeName + "?")) {
+            $http.post('/deletePartType/' + partType.id, partType).success(function (data, status, headers, config) {
+                //alert(JSON.stringify(data));
+
+                $scope.loadSparePartTypes = data;
+                data.edit = false;
+                window.location="/partTypePage/";
 
 
             });

@@ -25,6 +25,9 @@ public class SparePart extends Model {
     public String originality = "";
     public String fablicationYear = "";
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    public PartType partType;
+
     public boolean deleteStatus = false;
     public String deleteReason = "";
     public String doneBy = "";

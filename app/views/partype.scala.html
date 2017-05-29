@@ -1,5 +1,5 @@
 
-@dashboardHome("Vehicle page"){
+@dashboardHome("Part type page"){
     <div ng-controller="MainController">
         @inHeader()
         <div class="col-lg-2">
@@ -12,14 +12,14 @@
 
 
 
-            @sideBar("vehicle")
+            @sideBar("sparePartType")
 
 
         </div>
         <div class="col-lg-8">
             <div style="min-height:300px">
 
-                <h1 style="padding:0px; margin:0px">Vehicle control</h1>
+                <h1 style="padding:0px; margin:0px">Spare party type control</h1>
 
 
                 <br>
@@ -33,40 +33,38 @@
 
                 <div class="">
                     <ul class="nav nav-tabs">
-                        <li role="presentation" ><a href="" class="btn btn-success" ng-click="new = !new">Add a new vehicle</a></li>
+                        <li role="presentation" ><a href="" class="btn btn-success" ng-click="new = !new">Add a new type</a></li>
                     </ul>
                 </div>
-                <form ng-submit="saveVehicle()" name="myForm">
+                <form ng-submit="savePartType()" name="myForm" >
                     <div ng-show="new" class="panel panel-default" style="border-top-style:none">
-                        <div class="panel-body">
+
+
+                        <div ng-init="loadSerie()"  class="panel-body">
                             <div class="panel panel-default" style="background:whitesmoke">
                                 <div class="panel-heading">
-                                    <h3 style="padding:0px; margin:0px">New vehicle registration</h3>
+                                    <h3 style="padding:0px; margin:0px">New Part type registration</h3>
                                 </div>
-                                <div ng-init="loadBlands()" class="panel-body">
+                                <div class="panel-body">
                                     <label>
-                                        Bland name
+                                        Serie
                                     </label>
-                                    <select required ng-model="newVehicleInfo.blandId"  class="form-control">
-                                        <option ng-repeat="m in blands" value="{{m.id}}">{{m.blandName}}</option>
+                                    <select ng-model="newVehicleInfo.serieId" class="form-control">
+                                        <option ng-repeat="m in series" value="{{m.id}}">{{m.serieName}}</option>
                                     </select>
                                     <label>
-                                        Vehicle name
+                                       Type name
                                     </label>
-                                    <input required ng-model="newVehicleInfo.vehicleName" placeholder="Vehicle name" class="form-control">
+                                    <input required ng-model="newVehicleInfo.typeName" placeholder="typeName" class="form-control">
                                     <label>
-                                        description
+                                       Image
                                     </label>
-                                    <textarea  ng-model="newVehicleInfo.description" placeholder="Description" class="form-control"></textarea>
+                                    <input  ng-model="newVehicleInfo.image" placeholder="image" class="form-control">
+
                                     <label>
-                                        Image
+                                        Description
                                     </label>
-                                    <input type="file" ng-model="newVehicleInfo.image" placeholder="Image" class="form-control">
-                                    <div ng-if="newVehicleInfo.image!=''">image load</div>
-                                    <label>
-                                        fabrication year
-                                    </label>
-                                    <input required ng-model="newVehicleInfo.fablicationYear" placeholder="Fabrication year" class="form-control">
+                                    <input required ng-model="newVehicleInfo.description" placeholder="description" class="form-control">
                                     <hr>
 
 
@@ -94,57 +92,60 @@
                     </div>
                 </form>
                 <div style="min-height:400px" class="">
-                    <table ng-init="loadVehicle()" class="table table-striped" style="">
+
+
+                    <table ng-init="loadSparePartType()" class="table table-striped" style="">
                         <tr>
-                            <th></th><th>Bland name</th><th>Vehicle name</th><th>Description</th><th>Image</th><th>Fablication year</th><th >Done by</th><th >date</th><th></th>
+                            <th></th><th>Serie</th><th>Type </th><th>image</th><th>Description</th><th >Done by</th><th >date</th><th></th>
                         </tr>
 
-                        <tr ng-repeat="a in vehicles |filter:search">
+                        <tr ng-repeat="a in loadSparePartTypes |filter:search">
                             <td><button ng-click="a.edit = true" ng-hide="a.edit" class="btn btn-primary"><span class="glyphicon glyphicon-pencil"></span></button>
                                 <div ng-show="a.edit" class="panel panel-default" style="z-index:1000; position:absolute; width:400px; background:whitesmoke">
                                     <div style="padding:5px;">
+
                                         <a href="" class="pull-right" ng-click="a.edit = false" style="color:red">X</a>
                                     </div>
 
+                                    <hr>
                                     <div class="panel-body">
                                         <label>
-                                            Bland name
+                                            Serie
                                         </label>
-                                        <select required ng-model="a.blandId"  class="form-control">
-                                            <option value="{{a.bland.id}}">{{a.bland.blandName}}</option>
-                                            <option ng-repeat="m in blands" value="{{m.id}}">{{m.blandName}}</option>
+                                        <select ng-model="a.serieId" class="form-control">
+                                            <option ng-repeat="m in series" value="{{m.id}}">{{m.serieName}}</option>
                                         </select>
                                         <label>
-                                            Vehicle name
+                                            Type name
                                         </label>
-                                        <input required ng-model="a.vehicleName" placeholder="Vehicle name" class="form-control">
+                                        <input required ng-model="a.typeName" placeholder="typeName" class="form-control">
                                         <label>
-                                            description
+                                            Image
                                         </label>
-                                        <textarea  ng-model="a.description" placeholder="Description" class="form-control">{{newVehicleInfo.description}}</textarea>
+                                        <input required ng-model="a.image" placeholder="image" class="form-control">
+
                                         <label>
-                                            fabrication year
+                                            Description
                                         </label>
-                                        <input required ng-model="a.fablicationYear" placeholder="Fabrication year" class="form-control">
+                                        <input required ng-model="a.description" placeholder="description" class="form-control">
                                         <hr>
 
 
-                                        <button ng-click="updateVehicle(a)" class="btn btn-success">Update</button> <button ng-click="a.edit = false" class="btn btn-default">Cancel</button>
+                                        <button ng-click="updatePartType(a)" class="btn btn-success">Update</button> <button ng-click="a.edit = false" class="btn btn-default">Cancel</button>
 
 
                                     </div>
                                 </div>
-
                                     <!-- Modal -->
                                 <div id="myModal{{a.id}}" class="modal fade" role="dialog">
                                     <div class="modal-dialog">
 
                                             <!-- Modal content-->
                                         <div class="modal-content">
-                                            <form ng-submit="disableVehicle(a)" >
+                                            <form ng-submit="disablePartType(a)" >
                                                 <div class="modal-header">
                                                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                    <h4 class="modal-title">Do you want to delete {{a.vehicleName}} ?</h4>
+                                                    <h4 class="modal-title">Do you want to delete {{a.typeName}} ?</h4>
                                                 </div>
                                                 <div class="modal-body">
 
@@ -160,7 +161,7 @@
 
                                     </div>
                                 </div>
-                            </td><td>{{a.bland.blandName}}</td><td>{{a.vehicleName}}</td><td>{{a.description}}</td><td >{{a.image}}</td><td >{{a.fablicationYear}}</td><td >{{a.doneBy}}</td><td >{{a.doneAt|date}}</td><td><button type="button"  data-toggle="modal" data-target="#myModal{{a.id}}"  class="btn btn-danger" ><span  class=" glyphicon glyphicon-remove"></span></button></td>
+                            </td><td>{{a.series.serieName}}</td><td>{{a.typeName}}</td><td>{{a.image}}</td><td >{{a.description}}</td><td >{{a.doneBy}}</td><td >{{a.doneAt|date}}</td><td><button type="button"  data-toggle="modal" data-target="#myModal{{a.id}}"  class="btn btn-danger" ><span  class=" glyphicon glyphicon-remove"></span></button></td>
                         </tr>
 
                     </table>

@@ -21,11 +21,18 @@
                 <form ng-submit="saveSeries()" name="myForm" >
                     <div ng-show="new" class="panel panel-default" style="border-top-style:none">
                         <div class="panel-body">
+                        <div ng-init="loadVehicle()" class="panel-body">
                             <div class="panel panel-default" style="background:whitesmoke">
                                 <div class="panel-heading">
                                     <h3 style="padding:0px; margin:0px">New Series registration</h3>
                                 </div>
                                 <div class="panel-body">
+                                    <label>
+                                        Vehicle
+                                    </label>
+                                    <select ng-model="newVehicleInfo.vehicleId" class="form-control">
+                                        <option ng-repeat="m in vehicles" value="{{m.id}}">{{m.vehicleName}}</option>
+                                    </select>
                                     <label>
                                         serie#
                                     </label>
@@ -43,11 +50,9 @@
                                 </div>
                             </div>
                         </div>
-
+                       </div>
                     </div>
                 </form>
-
-
                 <br>
                 <form class="" role="search" style = "width:100%;">
                     <div>
@@ -66,10 +71,10 @@
 
                     <table ng-init="loadSerie()" class="table table-striped" style="">
                         <tr>
-                            <th></th><th>Serie number</th><th>Bland name</th><th>Description</th><th >Done by</th><th >date</th><th></th>
+                            <th></th><th>Vehicle</th><th>Serie number</th><th>Serie name</th><th>Fabrication year</th><th >Done by</th><th >date</th><th></th>
                         </tr>
 
-                        <tr ng-repeat="a in Serie |filter:search">
+                        <tr ng-repeat="a in series |filter:search">
                             <td><button ng-click="a.edit = true" ng-hide="a.edit" class="btn btn-primary"><span class="glyphicon glyphicon-pencil"></span></button>
                                 <div ng-show="a.edit" class="panel panel-default" style="z-index:1000; position:absolute; width:400px; background:whitesmoke">
                                     <div style="padding:5px;">
@@ -77,25 +82,14 @@
                                         <a href="" class="pull-right" ng-click="a.edit = false" style="color:red">X</a>
                                     </div>
 
-                                    <div  style="text-align:center">
-                                        <button ng-hide="delete" ng-click="delete=true" class="btn btn-danger">
-                                            Delete
-                                        </button>
-                                        <br>
-                                        <div ng-show="delete" class="alert alert-danger">
-                                            <div class="panel-body">
-                                                This will be deleted permanently.<br>
-                                                <a href="" ng-click="deleteSerie(a)">Yes</a> | <a href="" ng-click="delete=false">Abort</a>
-                                            </div>
-                                            <br>
-                                            <label>
-                                                Delete reason
-                                            </label>
-                                            <textarea class="form-control" ng-model="a.deleteReason"></textarea>
-                                        </div>
-                                    </div>
                                     <hr>
                                     <div class="panel-body">
+                                        <label>
+                                            Vehicle
+                                        </label>
+                                        <select required ng-model="a.vehicleId" class="form-control">
+                                            <option ng-repeat="m in vehicles" value="{{m.id}}">{{m.vehicleName}}</option>
+                                        </select>
                                         <label>
                                             Serie Number
                                         </label>
@@ -104,10 +98,7 @@
                                             Serie name
                                         </label>
                                         <input required ng-model="a.serieName" placeholder="Vehicle name" class="form-control">
-                                        <label>
-                                            description
-                                        </label>
-                                        <textarea  ng-model="newVehicleInfo.description" placeholder="Description" class="form-control">{{newVehicleInfo.description}}</textarea>
+
                                         <label>
                                             fabrication year
                                         </label>
@@ -120,18 +111,37 @@
 
                                     </div>
                                 </div>
-                            </td><td>{{a.serieNo}}</td><td>{{a.serieName}}</td><td>{{a.description}}</td><td >{{a.fablicationYear}}</td><td >{{a.doneBy}}</td><td >{{a.doneAt}}</td><td><button type="button" ng-click="disableBland(a.id,a.serieName)"  class="btn btn-success" ng-if="a.active =='yes'"><span  class=" glyphicon glyphicon-ok"></span></button></td>
+                                    <!-- Modal -->
+                                <div id="myModal{{a.id}}" class="modal fade" role="dialog">
+                                    <div class="modal-dialog">
+
+                                            <!-- Modal content-->
+                                        <div class="modal-content">
+                                            <form ng-submit="disableSeries(a)" >
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                    <h4 class="modal-title">Do you want to delete {{a.serieName}} ?</h4>
+                                                </div>
+                                                <div class="modal-body">
+
+                                                    <label>Delete reason</label>
+                                                    <textarea class="form-control" ng-model="a.deleteReason" required></textarea>
+
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="submit" class="btn btn-success"  >Delete</button><button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                </div>
+                                            </form>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </td><td>{{a.vehicle.vehicleName}}</td><td>{{a.serieNo}}</td><td>{{a.serieName}}</td><td >{{a.fablicationYear}}</td><td >{{a.doneBy}}</td><td >{{a.doneAt|date}}</td><td><button type="button"  data-toggle="modal" data-target="#myModal{{a.id}}"  class="btn btn-danger" ><span  class=" glyphicon glyphicon-remove"></span></button></td>
                         </tr>
-
                     </table>
-
-
                 </div>
 
-
-
             </div>
-
         </div>
         <div class="col-lg-2"></div>
     </div>

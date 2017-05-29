@@ -245,11 +245,12 @@ public class Application extends Controller {
         Form<Series> seriesForm = Form.form(Series.class).bindFromRequest();
         Series series = seriesForm.get();
         Series s = Series.findBySeries(series.serieName);
-        if(s.serieName != null){
+        long vehicleId=Long.parseLong(seriesForm.field("vehicleId").value());
+        if(s!= null){
             return ok("seriesExists");
         }
-        series.doneBy = User.byUsername("userId").username;
-        series.vehicle = Vehicle.finderById(series.vehicle.id);
+        series.vehicle=Vehicle.finderById(vehicleId);
+        series.doneBy = User.byUsername(session("userId")).username;
         System.out.println("------------------- \n series saved successfully");
         series.save();
         List<Series> seriesList = Series.all();
@@ -257,26 +258,26 @@ public class Application extends Controller {
     }
     public static Result updateSeries(){
         Form<Series> seriesForm = Form.form(Series.class).bindFromRequest();
-        Series series = seriesForm.get();
-        Series series1 = Series.finderById(series.id);
-        series1.serieNo = series.serieNo;
-        series1.serieName = series.serieName;
-        series1.fablicationYear = series.fablicationYear;
-        series1.doneBy = series.doneBy;
-        series.vehicle = Vehicle.finderById(series.vehicle.id);
-        series.update();
+        long vehicleId=Long.parseLong(seriesForm.field("vehicleId").value());
+        Series series1 = Series.finderById(Long.parseLong(seriesForm.field("id").value()));
+
+        series1.serieNo =seriesForm.field("serieNo").value();
+        series1.serieName = seriesForm.field("serieName").value();
+        series1.fablicationYear =seriesForm.field("fablicationYear").value();
+        series1.doneBy = User.findByUsername(session("userId")).username;
+        series1.vehicle = Vehicle.finderById(vehicleId);
+        series1.update();
         System.out.println("------------------- \n series updated successfully");
         List<Series> seriesList = Series.all();
         return ok(Json.toJson(seriesList));
     }
-    public static Result deleteSeries(){
+    public static Result deleteSeries(long id){
         Form<Series> seriesForm = Form.form(Series.class).bindFromRequest();
-        Series series = seriesForm.get();
-        Series series1 = Series.finderById(series.id);
+        Series series1 = Series.finderById(id);
         series1.deleteStatus = true;
-        series1.deleteReason = series.deleteReason;
-        series1.doneBy = series.doneBy;
-        series.update();
+        series1.deleteReason =seriesForm.field("deleteReason").value();
+        series1.doneBy =User.byUsername(session("userId")).username;
+        series1.update();
         System.out.println("------------------- \n series successfully");
         List<Series> seriesList = Series.all();
         return ok(Json.toJson(seriesList));
@@ -285,14 +286,24 @@ public class Application extends Controller {
         List<PartType> partTypeList = PartType.all();
         return ok(Json.toJson(partTypeList));
     }
+    public static Result partTypePage(){
+        if(session("userId")==null ||session("userId").equals("") ){
+            return ok(views.html.login.render());
+        }
+        return ok(views.html.partype.render());
+
+    }
+
     public static Result savePartType(){
         Form<PartType> partTypeForm = Form.form(PartType.class).bindFromRequest();
         PartType partType = partTypeForm.get();
-        PartType p = PartType.findByPartType("typeName");
-        if (p.typeName != null){
+        long serieId=Long.parseLong(partTypeForm.field("serieId").value());
+        PartType p = PartType.findByPartType(partType.typeName);
+        if (p != null){
             return ok("partTypeExists");
         }
-        partType.series = Series.finderById(partType.id);
+        partType.series = Series.finderById(serieId);
+        partType.doneBy =User.findByUsername(session("userId")).username;
         System.out.println("------------------- \n part type saved successfully");
         partType.save();
         List<PartType> partTypeList = PartType.all();
@@ -300,26 +311,26 @@ public class Application extends Controller {
     }
     public static Result updatePartType(){
         Form<PartType> partTypeForm = Form.form(PartType.class).bindFromRequest();
-        PartType partType = partTypeForm.get();
-        PartType partType1 = PartType.finderById(partType.id);
-        partType1.typeName = partType.typeName;
-        partType1.image = partType.image;
-        partType1.description = partType.description;
-        partType1.doneBy = partType.doneBy;
-        partType.series = Series.finderById(partType.id);
-        partType.update();
+        long id=Long.parseLong(partTypeForm.field("id").value());
+        long serieId=Long.parseLong(partTypeForm.field("serieId").value());
+        PartType partType1 = PartType.finderById(id);
+        partType1.typeName = partTypeForm.field("typeName").value();
+        partType1.image =partTypeForm.field("image").value();
+        partType1.description =partTypeForm.field("description").value();
+        partType1.doneBy = User.byUsername(session("userId")).username;
+        partType1.series = Series.finderById(serieId);
+        partType1.update();
         System.out.println("------------------- \n part type updated successfully");
         List<PartType> partTypeList = PartType.all();
         return ok(Json.toJson(partTypeList));
     }
-    public static Result deletePartType(){
+    public static Result deletePartType(long id){
         Form<PartType> partTypeForm = Form.form(PartType.class).bindFromRequest();
-        PartType partType = partTypeForm.get();
-        PartType partType1 = PartType.finderById(partType.id);
+        PartType partType1 = PartType.finderById(id);
         partType1.deleteStatus = true;
-        partType1.deleteReason = partType.deleteReason;
-        partType1.doneBy = partType.doneBy;
-        partType.update();
+        partType1.deleteReason =partTypeForm.field("deleteReason").value();
+        partType1.doneBy = User.byUsername(session("userId")).username;
+        partType1.update();
         System.out.println("------------------- \n part type saved successfully");
         List<PartType> partTypeList = PartType.all();
         return ok(Json.toJson(partTypeList));
@@ -331,10 +342,13 @@ public class Application extends Controller {
     public static Result saveSparePart(){
         Form<SparePart> sparePartForm = Form.form(SparePart.class).bindFromRequest();
         SparePart sparePart = sparePartForm.get();
-        SparePart s = SparePart.findByPartName("partName");
-        if (s.partName != null){
+        long partTypeId=Long.parseLong(sparePartForm.field("partTypeId").value());
+        SparePart s = SparePart.findByPartName(sparePart.partName);
+        if (s != null){
             return ok("partNameExists");
         }
+        sparePart.partType=PartType.finderById(partTypeId);
+        sparePart.doneBy=User.byUsername(session("userId")).username;
         sparePart.save();
         System.out.println("------------------- \n spare part saved successfully");
         List<SparePart> sparePartList = SparePart.all();
@@ -342,30 +356,31 @@ public class Application extends Controller {
     }
     public static Result updateSparePart(){
         Form<SparePart> sparePartForm = Form.form(SparePart.class).bindFromRequest();
-        SparePart sparePart = sparePartForm.get();
-        SparePart sparePart1 = SparePart.finderById(sparePart.id);
-        sparePart1.partName = sparePart.partName;
-        sparePart1.description = sparePart.description;
-        sparePart1.modelNumber = sparePart.modelNumber;
-        sparePart1.image = sparePart.image;
-        sparePart1.manufacturerPrice = sparePart.manufacturerPrice;
-        sparePart1.fittingName = sparePart.fittingName;
-        sparePart1.originality = sparePart.originality;
-        sparePart1.fablicationYear = sparePart.fablicationYear;
-        sparePart1.doneBy = sparePart.doneBy;
-        sparePart.update();
+        long id=Long.parseLong(sparePartForm.field("id").value());
+        long partTypeId=Long.parseLong(sparePartForm.field("partTypeId").value());
+        SparePart sparePart1 = SparePart.finderById(id);
+        sparePart1.partName = sparePartForm.field("partName").value();
+        sparePart1.description = sparePartForm.field("description").value();
+        sparePart1.modelNumber = sparePartForm.field("modelNumber").value();
+        sparePart1.manufacturerPrice =sparePartForm.field("manufacturerPrice").value();
+        sparePart1.fittingName = sparePartForm.field("fittingName").value();
+        sparePart1.originality = sparePartForm.field("originality").value();
+        sparePart1.fablicationYear =sparePartForm.field("fablicationYear").value();
+        sparePart1.doneBy = User.findByUsername(session("userId")).username;
+        sparePart1.partType=PartType.finderById(partTypeId);
+
+        sparePart1.update();
         System.out.println("------------------- \n spare part updated successfully");
         List<SparePart> sparePartList = SparePart.all();
         return ok(Json.toJson(sparePartList));
     }
-    public static Result deleteSparePart(){
+    public static Result deleteSparePart(long id){
         Form<SparePart> sparePartForm = Form.form(SparePart.class).bindFromRequest();
-        SparePart sparePart = sparePartForm.get();
-        SparePart sparePart1 = SparePart.finderById(sparePart.id);
+        SparePart sparePart1 = SparePart.finderById(id);
         sparePart1.deleteStatus = true;
-        sparePart1.deleteReason = sparePart.deleteReason;
-        sparePart1.doneBy = sparePart.doneBy;
-        sparePart.update();
+        sparePart1.deleteReason = sparePartForm.field("deleteReason").value();
+        sparePart1.doneBy = User.findByUsername(session("userId")).username;
+        sparePart1.update();
         System.out.println("------------------- \n spare part updated successfully");
         List<SparePart> sparePartList = SparePart.all();
         return ok(Json.toJson(sparePartList));
