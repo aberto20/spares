@@ -1,0 +1,10 @@
+@(page:String)
+<div  class="list-group success">
+    <a style="background-color: whitesmoke "  class="list-group-item "   href="/">Bland</a>
+    <a style="background-color: whitesmoke"  class="list-group-item @if(page=="vehicle"){active breadcrumb} "  href="">Vehicle type</a>
+    <a style="background-color: whitesmoke"  class="list-group-item @if(page=="serie"){active disabled} " href="">Series</a>
+    <a style="background-color: whitesmoke"  class="list-group-item @if(page=="partType"){active disabled} "  href="">Part type</a>
+    <a style="background-color: whitesmoke"  class="list-group-item @if(page=="sparePart"){active disabled} " href="">Spare part</a>
+    <a style="background-color: whitesmoke"  class="list-group-item @if(page=="partDetails"){active disabled} " href="">Spare part details</a>
+
+</div>

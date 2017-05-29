@@ -4,10 +4,14 @@ import models.*;
 import play.data.Form;
 import play.libs.Json;
 import play.mvc.Controller;
+import play.mvc.Http;
 import play.mvc.Result;
 import views.html.bland;
 import views.html.vehicle;
 
+import java.io.File;
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -17,6 +21,21 @@ public class Application extends Controller {
 
 
       public static Result loginpage(){
+          List<User> usersList=User.find.where().eq("role","admin").findList();
+          if(usersList.size()<=0){
+              User user=new User();
+              user.active=true;
+              user.doneAt=new Timestamp(new Date().getTime());
+              user.doneBy="default";
+              user.firstName="Bayingana";
+              user.lastName="Abel";
+              user.role="admin";
+              user.email="aberto20@gmail.com";
+              user.password="admin";
+              user.username="admin";
+              user.phone="0785185421";
+              user.save();
+          }
         return ok(views.html.login.render());
     }
     public static Result logout(){
@@ -24,6 +43,7 @@ public class Application extends Controller {
         return ok(views.html.index.render());
     }
     public static Result loadCurrentUser(){
+
         User user=User.findByUsername(session("userId"));
         return ok(Json.toJson(user));
     }
@@ -115,6 +135,40 @@ public class Application extends Controller {
         List<User> userList=User.all();
         System.out.println("----------------------------------\n"+userList);
         return ok(Json.toJson(userList));
+    }
+    public static Result uploadImage(){
+        Http.MultipartFormData body = request().body().asMultipartFormData();
+        Http.MultipartFormData.FilePart picture = body.getFile("photo");
+        if (picture != null) {
+            String fileName = picture.getFilename();
+            String contentType = picture.getContentType();
+            File file = picture.getFile();
+            String text=(new Date().getTime())+ fileName;
+            file.renameTo(new File("public/images",text));
+
+            return ok(text);
+        } else {
+            flash("error", "Missing file");
+            return ok("Error");
+        }
+    }
+    public static Result updateUserImage(long id){
+        Http.MultipartFormData body = request().body().asMultipartFormData();
+        Http.MultipartFormData.FilePart picture = body.getFile("photo");
+        if (picture != null) {
+            User user=User.finderById(id);
+            String fileName = picture.getFilename();
+            String contentType = picture.getContentType();
+            File file = picture.getFile();
+            String text=(new Date().getTime())+ fileName;
+            file.renameTo(new File("public/images",text));
+            user.photo=text;
+            user.update();
+            return redirect("/user/");
+        } else {
+            flash("error", "Missing file");
+            return ok("Error");
+        }
     }
     public static play.mvc.Result loadBlands(){
             List<Bland> bland = Bland.all();
@@ -386,5 +440,21 @@ public class Application extends Controller {
         System.out.println("------------------- \n spare part updated successfully");
         List<SparePart> sparePartList = SparePart.all();
         return ok(Json.toJson(sparePartList));
+    }
+    public static Result vehicleByBland(long id){
+        List<Vehicle> vehicle=Vehicle.find.where().eq("bland_id",id).findList();
+        return ok(Json.toJson(vehicle));
+    }
+    public static Result vehicleBySerie(long id){
+        List<Series> seriesList=Series.find.where().eq("vehicle_id",id).findList();
+        return ok(Json.toJson(seriesList));
+    }
+    public static Result vehicleByPartType(long id){
+        List<PartType> partTypes=PartType.find.where().eq("series_id",id).findList();
+        return ok(Json.toJson(partTypes));
+    }
+    public static Result vehicleBySparePart(long id){
+        List<SparePart> spareParts=SparePart.find.where().eq("part_type_id",id).findList();
+        return ok(Json.toJson(spareParts));
     }
 }
