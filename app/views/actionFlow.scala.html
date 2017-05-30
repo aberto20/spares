@@ -1,10 +1,182 @@
-@(page:String)
-<div  class="list-group success">
-    <a style="background-color: whitesmoke "  class="list-group-item "   href="/">Bland</a>
-    <a style="background-color: whitesmoke"  class="list-group-item @if(page=="vehicle"){active breadcrumb} "  href="">Vehicle type</a>
-    <a style="background-color: whitesmoke"  class="list-group-item @if(page=="serie"){active disabled} " href="">Series</a>
-    <a style="background-color: whitesmoke"  class="list-group-item @if(page=="partType"){active disabled} "  href="">Part type</a>
-    <a style="background-color: whitesmoke"  class="list-group-item @if(page=="sparePart"){active disabled} " href="">Spare part</a>
-    <a style="background-color: whitesmoke"  class="list-group-item @if(page=="partDetails"){active disabled} " href="">Spare part details</a>
+
+<div ng-show="showVehile" class="list-group success">
+    <h3 style="text-align: center">Details </h3>
+    <div  >
+        <table style="width: 100%;height: 100%">
+            <tr>
+                <td> <center><img src="@routes.Assets.at("images/{{getvehicleIndex.bland.image}}")" class="img-responsive" style="height: 80px;width:80px"></center></td>
+            </tr>
+            <tr>
+                <td>
+                    <center>{{getvehicleIndex.bland.blandName}}</center>
+                </td>
+            </tr>
+        </table>
+
+    </div>
+
+
+</div>
+<div ng-show="showSerie" class="list-group success">
+    <h3 style="text-align: center">Details </h3>
+    <div  >
+        <table style="width: 100%;height: 100%">
+            <tr>
+                <td> <center><img src="@routes.Assets.at("images/{{getvehicleIndex.bland.image}}")" class="img-responsive" style="height: 80px;width:80px"></center></td>
+            </tr>
+            <tr>
+                <td>
+                    <center>{{getvehicleIndex.bland.blandName}}</center>
+                </td>
+            </tr>
+        </table>
+        <hr >
+        <center ><b>Series</b></center>
+        <table style="width: 100%;height: 100%">
+            <tr>
+                <td>
+                    <center>{{getSerieIndex.serieName}}</center>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <center>{{getSerieIndex.serieNo}}</center>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <center>{{getSerieIndex.fablicationYear}}</center>
+                </td>
+            </tr>
+        </table>
+
+    </div>
+
+
+</div>
+<div ng-show="showParttype" class="list-group success">
+    <h3 style="text-align: center">Details </h3>
+    <div  >
+        <table style="width: 100%;height: 100%">
+            <tr>
+                <td> <center><img src="@routes.Assets.at("images/{{getvehicleIndex.bland.image}}")" class="img-responsive" style="height: 80px;width:80px"></center></td>
+            </tr>
+            <tr>
+                <td>
+                    <center>{{getvehicleIndex.bland.blandName}}</center>
+                </td>
+            </tr>
+        </table>
+        <hr >
+        <center ><b>Series</b></center>
+        <table style="width: 100%;height: 100%">
+            <tr>
+                <td>
+                    <center>{{getSerieIndex.serieName}}</center>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <center>{{getSerieIndex.serieNo}}</center>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <center>{{getSerieIndex.fablicationYear}}</center>
+                </td>
+            </tr>
+        </table>
+        <hr>
+        <center ><b>Part type</b></center>
+        <table style="width: 100%;height: 100%">
+            <tr>
+                <td>
+                    <center>{{getParttypeIndex.typeName}}</center>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <center>{{getParttypeIndex.description}}</center>
+                </td>
+            </tr>
+        </table>
+
+    </div>
+
+
+</div>
+<div ng-show="showSparepart" class="list-group success">
+    <h3 style="text-align: center">Details </h3>
+    <div  >
+        <table style="width: 100%;height: 100%">
+            <tr>
+                <td> <center><img src="@routes.Assets.at("images/{{getvehicleIndex.bland.image}}")" class="img-responsive" style="height: 80px;width:80px"></center></td>
+            </tr>
+            <tr>
+                <td>
+                    <center>{{getvehicleIndex.bland.blandName}}</center>
+                </td>
+            </tr>
+        </table>
+        <hr >
+        <center ><b>Series</b></center>
+        <table style="width: 100%;height: 100%">
+            <tr>
+                <td>
+                    <center>{{getSerieIndex.series.serieNo}}</center>
+                </td>
+            </tr>
+        </table>
+        <hr>
+        <center ><b>Part type</b></center>
+        <table style="width: 100%;height: 100%">
+            <tr>
+                <td>
+                    <center>{{getParttypeIndex.typeName}}</center>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <center>{{getParttypeIndex.description}}</center>
+                </td>
+            </tr>
+        </table>
+        <hr>
+        <center ><b>Spare part</b></center>
+        <table style="width: 100%;height: 100%">
+            <tr>
+                <td>
+                    <center>{{getSparePartIndex.partName}}</center>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <center>{{getSparePartIndex.modelNumber}}</center>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <center>{{getSparePartIndex.manufacturerPrice}}</center>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <center>{{getSparePartIndex.fittingName}}</center>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <center>{{getSparePartIndex.originality}}</center>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <center>{{getSparePartIndex.fablicationYear}}</center>
+                </td>
+            </tr>
+        </table>
+
+    </div>
+
 
 </div>

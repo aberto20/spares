@@ -17,6 +17,7 @@ var appinside = angular.module('spareApploggedin', ['ngRoute','angularUtils.dire
     .when('/allneighbour', { templateUrl: '/allNeighbours/' })
     .when('/listConsult', { templateUrl: '/listConsultation/' })
 
+
 });
 
 

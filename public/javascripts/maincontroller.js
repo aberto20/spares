@@ -8,7 +8,13 @@
         $http.get('/vehicleByBland/'+id).success(function (data, status, headers, config){
             //alert(JSON.stringify(data));
 
+
             $scope.vehicleType=data;
+            for(var d in data){
+                if(data[d].id == id){
+                    $scope.getvehicleIndex= data[d];
+                }
+            }
             $scope.showVehile=true;
             $scope.showBland=false;
             $scope.showSerie=false;
@@ -19,10 +25,54 @@
         });
 
     };
+    $scope.showVehilePage=function(){
+        $scope.showVehile=true;
+        $scope.showBland=false;
+        $scope.showSerie=false;
+        $scope.showParttype=false;
+        $scope.showSparepart=false;
+        $scope.showSparepartDetails=false;
+    };
+    $scope.showBlandPage=function(){
+        $scope.showVehile=false;
+        $scope.showBland=true;
+        $scope.showSerie=false;
+        $scope.showParttype=false;
+        $scope.showSparepart=false;
+        $scope.showSparepartDetails=false;
+    };
+    $scope.showSeriePage=function(){
+        $scope.showVehile=false;
+        $scope.showBland=false;
+        $scope.showSerie=true;
+        $scope.showParttype=false;
+        $scope.showSparepart=false;
+        $scope.showSparepartDetails=false;
+    };
+    $scope.showParttypePage=function(){
+        $scope.showBland=false;
+        $scope.showVehile=false;
+        $scope.showSerie=false;
+        $scope.showParttype=true;
+        $scope.showSparepart=false;
+        $scope.showSparepartDetails=false;
+    };
+    $scope.showsparepartyPage=function(){
+        $scope.showVehile=false;
+        $scope.showBland=false;
+        $scope.showSerie=false;
+        $scope.showParttype=false;
+        $scope.showSparepart=true;
+        $scope.showSparepartDetails=false;
+    };
     $scope.selectSeries = function (id) {
         $http.get('/vehicleBySerie/'+id).success(function (data, status, headers, config){
             //alert(JSON.stringify(data));
-
+            for(var d in data){
+                if(data[d].id == id){
+                    $scope.getSerieIndex= data[d];
+                }
+            }
             $scope.seriesType=data;
             $scope.showVehile=false;
             $scope.showBland=false;
@@ -37,7 +87,11 @@
     $scope.selectParttype = function (id) {
         $http.get('/vehicleByPartType/'+id).success(function (data, status, headers, config){
             //alert(JSON.stringify(data));
-
+            for(var d in data){
+                if(data[d].id == id){
+                    $scope.getParttypeIndex= data[d];
+                }
+            }
             $scope.sparepartTypes=data;
             $scope.showBland=false;
             $scope.showVehile=false;
@@ -52,7 +106,11 @@
     $scope.selectspareparty = function (id) {
         $http.get('/vehicleBySparePart/'+id).success(function (data, status, headers, config){
             //alert(JSON.stringify(data));
-
+            for(var d in data){
+                if(data[d].id == id){
+                    $scope.getSparePartIndex= data[d];
+                }
+            }
             $scope.sparepartss=data;
             $scope.showVehile=false;
             $scope.showBland=false;
