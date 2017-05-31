@@ -14,6 +14,11 @@ var app = angular.module('spareApp', ['ngRoute']).config(function ($routeProvide
     .when('/allParent', { templateUrl: '/allParents/' })
     .when('/allneighbour', { templateUrl: '/allNeighbours/' })
     .when('/listConsult', { templateUrl: '/listConsultation/' })
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 61b5132d51eeb16023bcf5346f5e7ae1108be59a
 });
 
 
