@@ -18,6 +18,7 @@ public class Bland extends Model {
     public long id;
     public String blandName = "";
     public String description = "";
+    public String image = "";
 
     public boolean deleteStatus = false;
     public String deleteReason = "";

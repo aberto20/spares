@@ -7,6 +7,7 @@ create table bland (
   id                        bigint auto_increment not null,
   bland_name                varchar(255),
   description               varchar(255),
+  image                     varchar(255),
   delete_status             tinyint(1) default 0,
   delete_reason             varchar(255),
   done_by                   varchar(255),
@@ -50,6 +51,7 @@ create table spare_part (
   fitting_name              varchar(255),
   originality               varchar(255),
   fablication_year          varchar(255),
+  part_type_id              bigint,
   delete_status             tinyint(1) default 0,
   delete_reason             varchar(255),
   done_by                   varchar(255),
@@ -93,8 +95,10 @@ alter table part_type add constraint fk_part_type_series_1 foreign key (series_i
 create index ix_part_type_series_1 on part_type (series_id);
 alter table series add constraint fk_series_vehicle_2 foreign key (vehicle_id) references vehicle (id) on delete restrict on update restrict;
 create index ix_series_vehicle_2 on series (vehicle_id);
-alter table vehicle add constraint fk_vehicle_bland_3 foreign key (bland_id) references bland (id) on delete restrict on update restrict;
-create index ix_vehicle_bland_3 on vehicle (bland_id);
+alter table spare_part add constraint fk_spare_part_partType_3 foreign key (part_type_id) references part_type (id) on delete restrict on update restrict;
+create index ix_spare_part_partType_3 on spare_part (part_type_id);
+alter table vehicle add constraint fk_vehicle_bland_4 foreign key (bland_id) references bland (id) on delete restrict on update restrict;
+create index ix_vehicle_bland_4 on vehicle (bland_id);
 
 
 

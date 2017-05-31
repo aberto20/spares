@@ -4,8 +4,106 @@
     }else {
         $scope.displaydata='Show list users';
     }
+    $scope.selectVehicle = function (id) {
+        $http.get('/vehicleByBland/'+id).success(function (data, status, headers, config){
+            //alert(JSON.stringify(data));
+
+            $scope.vehicleType=data;
+            $scope.showVehile=true;
+            $scope.showBland=false;
+            $scope.showSerie=false;
+            $scope.showParttype=false;
+            $scope.showSparepart=false;
+            $scope.showSparepartDetails=false;
+
+        });
+
+    };
+    $scope.selectSeries = function (id) {
+        $http.get('/vehicleBySerie/'+id).success(function (data, status, headers, config){
+            //alert(JSON.stringify(data));
+
+            $scope.seriesType=data;
+            $scope.showVehile=false;
+            $scope.showBland=false;
+            $scope.showSerie=true;
+            $scope.showParttype=false;
+            $scope.showSparepart=false;
+            $scope.showSparepartDetails=false;
+
+        });
+
+    };
+    $scope.selectParttype = function (id) {
+        $http.get('/vehicleByPartType/'+id).success(function (data, status, headers, config){
+            //alert(JSON.stringify(data));
+
+            $scope.sparepartTypes=data;
+            $scope.showBland=false;
+            $scope.showVehile=false;
+            $scope.showSerie=false;
+            $scope.showParttype=true;
+            $scope.showSparepart=false;
+            $scope.showSparepartDetails=false;
+
+        });
+
+    };
+    $scope.selectspareparty = function (id) {
+        $http.get('/vehicleBySparePart/'+id).success(function (data, status, headers, config){
+            //alert(JSON.stringify(data));
+
+            $scope.sparepartss=data;
+            $scope.showVehile=false;
+            $scope.showBland=false;
+            $scope.showSerie=false;
+            $scope.showParttype=false;
+            $scope.showSparepart=true;
+            $scope.showSparepartDetails=false;
+
+        });
+
+    };
+    $scope.selectsparepartyDetails = function (id) {
+        $http.get('/loadCurrentUser/').success(function (data, status, headers, config){
+            //alert(JSON.stringify(data));
+
+            $scope.sparepartDetail=data;
+            $scope.showVehile=false;
+            $scope.showBland=false;
+            $scope.showSerie=false;
+            $scope.showParttype=false;
+            $scope.showSparepart=false;
+            $scope.showSparepartDetails=true;
+
+        });
+
+    };
+    $scope.uploadPhoto = function(files) {
+        $scope.btnSubmit=false;
+        var fd = new FormData();
+        //Take the first selected file
+        fd.append("photo", files[0]);
+
+        //alert("Uploading");
+
+        $http.post("/uploadImage/", fd, {
+            withCredentials: true,
+            headers: {'Content-Type': undefined },
+            transformRequest: angular.identity
+        }).success(function (data, status, headers, config) {
+            if(data!='Error'){
+                $scope.getphoto = data;
+                // alert(JSON.stringify($scope.trainee));
+                $scope.msgcv={class:"alert alert-success",message:"Uploaded successfully"};
+                $scope.btnSubmit=true;
+            }
+
+        });
+    };
     $scope.saveUser = function () {
         $scope.dataLoading = true;
+        $scope.newUserInfo.photo=$scope.getphoto;
         $http.post('/saveUser/',$scope.newUserInfo ).success(function (data, status, headers, config){
             //alert(JSON.stringify(data));
             if (data=='usernameExist'){
@@ -22,7 +120,7 @@
             }
             $scope.users=data;
             $scope.new=false;
-            $scope.newUserInfo=[];
+            $scope.newUserInfo="";
             $scope.dataLoading = false;
 
         });
@@ -64,6 +162,7 @@
     };
     $scope.saveBland = function () {
         $scope.dataLoading = true;
+        $scope.newBlandInfo.image=$scope.getphoto;
         $http.post('/save/bland/',$scope.newBlandInfo ).success(function (data, status, headers, config){
             //alert(JSON.stringify(data));
             if (data=='blandNameExist'){
@@ -73,7 +172,6 @@
 
             $scope.blands=data;
             $scope.new=false;
-            $scope.newBlandInfo=[];
             $scope.dataLoading = false;
 
         });
@@ -172,15 +270,17 @@
         $http.get('/list/bland/').success(function (data, status, headers, config){
             //alert(JSON.stringify(data));
             $scope.blands=data;
+            $scope.showBland=true;
 
         });
 
     };
     $scope.home=function(){
         window.location="/";
-    }
+    };
     $scope.saveVehicle = function () {
         $scope.dataLoading = true;
+        $scope.newVehicleInfo.image=$scope.getphoto;
         $http.post('/save/vehicle/',$scope.newVehicleInfo ).success(function (data, status, headers, config){
             //alert(JSON.stringify(data));
             if (data=='vehicleNameExists'){
@@ -189,7 +289,7 @@
             }
             $scope.vehicles=data;
             $scope.new=false;
-            $scope.newVehicleInfo=[];
+            $scope.newVehicleInfo="";
             $scope.dataLoading = false;
         });
     };
@@ -235,6 +335,7 @@
     };
     $scope.saveSparePart=function () {
         $scope.dataLoading = true;
+        $scope.newPartNameInfo.image=$scope.getphoto;
         $http.post('/saveSparePart/',$scope.newPartNameInfo ).success(function (data, status, headers, config){
             //alert(JSON.stringify(data));
             if (data=='partNameExists'){
@@ -244,7 +345,7 @@
 
             $scope.spareParts=data;
             $scope.new=false;
-            $scope.newPartNameInfo=[];
+            $scope.newPartNameInfo="";
             $scope.dataLoading = false;
 
         });
@@ -288,7 +389,7 @@
 
             $scope.series=data;
             $scope.new=false;
-            $scope.newVehicleInfo=[];
+            $scope.newVehicleInfo="";
             $scope.dataLoading = false;
 
         });
@@ -325,6 +426,7 @@
     };
     $scope.savePartType = function () {
         $scope.dataLoading = true;
+        $scope.newVehicleInfo.image=$scope.getphoto;
         $http.post('/savePartType/',$scope.newVehicleInfo ).success(function (data, status, headers, config){
             //alert(JSON.stringify(data));
             if (data=='partTypeExists'){
@@ -334,7 +436,7 @@
 
             $scope.loadSparePartTypes=data;
             $scope.new=false;
-            $scope.newVehicleInfo=[];
+            $scope.newVehicleInfo="";
             $scope.dataLoading = false;
 
         });

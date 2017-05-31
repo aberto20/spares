@@ -1,72 +1,137 @@
 @main("Home"){
-<div class="container">
+<div ng-controller="MainController" class="container">
 @frontHeader()
-        <div style="height:100%;margin-top:0" class="panel panel-default">
-                <div class="row">
-                        <div class="col-md-4">
+        <div ng-show="showBland" ng-init="loadBlands()" style="height:100%;margin-top:0" class="panel panel-default">
+                <div ><center><h2>Please select a bland type to browse vehicles and parts... </h2></center></div>
+                <div   class="row">
+                        <div ng-repeat="m in blands" class="col-md-4">
                                 <div class="thumbnail">
-                                             <a href="">
-                                                <img src="@routes.Assets.at("images/benz.png")" alt="" class="img-responsive" style="height: 100px;width:200px" >
+                                             <a ng-click="selectVehicle(m.id)" href="">
+                                                <img src="@routes.Assets.at("images/{{m.image}}")" alt="{{m.blandName}}" class="img-responsive" style="height: 100px;width:200px" >
                                                 <div class="caption">
-                                                        <center>Model</center>
+                                                        <center>{{m.blandName |uppercase}}</center>
                                                 </div>
                                              </a>
                                 </div>
                         </div>
-                        <div class="col-md-4">
-                                <div class="thumbnail">
-                                        <a href="">
-                                                <img src="@routes.Assets.at("images/hyundai.png")" class="img-responsive" alt="" style="height: 100px;width:200px">
-                                                <div class="caption">
-                                                        <center>Model</center>
-                                                </div>
-                                        </a>
-                                </div>
-                        </div>
-                        <div class="col-md-4">
-                                <div class="thumbnail">
-                                        <a href="">
-                                                <img src="@routes.Assets.at("images/mitsubish.png")" alt="" class="img-responsive"  style="height: 100px;width:200px">
-                                                <div class="caption">
-                                                        <center>Model</center>
-                                                </div>
-                                        </a>
-                                </div>
-                        </div>
-                        <div class="col-md-4">
-                                <div class="thumbnail">
-                                        <a href="">
-                                        <img  src="@routes.Assets.at("images/nissan.png")" alt="" class="img-responsive" style="height: 100px;width:200px">
-                                        <div class="caption">
-                                                <center>Model</center>
-                                        </div>
-                                        </a>
 
-                                </div>
-                        </div>
-                        <div class="col-md-4">
-                                <div class="thumbnail">
-                                        <a href="">
-                                        <img src="@routes.Assets.at("images/landrover.png")" alt="" class="img-responsive" style="height: 100px;width:200px">
-                                        <div class="caption">
-                                                <center>Model</center>
-                                        </div>
-                                        </a>
+                </div>
 
-                                </div>
-                        </div>
-                        <div class="col-md-4">
-                                <div class="thumbnail">
-                                        <a href="">
-                                        <img src="@routes.Assets.at("images/toyota.png")" alt="" class="img-responsive" style="height: 100px;width:200px">
-                                        <div class="caption">
-                                                <center>Model</center>
-                                        </div>
-                                        </a>
+        </div>
+        <div ng-show="showVehile" style="height:100%;margin-top:0" class="panel panel-default col-lg-12">
 
+                <div class="col-lg-3">
+                        <br>
+                        @actionFlow("vehicle")
+                </div>
+                <div class="col-lg-9">
+                        <div   class="row">
+                                <div ng-repeat="v in vehicleType" class="col-md-4">
+                                        <div class="thumbnail">
+                                                <a ng-click="selectSeries(v.id)" href="">
+                                                        <img src="@routes.Assets.at("images/{{v.image}}")" alt="{{v.vehicleName}}" class="img-responsive" style="height: 100px;width:200px" >
+                                                        <div class="caption">
+                                                                <center>{{v.vehicleName |uppercase}}</center>
+                                                        </div>
+                                                </a>
+                                        </div>
                                 </div>
+
                         </div>
                 </div>
+
+        </div>
+        <div ng-show="showSerie" style="height:100%;margin-top:0" class="panel panel-default col-lg-12">
+
+                <div class="col-lg-3">
+                        <br>
+                        @actionFlow("serie")
+                </div>
+                <div class="col-lg-9">
+                        <div   class="row">
+                                <div ng-repeat="s in seriesType" class="col-md-4">
+                                        <div class="thumbnail">
+                                                <a href="" ng-click="selectParttype(s.id)">
+                                                        <h1>{{s.serieNo}}</h1>
+                                                        <div class="caption">
+                                                                <center>{{s.fablicationYear |uppercase}}</center>
+                                                        </div>
+                                                </a>
+                                        </div>
+                                </div>
+
+                        </div>
+                </div>
+
+        </div>
+        <div ng-show="showParttype" style="height:100%;margin-top:0" class="panel panel-default col-lg-12">
+
+                <div class="col-lg-3">
+                        <br>
+                        @actionFlow("partType")
+                </div>
+                <div class="col-lg-9">
+                        <div   class="row">
+                                <div ng-repeat="sp in sparepartTypes" class="col-md-4">
+                                        <div class="thumbnail">
+                                                <a href="" ng-click="selectspareparty(sp.id)">
+                                                        <img src="@routes.Assets.at("images/{{sp.image}}")" alt="{{sp.typeName}}" class="img-responsive" style="height: 100px;width:200px" >
+                                                        <div class="caption">
+                                                                <center>{{sp.description }}</center>
+                                                        </div>
+                                                </a>
+                                        </div>
+                                </div>
+
+                        </div>
+                </div>
+
+        </div>
+        <div ng-show="showSparepart" style="height:100%;margin-top:0" class="panel panel-default col-lg-12">
+
+                <div class="col-lg-3">
+                        <br>
+                        @actionFlow("sparePart")
+                </div>
+                <div class="col-lg-9">
+                        <div   class="row">
+                                <div ng-repeat="i in sparepartss" class="col-md-4">
+                                        <div class="thumbnail">
+                                                <a href="">
+                                                        <img src="@routes.Assets.at("images/{{i.image}}")" alt="{{i.typeName}}" class="img-responsive" style="height: 100px;width:200px" >
+                                                        <div class="caption">
+                                                                <center>{{i.fablicationYear |uppercase}}</center>
+                                                        </div>
+                                                </a>
+                                        </div>
+                                </div>
+
+                        </div>
+                </div>
+
+        </div>
+        <div ng-show="showSparepartDetails" style="height:100%;margin-top:0" class="panel panel-default col-lg-12">
+
+                <div class="col-lg-3">
+                        <br>
+                        @actionFlow("partDetails")
+                </div>
+                <div class="col-lg-9">
+                        <div   class="row">
+                                <div ng-repeat="v in sparepartDetail" class="col-md-4">
+                                        <div class="thumbnail">
+                                                <a ng-click="selectSeries(m.id)">
+                                                        <img src="@routes.Assets.at("images/{{v.image}}")" alt="{{m.serieNo}}" class="img-responsive" style="height: 100px;width:200px" >
+                                                        <div class="caption">
+                                                                <center>{{m.fablicationYear |uppercase}}</center>
+                                                        </div>
+                                                </a>
+                                        </div>
+                                </div>
+
+                        </div>
+                </div>
+
         </div>
 </div>
 
