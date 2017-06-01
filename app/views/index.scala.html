@@ -118,23 +118,43 @@
                         @actionFlow()
                 </div>
                 <div class="col-lg-9">
-                        <div   class="row">
-                                <div ng-repeat="i in sparepartss" class="col-md-4">
-                                        <div class="thumbnail">
-                                                <a href="">
-                                                        <img src="@routes.Assets.at("images/{{i.image}}")" alt="{{i.typeName}}" class="img-responsive" style="height: 100px;width:200px" >
-                                                        <div class="caption">
-                                                                <center>{{i.fablicationYear |uppercase}}</center>
-                                                        </div>
-                                                </a>
-                                        </div>
-                                </div>
-
-                        </div>
+                        <center ><b>Spare part</b></center>
+                        <table style="width: 100%;height: 100%">
+                                <tr>
+                                        <td>
+                                                <center>{{getSparePartIndex.partName}}</center>
+                                        </td>
+                                </tr>
+                                <tr>
+                                        <td>
+                                                <center>{{getSparePartIndex.modelNumber}}</center>
+                                        </td>
+                                </tr>
+                                <tr>
+                                        <td>
+                                                <center>{{getSparePartIndex.manufacturerPrice}}</center>
+                                        </td>
+                                </tr>
+                                <tr>
+                                        <td>
+                                                <center>{{getSparePartIndex.fittingName}}</center>
+                                        </td>
+                                </tr>
+                                <tr>
+                                        <td>
+                                                <center>{{getSparePartIndex.originality}}</center>
+                                        </td>
+                                </tr>
+                                <tr>
+                                        <td>
+                                                <center>{{getSparePartIndex.fablicationYear}}</center>
+                                        </td>
+                                </tr>
+                        </table>
                 </div>
 
         </div>
-        <div ng-show="showSparepartDetails" style="height:100%;margin-top:0" class="panel panel-default col-lg-12">
+        <div ng-show="showSearch" style="height:100%;margin-top:0" class="panel panel-default col-lg-12">
                 <ul class="breadcrumb">
                         <li><a  ng-click="showBlandPage()"href="">Vehicle bland</a></li>
                         <li><a  ng-click="showVehilePage()" href="">Vehicle</a></li>
@@ -149,19 +169,39 @@
                         @actionFlow()
                 </div>
                 <div class="col-lg-9">
-                        <div   class="row">
-                                <div ng-repeat="v in sparepartDetail" class="col-md-4">
-                                        <div class="thumbnail">
-                                                <a ng-click="selectSeries(m.id)">
-                                                        <img src="@routes.Assets.at("images/{{v.image}}")" alt="{{m.serieNo}}" class="img-responsive" style="height: 100px;width:200px" >
-                                                        <div class="caption">
-                                                                <center>{{m.fablicationYear |uppercase}}</center>
-                                                        </div>
-                                                </a>
-                                        </div>
-                                </div>
-
-                        </div>
+                        <center ><b>Spare part</b></center>
+                        <table style="width: 100%;height: 100%">
+                                <tr>
+                                        <td>
+                                                <center>{{getSparePartIndex.partName}}</center>
+                                        </td>
+                                </tr>
+                                <tr>
+                                        <td>
+                                                <center>{{getSparePartIndex.modelNumber}}</center>
+                                        </td>
+                                </tr>
+                                <tr>
+                                        <td>
+                                                <center>{{getSparePartIndex.manufacturerPrice}}</center>
+                                        </td>
+                                </tr>
+                                <tr>
+                                        <td>
+                                                <center>{{getSparePartIndex.fittingName}}</center>
+                                        </td>
+                                </tr>
+                                <tr>
+                                        <td>
+                                                <center>{{getSparePartIndex.originality}}</center>
+                                        </td>
+                                </tr>
+                                <tr>
+                                        <td>
+                                                <center>{{getSparePartIndex.fablicationYear}}</center>
+                                        </td>
+                                </tr>
+                        </table>
                 </div>
 
         </div>

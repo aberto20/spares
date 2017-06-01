@@ -44,4 +44,7 @@ public class SparePart extends Model {
     public static SparePart findByPartName(String partName) {
         return find.where().eq("part_name", partName).findUnique();
     }
+    public static SparePart findByPartModel(String partModel) {
+        return find.where().eq("model_number", partModel).findUnique();
+    }
 }

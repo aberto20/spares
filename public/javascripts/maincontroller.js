@@ -21,6 +21,9 @@
             $scope.showParttype=false;
             $scope.showSparepart=false;
             $scope.showSparepartDetails=false;
+            $scope.showSearch=false;
+            $scope.showsearchDetails=false;
+            $scope.showsearchDetails=false;
 
         });
 
@@ -32,6 +35,8 @@
         $scope.showParttype=false;
         $scope.showSparepart=false;
         $scope.showSparepartDetails=false;
+        $scope.showSearch=false;
+        $scope.showsearchDetails=false;
     };
     $scope.showBlandPage=function(){
         $scope.showVehile=false;
@@ -40,6 +45,8 @@
         $scope.showParttype=false;
         $scope.showSparepart=false;
         $scope.showSparepartDetails=false;
+        $scope.showSearch=false;
+        $scope.showsearchDetails=false;
     };
     $scope.showSeriePage=function(){
         $scope.showVehile=false;
@@ -48,6 +55,8 @@
         $scope.showParttype=false;
         $scope.showSparepart=false;
         $scope.showSparepartDetails=false;
+        $scope.showSearch=false;
+        $scope.showsearchDetails=false;
     };
     $scope.showParttypePage=function(){
         $scope.showBland=false;
@@ -56,6 +65,8 @@
         $scope.showParttype=true;
         $scope.showSparepart=false;
         $scope.showSparepartDetails=false;
+        $scope.showSearch=false;
+        $scope.showsearchDetails=false;
     };
     $scope.showsparepartyPage=function(){
         $scope.showVehile=false;
@@ -64,6 +75,8 @@
         $scope.showParttype=false;
         $scope.showSparepart=true;
         $scope.showSparepartDetails=false;
+        $scope.showSearch=false;
+        $scope.showsearchDetails=false;
     };
     $scope.selectSeries = function (id) {
         $http.get('/vehicleBySerie/'+id).success(function (data, status, headers, config){
@@ -80,6 +93,8 @@
             $scope.showParttype=false;
             $scope.showSparepart=false;
             $scope.showSparepartDetails=false;
+            $scope.showSearch=false;
+            $scope.showsearchDetails=false;
 
         });
 
@@ -99,6 +114,31 @@
             $scope.showParttype=true;
             $scope.showSparepart=false;
             $scope.showSparepartDetails=false;
+            $scope.showSearch=false;
+            $scope.showsearchDetails=false;
+
+        });
+
+    };
+    $scope.searchpartModel = function (model) {
+        if (model==""){
+            alert('Serie number required !');
+            return;
+        }
+        $http.get('/findByPartModel/'+model).success(function (data, status, headers, config){
+            //alert(JSON.stringify(data));
+            if(data!=""){
+                $scope.getSparePartIndex=data;
+                $scope.showBland=false;
+                $scope.showVehile=false;
+                $scope.showSerie=false;
+                $scope.showSearch=true;
+                $scope.showParttype=false;
+                $scope.showSparepart=false;
+                $scope.showsearchDetails=true;
+                $scope.showSparepartDetails=false;
+            }
+
 
         });
 
@@ -118,6 +158,8 @@
             $scope.showParttype=false;
             $scope.showSparepart=true;
             $scope.showSparepartDetails=false;
+            $scope.showSearch=false;
+            $scope.showsearchDetails=false;
 
         });
 
@@ -133,6 +175,8 @@
             $scope.showParttype=false;
             $scope.showSparepart=false;
             $scope.showSparepartDetails=true;
+            $scope.showSearch=false;
+            $scope.showsearchDetails=false;
 
         });
 

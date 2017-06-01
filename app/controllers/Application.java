@@ -456,4 +456,14 @@ public class Application extends Controller {
         List<SparePart> spareParts=SparePart.find.where().eq("part_type_id",id).findList();
         return ok(Json.toJson(spareParts));
     }
+    public static Result findByPartModel(String model){
+        SparePart sp;
+        sp=SparePart.findByPartModel(model);
+        if (sp!=null){
+            return ok(Json.toJson(sp));
+        }else {
+            return ok("");
+        }
+
+    }
 }
