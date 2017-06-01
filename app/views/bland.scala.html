@@ -65,15 +65,24 @@
 
                     </div>
                 </form>
+                <br>Page:
+                <select ng-model="number">
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="15">15</option>
+                    <option value="20">20</option>
+                    <option value="50">50</option>
+                </select>
+                <br>
                 <div style="min-height:400px" class="">
 
 
-                    <table ng-init="loadBlands()" class="table table-striped" style="">
+                    <table ng-init="loadBlands();number=10" class="table table-striped" style="">
                         <tr>
                             <th></th><th>Image</th><th>Bland name</th><th>Description</th><th >Done by</th><th >date</th><th></th>
                         </tr>
 
-                        <tr ng-repeat="a in blands |filter:search">
+                        <tr dir-paginate="a in blands |filter:search |itemsPerPage:number">
                             <td><button ng-click="a.edit = true" ng-hide="a.edit" class="btn btn-primary"><span class="glyphicon glyphicon-pencil"></span></button>
                                 <div ng-show="a.edit" class="panel panel-default" style="z-index:1000; position:absolute; width:400px; background:whitesmoke">
                                     <div style="padding:5px;">
@@ -130,6 +139,7 @@
                         </tr>
 
                     </table>
+                    <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="/assets/partials/tables/dirPagination.tpl.html"></dir-pagination-controls>
 
 
                 </div>
