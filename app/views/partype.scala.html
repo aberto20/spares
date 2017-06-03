@@ -50,7 +50,7 @@
                                         Serie
                                     </label>
                                     <select ng-model="newVehicleInfo.serieId" class="form-control">
-                                        <option ng-repeat="m in series" value="{{m.id}}">{{m.serieName}}</option>
+                                        <option ng-repeat="m in series" value="{{m.id}}">{{m.serieName}} [ {{m.series.vehicle.vehicleName}} ]</option>
                                     </select>
                                     <label>
                                        Type name
@@ -120,7 +120,7 @@
                                             Serie
                                         </label>
                                         <select ng-model="a.serieId" class="form-control">
-                                            <option ng-repeat="m in series" value="{{m.id}}">{{m.serieName}}</option>
+                                            <option ng-repeat="m in series" value="{{m.id}}">{{m.serieName}} [ {{m.series.vehicle.vehicleName}} ]</option>
                                         </select>
                                         <label>
                                             Type name

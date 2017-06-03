@@ -31,25 +31,20 @@
                                         Vehicle
                                     </label>
                                     <select ng-model="newVehicleInfo.vehicleId" class="form-control">
-                                        <option ng-repeat="m in vehicles" value="{{m.id}}">{{m.vehicleName}}</option>
+                                        <option ng-repeat="m in vehicles" value="{{m.id}}">{{m.vehicleName}} [ {{m.bland.blandName}} ]</option>
                                     </select>
                                     <label>
                                         serie#
                                     </label>
-                                    <input required ng-model="newSeriesInfo.serieNo" placeholder="Serie number" class="form-control">
+                                    <input required ng-model="newVehicleInfo.serieNo" placeholder="Serie number" class="form-control">
                                     <label>
                                         Serie name
                                     </label>
-<<<<<<< HEAD
-                                    <input required ng-model="newSeriesInfo.serieName" placeholder="Serie name" class="form-control">
-=======
                                     <input required ng-model="newVehicleInfo.serieName" placeholder="Serie name" class="form-control">
-
->>>>>>> 25702323d79545c5ff48124aa6923efb07e81b8f
                                     <label>
                                         Fabrication year
                                     </label>
-                                    <textarea  ng-model="newSeriesInfo.fablicationYear" placeholder="Description" class="form-control"></textarea>
+                                    <textarea  ng-model="newVehicleInfo.fablicationYear" placeholder="Description" class="form-control"></textarea>
                                     <hr>
                                     <button type="submit" ng-disabled="myForm.$invalid" class="btn btn-success">Save</button> <button ng-click="new = false" class="btn btn-default">Cancel</button>
                                 </div>
@@ -93,7 +88,7 @@
                                             Vehicle
                                         </label>
                                         <select required ng-model="a.vehicleId" class="form-control">
-                                            <option ng-repeat="m in vehicles" value="{{m.id}}">{{m.vehicleName}}</option>
+                                            <option ng-repeat="m in vehicles" value="{{m.id}}">{{m.vehicleName}} [ {{m.bland.blandName}} ]</option>
                                         </select>
                                         <label>
                                             Serie Number

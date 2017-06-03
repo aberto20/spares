@@ -6,9 +6,6 @@
     }
     $scope.selectVehicle = function (id) {
         $http.get('/vehicleByBland/'+id).success(function (data, status, headers, config){
-            //alert(JSON.stringify(data));
-
-
             $scope.vehicleType=data;
             for(var d in data){
                 if(data[d].id == id){
@@ -80,7 +77,6 @@
     };
     $scope.selectSeries = function (id) {
         $http.get('/vehicleBySerie/'+id).success(function (data, status, headers, config){
-            //alert(JSON.stringify(data));
             for(var d in data){
                 if(data[d].id == id){
                     $scope.getSerieIndex= data[d];
@@ -95,9 +91,7 @@
             $scope.showSparepartDetails=false;
             $scope.showSearch=false;
             $scope.showsearchDetails=false;
-
         });
-
     };
     $scope.selectParttype = function (id) {
         $http.get('/vehicleByPartType/'+id).success(function (data, status, headers, config){
@@ -126,7 +120,6 @@
             return;
         }
         $http.get('/findByPartModel/'+model).success(function (data, status, headers, config){
-            //alert(JSON.stringify(data));
             if(data!=""){
                 $scope.getSparePartIndex=data;
                 $scope.showBland=false;
@@ -145,7 +138,6 @@
     };
     $scope.selectspareparty = function (id) {
         $http.get('/vehicleBySparePart/'+id).success(function (data, status, headers, config){
-            //alert(JSON.stringify(data));
             for(var d in data){
                 if(data[d].id == id){
                     $scope.getSparePartIndex= data[d];
@@ -223,6 +215,26 @@
             $scope.users=data;
             $scope.new=false;
             $scope.newUserInfo="";
+            $scope.dataLoading = false;
+
+        });
+
+    };
+    $scope.updateUserImage = function (user) {
+        $scope.dataLoading = true;
+        user.photo=$scope.getphoto;
+        $http.post('/updateUserImage/'+user.id, user).success(function (data, status, headers, config){
+            if (data=='error'){
+                alert('User not updated there is an error');
+                $scope.dataLoading = false;
+                return;
+            }
+            $scope.users=data;
+            for(var d in data){
+                if(data[d].id == user.id){
+                    data[d].edit = false;
+                }
+            }
             $scope.dataLoading = false;
 
         });

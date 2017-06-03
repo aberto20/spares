@@ -458,7 +458,7 @@ public class Application extends Controller {
     }
     public static Result findByPartModel(String model){
         SparePart sp;
-        sp=SparePart.findByPartModel(model);
+        sp = SparePart.findByPartModel(model);
         if (sp!=null){
             return ok(Json.toJson(sp));
         }else {
