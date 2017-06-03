@@ -1,21 +1,21 @@
-
-@dashboardHome("Bland page"){
-    <div ng-controller="MainController">
+@dashboardHome("Bland page") {
+    <div ng-controller="MainController" class="container">
         @inHeader()
         <div class="col-lg-2">
             <div style="height:36px">
             </div>
             @sideBar("bland")
         </div>
-        <div class="col-lg-8">
+        <div class="col-lg-8" style="margin-left: 1% ; width: 82% ;">
             <div style="min-height:300px">
-                <h1 style="padding:0px; margin:0px">Bland control</h1>
-        <br>
                 <div>
                 </div>
                 <div class="">
                     <ul class="nav nav-tabs">
-                        <li role="presentation" ><a href="" class="btn btn-success" ng-click="new = !new;getphoto='';btnSubmit=false;newBlandInfo=''">Add a new bland</a></li>
+                        <li role="presentation" ><a href="" class="btn btn-success" ng-click="new = !new;getphoto='';btnSubmit=false;newBlandInfo=''">
+                            Add a new bland</a></li>
+                        <span class="pull-right"> <h1 style="padding:0px ; margin:0px">
+                            Bland management web page <i class="fa fa-cogs"></i></h1></span>
                     </ul>
                 </div>
                 <form ng-submit="saveBland()" name="myForm" >
@@ -23,7 +23,7 @@
                         <div class="panel-body">
                             <div class="panel panel-default" style="background:whitesmoke">
                                 <div class="panel-heading">
-                                    <h3 style="padding:0px; margin:0px">New bland registration</h3>
+                                    <h3 style="padding:0px ; margin:0px">New bland registration</h3>
                                 </div>
                                 <div class="panel-body">
                                     <label>
@@ -33,64 +33,61 @@
                                     <label>
                                         Description
                                     </label>
-                                    <textarea  ng-model="newBlandInfo.description" placeholder="Description" class="form-control"></textarea>
+                                    <textarea ng-model="newBlandInfo.description" placeholder="Description" class="form-control"></textarea>
                                     <br>
-                                    <div style="position:relative;">
+                                    <div style="position:relative ;">
                                         <a class='btn btn-primary' href='javascript:;'>
                                             Photo upload ....
-                                            <input type="file" ng-model="newUserInfo.photo" onchange="angular.element(this).scope().uploadPhoto(this.files)" name="photo" style='position:absolute;z-index:2;top:0;left:0;filter: alpha(opacity=0);-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";opacity:0;background-color:transparent;color:transparent;' name="file_source" size="40" >
+                                            <input type="file" ng-model="newUserInfo.photo" onchange="angular.element(this).scope().uploadPhoto(this.files)" name="photo" style='position:absolute ; z-index:2 ; top:0 ; left:0 ; filter: alpha(opacity=0) ; -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)" ; opacity:0 ; background-color:transparent ; color:transparent ;' name="file_source" size="40" >
                                         </a>
                                             &nbsp;
-                                        <span ng-show="btnSubmit" ><img style="height: 50px;width: 50px" src="@routes.Assets.at("images/{{getphoto}}")"></span>
+                                        <span ng-show="btnSubmit" ><img style="height: 50px ; width: 50px" src="@routes.Assets.at("images/{{getphoto}}")"></span>
                                         <div ng-if="getphoto=='Error'" class="msgcv.class">{{msgcv.message}}</div>
 
                                     </div>
                                     <hr>
-                                    <button type="submit" ng-disabled="myForm.$invalid" class="btn btn-success">Save</button> <button ng-click="new = false" class="btn btn-default">Cancel</button>
+                                    <button type="submit" ng-disabled="myForm.$invalid" class="btn btn-success">
+                                        Save</button> <button ng-click="new = false" class="btn btn-default">Cancel</button>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </form>
                 <br>
-                <form class="" role="search" style = "width:100%;">
+                <form class="" role="search" style = "width:100% ;">
                     <div>
                         <div class="input-group">
-                            <span class="input-group-addon" style="font-weight:bold; font-size:20px; padding:0px"><img src="@routes.Assets.at("images/rra.png")" style="height:45px" ></span><input ng-model="search" type="text" class="form-control" placeholder="Search " style = "height:50px">
+                            <span class="input-group-addon" style="font-weight:bold ; font-size:20px ; padding:0px"><img src="@routes.Assets.at("images/rra.png")" style="height:45px" ></span><input ng-model="search" type="text" class="form-control" placeholder="Search " style = "height:50px">
                             <span class = "input-group-btn">
 
-                                <button type="submit" ng-click="startsearch = true" class="btn btn-primary" style = "font-weight:bold; font-size:20px; height:50px">Search</button>
+                                <button type="submit" ng-click="startsearch = true" class="btn btn-primary" style = "font-weight:bold ; font-size:20px ; height:50px">
+                                    Search</button>
                             </span>
                         </div>
 
                     </div>
-                </form>
-                <br>Page:
-                <select ng-model="number">
+                </form>Select records per page :
+                <select ng-model="number" style="width: 20%; margin: 0.5%;">
                     <option value="5">5</option>
                     <option value="10">10</option>
-                    <option value="15">15</option>
-                    <option value="20">20</option>
                     <option value="50">50</option>
+                    <option value="1000000">All</option>
                 </select>
                 <br>
                 <div style="min-height:400px" class="">
-
                     <table ng-init="loadBlands();number=5" class="table table-striped" style="">
-                        <tr>
-                            <th></th><th>Image</th><th>Bland name</th><th>Description</th><th >Done by</th><th >date</th><th></th>
+                        <tr class="success">
+                            <th>Edit</th><th>Image</th><th>Bland name</th><th>Description</th><th >Done by</th>Remove<th>
+                            date</th><th></th>
                         </tr>
-
                         <tr dir-paginate="a in blands |filter:search |itemsPerPage:number">
-                            <td><button ng-click="a.edit = true" ng-hide="a.edit" class="btn btn-primary"><span class="glyphicon glyphicon-pencil"></span></button>
-                                <div ng-show="a.edit" class="panel panel-default" style="z-index:1000; position:absolute; width:400px; background:whitesmoke">
-                                    <div style="padding:5px;">
-
-                                        <a href="" class="pull-right" ng-click="a.edit = false" style="color:red">X</a>
+                            <td><button ng-click="a.edit = true" ng-hide="a.edit" class="btn btn-default pull-left;"><span style="color: #3596d4;" class="glyphicon glyphicon-pencil"></span></button>
+                                <div ng-show="a.edit" class="panel panel-default" style="z-index:1000 ; position:absolute ; width:400px ; background:whitesmoke">
+                                    <div style="padding:5px ;">
+                                        <a href="" class="pull-right" ng-click="a.edit = false" style="color:#3796d3;"><li class="fa fa-arrow-up"></li> </a>
                                     </div>
-
+                                    <span style="color: #3696d4;"> <h3>&nbsp;&nbsp;&nbsp;{{a.blandName}} modification form <li class="glyphicon glyphicon-pencil"></li> </h3></span>
                                     <div class="panel-body">
-
                                         <label>
                                             Bland name
                                         </label>
@@ -99,21 +96,14 @@
                                             Description
                                         </label>
                                         <textarea class="form-control" ng-model="a.description"></textarea>
-
                                         <hr>
-
-
-                                        <button ng-click="updateBland(a)" class="btn btn-success">Update</button> <button ng-click="a.edit = false" class="btn btn-default">Cancel</button>
-
-
+                                        <button ng-click="updateBland(a)" class="btn btn-success">
+                                            Update</button> <button ng-click="a.edit = false" class="btn btn-default">
+                                        Cancel</button>
                                     </div>
                                 </div>
-
-                                    <!-- Modal -->
                                 <div id="myModal{{a.id}}" class="modal fade" role="dialog">
                                     <div class="modal-dialog">
-
-                                            <!-- Modal content-->
                                         <div class="modal-content">
                                             <form ng-submit="disableBland(a)" >
                                                 <div class="modal-header">
@@ -127,24 +117,29 @@
 
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <button type="submit" class="btn btn-success"  >Delete</button><button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-success" >
+                                                        Delete</button><button type="button" class="btn btn-default" data-dismiss="modal">
+                                                    Close</button>
                                                 </div>
                                             </form>
                                         </div>
 
                                     </div>
                                 </div>
-                            </td><td><a  ><img ng-if="a.image ==''" src="@routes.Assets.at("images/avatar.png")" style="width: 40px;height: 40px;" class="img-responsive img-thumbnail"><img ng-if="a.image !=''" src="@routes.Assets.at("images/{{a.image}}")" style="width: 40px;height: 40px;" class="img-responsive img-thumbnail"></a></td><td>{{a.blandName}}</td><td>{{a.description}}</td><td >{{a.doneBy}}</td><td >{{a.doneAt|date}}</td><td><button type="button"  data-toggle="modal" data-target="#myModal{{a.id}}"  class="btn btn-danger" ><span  class=" glyphicon glyphicon-remove"></span></button></td>
+                            </td><td><a  ><img ng-if="a.image ==''" src="@routes.Assets.at("images/avatar.png")" style="width: 40px ; height: 40px ;" class="img-responsive img-thumbnail"><img ng-if="a.image !=''" src="@routes.Assets.at("images/{{a.image}}")" style="width: 40px ; height: 40px ;" class="img-responsive img-thumbnail"></a></td><td>
+                            {{a.blandName}}</td><td>{{a.description}}</td><td >{{a.doneBy}}</td><td >
+                            {{a.doneAt|date}}</td><td><button type="button" data-toggle="modal" data-target="#myModal{{a.id}}" class="btn btn-default pull-right" ><span style="color: red;" class=" glyphicon glyphicon-remove"></span></button></td>
                         </tr>
-
+                        <tr class="success">
+                            <th>Edit</th><th>Image</th><th>Bland name</th><th>Description</th><th >Done by</th>Remove<th>
+                            date</th><th></th>
+                        </tr>
                     </table>
+                    <div style="margin-top: -3%;" class="pull-right">
                     <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="/assets/partials/tables/dirPagination.tpl.html"></dir-pagination-controls>
+                    </div>
                 </div>
-
-
-
             </div>
-
         </div>
         <div class="col-lg-2"></div>
     </div>

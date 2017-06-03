@@ -1,15 +1,11 @@
 
 
 @main("Login page"){
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <div ng-controller="MainController" class="col-lg-12">
-
+    <div ng-controller="MainController" class="container">
+        @frontHeader()
+        <br />
+        <br />
         <div class="col-lg-4"></div>
-
         <div class="col-lg-4 panel">
             <br/>
             <div ng-show="error" class="alert alert-danger alert-dismissable">
@@ -42,5 +38,5 @@
         </div>
         <div class="col-lg-4"></div>
     </div>
-
+@footer()
 }

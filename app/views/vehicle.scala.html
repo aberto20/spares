@@ -1,39 +1,21 @@
-
-@dashboardHome("Vehicle page"){
+@dashboardHome("Vehicle page") {
     <div ng-controller="MainController">
         @inHeader()
         <div class="col-lg-2">
-
-
-
             <div style="height:36px">
-
             </div>
-
-
-
             @sideBar("vehicle")
-
-
         </div>
-        <div class="col-lg-8">
+        <div class="col-lg-8" style="margin-left: 1% ; width: 82% ;">
             <div style="min-height:300px">
-
-                <h1 style="padding:0px; margin:0px">Vehicle control</h1>
-
-
-                <br>
-
-
                 <div>
-
-
-
                 </div>
-
                 <div class="">
                     <ul class="nav nav-tabs">
-                        <li role="presentation" ><a href="" class="btn btn-success" ng-click="new = !new;getphoto='';btnSubmit=false">Add a new vehicle</a></li>
+                        <li role="presentation" ><a href="" class="btn btn-success" ng-click="new = !new;getphoto='';btnSubmit=false">
+                            Add a new vehicle</a></li>
+                        <span class="pull-right"> <h1 style="padding:0px ; margin:0px">
+                            Vehicle management web page <i class="glyphicon glyphicon-pencil"></i></h1></span>
                     </ul>
                 </div>
                 <form ng-submit="saveVehicle()" name="myForm">
@@ -41,14 +23,15 @@
                         <div class="panel-body">
                             <div class="panel panel-default" style="background:whitesmoke">
                                 <div class="panel-heading">
-                                    <h3 style="padding:0px; margin:0px">New vehicle registration</h3>
+                                    <h3 style="padding:0px ; margin:0px">New vehicle registration</h3>
                                 </div>
                                 <div ng-init="loadBlands()" class="panel-body">
                                     <label>
                                         Bland name
                                     </label>
-                                    <select required ng-model="newVehicleInfo.blandId"  class="form-control">
-                                        <option ng-repeat="m in blands" value="{{m.id}}">{{m.blandName}} [ {{m.description}} ]</option>
+                                    <select required ng-model="newVehicleInfo.blandId" class="form-control">
+                                        <option ng-repeat="m in blands" value="{{m.id}}">
+                                            {{m.blandName}} [ {{m.description}} ]</option>
                                     </select>
                                     <label>
                                         Vehicle name
@@ -57,26 +40,27 @@
                                     <label>
                                         description
                                     </label>
-                                    <textarea  ng-model="newVehicleInfo.description" placeholder="Description" class="form-control"></textarea>
+                                    <textarea ng-model="newVehicleInfo.description" placeholder="Description" class="form-control"></textarea>
                                     <label>
                                         fabrication year
                                     </label>
                                     <input required ng-model="newVehicleInfo.fablicationYear" placeholder="Fabrication year" class="form-control">
                                     <br>
-                                    <div style="position:relative;">
+                                    <div style="position:relative ;">
                                         <a class='btn btn-primary' href='javascript:;'>
                                             Photo upload ....
-                                            <input type="file" ng-model="newVehicleInfo.photo" onchange="angular.element(this).scope().uploadPhoto(this.files)" name="photo" style='position:absolute;z-index:2;top:0;left:0;filter: alpha(opacity=0);-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";opacity:0;background-color:transparent;color:transparent;' name="file_source" size="40" >
+                                            <input type="file" ng-model="newVehicleInfo.photo" onchange="angular.element(this).scope().uploadPhoto(this.files)" name="photo" style='position:absolute ; z-index:2 ; top:0 ; left:0 ; filter: alpha(opacity=0) ; -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)" ; opacity:0 ; background-color:transparent ; color:transparent ;' name="file_source" size="40" >
                                         </a>
                                             &nbsp;
-                                        <span ng-show="btnSubmit" ><img style="height: 50px;width: 50px" src="@routes.Assets.at("images/{{getphoto}}")"></span>
+                                        <span ng-show="btnSubmit" ><img style="height: 50px ; width: 50px" src="@routes.Assets.at("images/{{getphoto}}")"></span>
                                         <div ng-if="getphoto=='Error'" class="msgcv.class">{{msgcv.message}}</div>
 
                                     </div>
                                     <hr>
 
 
-                                    <button type="submit" ng-disabled="myForm.$invalid" class="btn btn-success">Save</button> <button ng-click="new = false" class="btn btn-default">Cancel</button>
+                                    <button type="submit" ng-disabled="myForm.$invalid" class="btn btn-success">
+                                        Save</button> <button ng-click="new = false" class="btn btn-default">Cancel</button>
 
                                 </div>
                             </div>
@@ -87,13 +71,14 @@
 
 
                 <br>
-                <form class="" role="search" style = "width:100%;">
+                <form class="" role="search" style = "width:100% ;">
                     <div>
                         <div class="input-group">
-                            <span class="input-group-addon" style="font-weight:bold; font-size:20px; padding:0px"><img src="@routes.Assets.at("images/rra.png")" style="height:45px" ></span><input ng-model="search" type="text" class="form-control" placeholder="Search " style = "height:50px">
+                            <span class="input-group-addon" style="font-weight:bold ; font-size:20px ; padding:0px"><img src="@routes.Assets.at("images/rra.png")" style="height:45px" ></span><input ng-model="search" type="text" class="form-control" placeholder="Search " style = "height:50px">
                             <span class = "input-group-btn">
 
-                                <button type="submit" ng-click="startsearch = true" class="btn btn-primary" style = "font-weight:bold; font-size:20px; height:50px">Search</button>
+                                <button type="submit" ng-click="startsearch = true" class="btn btn-primary" style = "font-weight:bold ; font-size:20px ; height:50px">
+                                    Search</button>
                             </span>
                         </div>
 
@@ -101,14 +86,14 @@
                 </form>
                 <div style="min-height:400px" class="">
                     <table ng-init="loadVehicle()" class="table table-striped" style="">
-                        <tr>
-                            <th></th><th>Bland name</th><th>Vehicle name</th><th>Description</th><th>Image</th><th>Fablication year</th><th >Done by</th><th >date</th><th></th>
+                        <tr class="success">
+                            <th>Edit</th><th>Bland name</th><th>Vehicle name</th><th>Description</th><th>Image</th><th>
+                            Fabrication year</th><th >Done by</th><th >date</th><th>Remove</th>
                         </tr>
-
                         <tr ng-repeat="a in vehicles |filter:search">
                             <td><button ng-click="a.edit = true" ng-hide="a.edit" class="btn btn-primary"><span class="glyphicon glyphicon-pencil"></span></button>
-                                <div ng-show="a.edit" class="panel panel-default" style="z-index:1000; position:absolute; width:400px; background:whitesmoke">
-                                    <div style="padding:5px;">
+                                <div ng-show="a.edit" class="panel panel-default" style="z-index:1000 ; position:absolute ; width:400px ; background:whitesmoke">
+                                    <div style="padding:5px ;">
                                         <a href="" class="pull-right" ng-click="a.edit = false" style="color:red">X</a>
                                     </div>
 
@@ -116,7 +101,7 @@
                                         <label>
                                             Bland name
                                         </label>
-                                        <select required ng-model="a.blandId"  class="form-control">
+                                        <select required ng-model="a.blandId" class="form-control">
                                             <option value="{{a.bland.id}}">{{a.bland.blandName}}</option>
                                             <option ng-repeat="m in blands" value="{{m.id}}">{{m.blandName}}</option>
                                         </select>
@@ -127,7 +112,8 @@
                                         <label>
                                             description
                                         </label>
-                                        <textarea  ng-model="a.description" placeholder="Description" class="form-control">{{newVehicleInfo.description}}</textarea>
+                                        <textarea ng-model="a.description" placeholder="Description" class="form-control">
+                                            {{newVehicleInfo.description}}</textarea>
                                         <label>
                                             fabrication year
                                         </label>
@@ -135,7 +121,9 @@
                                         <hr>
 
 
-                                        <button ng-click="updateVehicle(a)" class="btn btn-success">Update</button> <button ng-click="a.edit = false" class="btn btn-default">Cancel</button>
+                                        <button ng-click="updateVehicle(a)" class="btn btn-success">
+                                            Update</button> <button ng-click="a.edit = false" class="btn btn-default">
+                                        Cancel</button>
 
 
                                     </div>
@@ -159,21 +147,29 @@
 
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <button type="submit" class="btn btn-success"  >Delete</button><button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-success" >
+                                                        Delete</button><button type="button" class="btn btn-default" data-dismiss="modal">
+                                                    Close</button>
                                                 </div>
                                             </form>
                                         </div>
 
                                     </div>
                                 </div>
-                            </td><td>{{a.bland.blandName}}</td><td>{{a.vehicleName}}</td><td>{{a.description}}</td><td ><a data-toggle="modal" data-target="#myModalEdit{{a.id}}" ><img ng-if="a.image ==''" src="@routes.Assets.at("images/avatar.png")" style="width: 40px;height: 40px;" class="img-responsive img-thumbnail"><img ng-if="a.image !=''" src="@routes.Assets.at("images/{{a.image}}")" style="width: 40px;height: 40px;" class="img-responsive img-thumbnail"></a></td><td >{{a.fablicationYear}}</td><td >{{a.doneBy}}</td><td >{{a.doneAt|date}}</td><td><button type="button"  data-toggle="modal" data-target="#myModal{{a.id}}"  class="btn btn-danger" ><span  class=" glyphicon glyphicon-remove"></span></button></td>
+                            </td><td>{{a.bland.blandName}}</td><td>{{a.vehicleName}}</td><td>
+                            {{a.description}}</td><td ><a data-toggle="modal" data-target="#myModalEdit{{a.id}}" ><img ng-if="a.image ==''" src="@routes.Assets.at("images/avatar.png")" style="width: 40px ; height: 40px ;" class="img-responsive img-thumbnail"><img ng-if="a.image !=''" src="@routes.Assets.at("images/{{a.image}}")" style="width: 40px ; height: 40px ;" class="img-responsive img-thumbnail"></a></td><td >
+                            {{a.fablicationYear}}</td><td >{{a.doneBy}}</td><td >
+                            {{a.doneAt|date}}</td><td><button type="button" data-toggle="modal" data-target="#myModal{{a.id}}" class="btn btn-danger" ><span class=" glyphicon glyphicon-remove"></span></button></td>
                         </tr>
+                        <tr class="success">
+                        <th>Edit</th><th>Bland name</th><th>Vehicle name</th><th>Description</th><th>Image</th><th>
+                        Fabrication year</th><th >Done by</th><th >date</th><th>Remove</th>
+                    </tr>
 
                     </table>
 
 
                 </div>
-
 
 
             </div>
