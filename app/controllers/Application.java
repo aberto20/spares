@@ -162,6 +162,14 @@ public class Application extends Controller {
             return ok("ok");
 
     }
+    public static Result UsernameExist(String username){
+        User user=User.findByUsername(username);
+       if(user ==null){
+           return ok("error");
+       }
+        return ok("ok");
+
+    }
     public static play.mvc.Result loadBlands(){
             List<Bland> bland = Bland.all();
             return ok(Json.toJson(bland));

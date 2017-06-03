@@ -14,13 +14,13 @@
                 <div class="">
                     <ul class="nav nav-tabs">
                         <li role="presentation"><a href="" class="btn btn-success" ng-click="new = !new;getphoto='';btnSubmit=false">
-                            Add a new user</a></li>
+                            <i ng-if="!new">Add a new user</i><i ng-if="new">View list user</i></a></li>
                             <span class="pull-right"> <h1 style="padding:0px ; margin:0px">
                             User management <i class="fa fa-user"></i></h1></span>
                     </ul>
                 </div>
                 <div class="row">
-                    <form ng-submit="saveUser()" name="myForm" >
+                    <form ng-submit="saveUser()" name="myForm" novalidate >
                         <div ng-show="new" class="panel panel-default" style="border-top-style:none">
                             <div class="panel-body">
                                 <div class="panel panel-default" style="background:whitesmoke">
@@ -34,39 +34,48 @@
                                             <label>
                                                 First name
                                             </label>
-                                            <input required ng-model="newUserInfo.firstName" placeholder="Enter user first name" class="form-control">
+                                            <input required ng-model="newUserInfo.firstName" name="firstName" placeholder="Enter user first name" class="form-control">
+                                            <p style="color: maroon" ng-show="myForm.firstName.$invalid && !myForm.firstName.$pristine" class="help-block">Fild is required.</p>
                                             <label>
                                                 Last name
                                             </label>
-                                            <input required ng-model="newUserInfo.lastName" placeholder="Enter user last name" class="form-control">
+                                            <input required ng-model="newUserInfo.lastName" name="lastName" placeholder="Enter user last name" class="form-control">
+                                            <p style="color: maroon" ng-show="myForm.lastName.$invalid && !myForm.lastName.$pristine" class="help-block">Fild is required.</p>
                                             <label>
                                                 User priviledge
                                             </label>
-                                            <select ng-model="newUserInfo.role" class="form-control" >
+                                            <select required ng-model="newUserInfo.role" name="role" class="form-control" >
                                                 <option value="admin">Admin</option>
                                             </select>
+                                            <p style="color: maroon" ng-show="myForm.role.$invalid && !myForm.role.$pristine" class="help-block">Fild is required.</p>
                                             <label>
                                                 Phone number
                                             </label>
-                                            <input required ng-model="newUserInfo.phone" placeholder="Enter phone number" class="form-control">
+                                            <input required ng-model="newUserInfo.phone" name="phone" placeholder="Enter phone number" class="form-control">
+                                            <p style="color: maroon" ng-show="myForm.phone.$invalid && !myForm.phone.$pristine" class="help-block">Fild is required.</p>
                                         </div>
                                         <div class="col-md-6">
                                             <label>
                                                 Email address
                                             </label>
-                                            <input required ng-model="newUserInfo.email" placeholder="Enter email" class="form-control">
+                                            <input type="email" required ng-model="newUserInfo.email" name="email" placeholder="Enter email" class="form-control">
+                                            <p style="color: maroon" ng-show="myForm.email.$invalid && !myForm.email.$pristine" class="help-block">Invalid email.</p>
                                             <label>
                                                 User name
                                             </label>
-                                            <input required ng-model="newUserInfo.username" placeholder="Username" class="form-control">
+                                            <input required ng-model="newUserInfo.username" placeholder="Username" name="username" ng-change="checkUsername(newUserInfo.username)" class="form-control">
+                                            <p style="color: maroon" ng-show="myForm.username.$invalid && !myForm.username.$pristine" class="help-block">Fild is required.</p>
+                                            <p style="color: maroon" ng-show="errorMsg !=''" class="help-block">{{errorMsg}}</p>
                                             <label>
                                                 Password
                                             </label>
-                                            <input required ng-model="newUserInfo.password" placeholder="Enter password" class="form-control">
+                                            <input type="password" required ng-model="newUserInfo.password" name="password" placeholder="Enter password" class="form-control">
+                                            <p style="color: maroon" ng-show="myForm.password.$invalid && !myForm.password.$pristine" class="help-block">Fild is required.</p>
                                             <label>
                                                 Confirm password
                                             </label>
-                                            <input required ng-model="newUserInfo.cofPassword" placeholder="Confirm password" class="form-control">
+                                            <input  type="password" required ng-model="newUserInfo.cofPassword" placeholder="Confirm password" class="form-control">
+                                            <p ng-if="confirmMsg !=''" style="color: maroon">{{confirmMsg}}</p>
                                             <br>
                                             <div style="position:relative ;" class="pull-left">
                                                 <a href='javascript:;'>
@@ -77,7 +86,7 @@
                                                 <div ng-if="getphoto=='Error'" class="msgcv.class">{{msgcv.message}}</div>
 
                                             </div>
-                                            <button style="margin-left: 1%;" type="submit" ng-disabled="myForm.$invalid" class="btn btn-success pull-right">
+                                            <button style="margin-left: 1%;" type="submit" ng-disabled="myForm.$invalid||disable" class="btn btn-success pull-right">
                                                 Save</button> <button ng-click="new = false" class="btn btn-default pull-right">
                                             Cancel</button>
 
