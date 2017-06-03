@@ -114,6 +114,14 @@
         });
 
     };
+    $scope.getCurrency=function(){
+        $http.get('http://free.currencyconverterapi.com/api/v3/currencies').success(function (data, status, headers, config){
+            //alert(JSON.stringify(data));
+           $scope.currency=data.results;
+
+
+        });
+    };
     $scope.searchpartModel = function (model) {
 
         if (model==""){
@@ -227,18 +235,16 @@
         $scope.dataLoading = true;
         user.photo=$scope.getphoto;
         $http.post('/updateUserImage/'+user.id, user).success(function (data, status, headers, config){
-            if (data=='error'){
+            if (data=='ok'){
+                $scope.users=data;
+                $scope.dataLoading = false;
+                window.location='/user/';
+            }else {
                 alert('User not updated there is an error');
                 $scope.dataLoading = false;
                 return;
             }
-            $scope.users=data;
-            for(var d in data){
-                if(data[d].id == user.id){
-                    data[d].edit = false;
-                }
-            }
-            $scope.dataLoading = false;
+
 
         });
 

@@ -152,22 +152,15 @@ public class Application extends Controller {
         }
     }
     public static Result updateUserImage(long id){
-        Http.MultipartFormData body = request().body().asMultipartFormData();
-        Http.MultipartFormData.FilePart picture = body.getFile("photo");
-        if (picture != null) {
+        Form<User>userForm=Form.form(User.class).bindFromRequest();
+
+
             User user=User.finderById(id);
-            String fileName = picture.getFilename();
-            String contentType = picture.getContentType();
-            File file = picture.getFile();
-            String text=(new Date().getTime())+ fileName;
-            file.renameTo(new File("public/images",text));
-            user.photo=text;
+            user.photo=userForm.field("photo").value();
             user.update();
-            return redirect("/user/");
-        } else {
-            flash("error", "Missing file");
-            return ok("Error");
-        }
+
+            return ok("ok");
+
     }
     public static play.mvc.Result loadBlands(){
             List<Bland> bland = Bland.all();
