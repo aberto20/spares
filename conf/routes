@@ -52,6 +52,7 @@ GET     /vehicleBySerie/:id              controllers.Application.vehicleBySerie(
 GET     /vehicleByPartType/:id           controllers.Application.vehicleByPartType(id:Long)
 GET     /vehicleBySparePart/:id          controllers.Application.vehicleBySparePart(id:Long)
 GET     /findByPartModel/:model          controllers.Application.findByPartModel(model)
+GET     /UsernameExist/:username          controllers.Application.UsernameExist(username)
 
 
 

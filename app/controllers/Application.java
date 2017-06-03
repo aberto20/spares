@@ -164,14 +164,18 @@ public class Application extends Controller {
     }
     public static Result updateVehicleImage(long id){
         Form<Vehicle>vehicleForm=Form.form(Vehicle.class).bindFromRequest();
-
-
         Vehicle vehicle=Vehicle.finderById(id);
             vehicle.image=vehicleForm.field("image").value();
             vehicle.update();
 
             return ok("ok");
-
+}
+    public static Result UsernameExist(String username){
+        User user=User.findByUsername(username);
+       if(user ==null){
+           return ok("error");
+       }
+        return ok("ok");
     }
     public static play.mvc.Result loadBlands(){
             List<Bland> bland = Bland.all();

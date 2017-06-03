@@ -208,6 +208,11 @@
     };
     $scope.saveUser = function () {
         $scope.dataLoading = true;
+        $scope.confirmMsg="";
+        if($scope.newUserInfo.password!=$scope.newUserInfo.cofPassword){
+            $scope.confirmMsg="Please password not match !";
+            return;
+        }
         $scope.newUserInfo.photo=$scope.getphoto;
         $http.post('/saveUser/',$scope.newUserInfo ).success(function (data, status, headers, config){
             //alert(JSON.stringify(data));
@@ -223,6 +228,7 @@
                 alert('Ethered email exist !');
                 return;
             }
+            $scope.confirmMsg="";
             $scope.users=data;
             $scope.new=false;
             $scope.newUserInfo="";
@@ -359,6 +365,23 @@
 
             });
         }
+    };
+    $scope.checkUsername=function (username) {
+        $scope.errorMsg="Loading....";
+            $http.get(' /UsernameExist/' + username).success(function (data, status, headers, config) {
+                //alert(JSON.stringify(data));
+                 if(data=='ok'){
+                     $scope.disable=true;
+                     $scope.errorMsg="Username exist !";
+                 }else {
+                     $scope.disable=false;
+                     $scope.errorMsg="";
+                 }
+
+
+
+            });
+
     };
     $scope.login = function () {
         $scope.dataLoading = true;
