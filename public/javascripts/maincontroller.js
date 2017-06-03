@@ -121,10 +121,13 @@
 
     };
     $scope.searchpartModel = function (model) {
+
         if (model==""){
             alert('Serie number required !');
             return;
         }
+        $scope.getSparePartIndex="";
+        $scope.showsearchDetails=false;
         $http.get('/findByPartModel/'+model).success(function (data, status, headers, config){
             //alert(JSON.stringify(data));
             if(data!=""){
