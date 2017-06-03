@@ -18,6 +18,7 @@ public class SparePart extends Model {
     public long id;
     public String partName = "";
     public String description = "";
+    public String serialNumber = "";
     public String modelNumber = "";
     public String image = "";
     public String manufacturerPrice = "";

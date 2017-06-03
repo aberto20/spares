@@ -48,7 +48,7 @@
                                         Bland name
                                     </label>
                                     <select required ng-model="newVehicleInfo.blandId"  class="form-control">
-                                        <option ng-repeat="m in blands" value="{{m.id}}">{{m.blandName}}</option>
+                                        <option ng-repeat="m in blands" value="{{m.id}}">{{m.blandName}} [ {{m.description}} ]</option>
                                     </select>
                                     <label>
                                         Vehicle name

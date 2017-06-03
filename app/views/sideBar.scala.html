@@ -1,6 +1,5 @@
 @(page:String)
-
-<div  class="list-group success">
+<div  class="list-group success" style="width: 130%; margin-top: -20%; margin-left: -10%;">
     <a class="list-group-item @if(page=="dashboard"){active}"  href="/dashboarAdmin/">Dashboard</a>
     <a class="list-group-item @if(page=="user"){active} "  href="/user/">Manage user</a>
     <a class="list-group-item @if(page=="bland"){active}"  href="/blandPage/">Manage bland</a>
@@ -8,5 +7,4 @@
     <a class="list-group-item @if(page=="series"){active}"  href="/SeriesPage/">Mange vehicle series</a>
     <a class="list-group-item @if(page=="sparePartType"){active}"  href="/partTypePage/">Manage spare part type</a>
     <a class="list-group-item @if(page=="sparePart"){active}"  href="/sparePart/">Manage spare part</a>
-
 </div>

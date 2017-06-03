@@ -45,6 +45,7 @@ create table spare_part (
   id                        bigint auto_increment not null,
   part_name                 varchar(255),
   description               varchar(255),
+  serial_number             varchar(255),
   model_number              varchar(255),
   image                     varchar(255),
   manufacturer_price        varchar(255),
