@@ -240,7 +240,25 @@
                 $scope.dataLoading = false;
                 window.location='/user/';
             }else {
-                alert('User not updated there is an error');
+                alert('User image not updated there is an error');
+                $scope.dataLoading = false;
+                return;
+            }
+
+
+        });
+
+    };
+    $scope.updateVehicleImage = function (vehicle) {
+        $scope.dataLoading = true;
+        vehicle.image=$scope.getphoto;
+        $http.post('/updateVehicleImage/'+vehicle.id, vehicle).success(function (data, status, headers, config){
+            if (data=='ok'){
+                $scope.vehicles=data;
+                $scope.dataLoading = false;
+                window.location='/VehiclePage/';
+            }else {
+                alert('Vehicle image not updated there is an error');
                 $scope.dataLoading = false;
                 return;
             }

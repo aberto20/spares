@@ -162,6 +162,17 @@ public class Application extends Controller {
             return ok("ok");
 
     }
+    public static Result updateVehicleImage(long id){
+        Form<Vehicle>vehicleForm=Form.form(Vehicle.class).bindFromRequest();
+
+
+        Vehicle vehicle=Vehicle.finderById(id);
+            vehicle.image=vehicleForm.field("image").value();
+            vehicle.update();
+
+            return ok("ok");
+
+    }
     public static play.mvc.Result loadBlands(){
             List<Bland> bland = Bland.all();
             return ok(Json.toJson(bland));
