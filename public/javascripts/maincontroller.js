@@ -255,6 +255,42 @@
         });
 
     };
+    $scope.updatePartImage = function (sparePart) {
+        $scope.dataLoading = true;
+        sparePart.image=$scope.getphoto;
+        $http.post('/updatePartImage/'+sparePart.id, sparePart).success(function (data, status, headers, config){
+            if (data=='ok'){
+                $scope.spareParts=data;
+                $scope.dataLoading = false;
+                window.location='/sparePart/';
+            }else {
+                alert('Spare part image not updated there is an error');
+                $scope.dataLoading = false;
+                return;
+            }
+
+
+        });
+
+    };
+    $scope.updateTypeImage = function (partType) {
+        $scope.dataLoading = true;
+        partType.image=$scope.getphoto;
+        $http.post('/updateTypeImage/'+partType.id, partType).success(function (data, status, headers, config){
+            if (data=='ok'){
+                $scope.partTypes=data;
+                $scope.dataLoading = false;
+                window.location='/partTypePage/';
+            }else {
+                alert('Part type image not updated there is an error');
+                $scope.dataLoading = false;
+                return;
+            }
+
+
+        });
+
+    };
     $scope.updateVehicleImage = function (vehicle) {
         $scope.dataLoading = true;
         vehicle.image=$scope.getphoto;
@@ -546,11 +582,6 @@
         $scope.dataLoading = true;
         $http.post('/saveSeries/',$scope.newVehicleInfo ).success(function (data, status, headers, config){
             //alert(JSON.stringify(data));
-            if (data=='seriesExists'){
-                alert('Ethered Serie name exist !');
-                return;
-            }
-
             $scope.series=data;
             $scope.new=false;
             $scope.newVehicleInfo="";

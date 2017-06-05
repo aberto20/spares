@@ -86,9 +86,10 @@
                         <tr dir-paginate="a in series |filter:search |itemsPerPage:number">
                             <td><button ng-click="a.edit = true" ng-hide="a.edit" class="btn btn-default pull-left"><span style="color: #3696d3;" class="glyphicon glyphicon-pencil"></span></button>
                                 <div ng-show="a.edit" class="panel panel-default" style="z-index:1000 ; position:absolute ; width:400px ; background:whitesmoke">
-                                    <div style="padding:5px ;">
-                                        <a href="" class="pull-right" ng-click="a.edit = false" style="color:red">X</a>
+                                    <div style="padding:0px;">
+                                        <a href="" class="pull-right" ng-click="a.edit = false" style="color:#3796d3;"><li class="fa fa-arrow-up"></li> </a>
                                     </div>
+                                    <span style="color: #3696d4;"> <h3>&nbsp;&nbsp;&nbsp;{{a.serieName}} modification form <li class="glyphicon glyphicon-pencil"></li> </h3></span>
                                     <hr>
                                     <div class="panel-body">
                                         <label>
@@ -114,8 +115,8 @@
                                         <hr>
 
 
-                                        <button ng-click="updateSeries(a)" class="btn btn-success">
-                                            Update</button> <button ng-click="a.edit = false" class="btn btn-default">
+                                        <button ng-click="updateSeries(a)" class="btn btn-success pull-right" style="margin-left: 1%;">
+                                            Update</button> <button ng-click="a.edit = false" class="btn btn-default pull-right">
                                         Cancel</button>
 
 

@@ -162,6 +162,28 @@ public class Application extends Controller {
             return ok("ok");
 
     }
+    public static Result updatePartImage(long id){
+        Form<SparePart>sparePartForm=Form.form(SparePart.class).bindFromRequest();
+
+
+        SparePart sparePart=SparePart.finderById(id);
+        sparePart.image=sparePartForm.field("image").value();
+        sparePart.update();
+
+            return ok("ok");
+
+    }
+    public static Result updateTypeImage(long id){
+        Form<PartType>partTypeForm=Form.form(PartType.class).bindFromRequest();
+
+
+        PartType partType=PartType.finderById(id);
+        partType.image=partTypeForm.field("image").value();
+        partType.update();
+
+            return ok("ok");
+
+    }
     public static Result updateVehicleImage(long id){
         Form<Vehicle>vehicleForm=Form.form(Vehicle.class).bindFromRequest();
         Vehicle vehicle=Vehicle.finderById(id);
@@ -189,10 +211,12 @@ public class Application extends Controller {
                 return ok("blandNameExist");
             }
             bland.doneBy = User.findByUsername(session("userId")).username;
+            bland.blandName = blandForm.field("blandName").value();
+            bland.description = blandForm.field("description").value();
             bland.save();
             System.out.println("-------------- \n bland saved successfully");
-            List<Bland> blandList = Bland.all();
-            return ok(Json.toJson(blandList));
+            List<Bland> blands = Bland.all();
+            return ok(Json.toJson(blands));
     }
     public static Result updateBland(){
         Form<Bland> blandForm = Form.form(Bland.class).bindFromRequest();
@@ -309,9 +333,6 @@ public class Application extends Controller {
         Series series = seriesForm.get();
         Series s = Series.findBySeries(series.serieName);
         long vehicleId=Long.parseLong(seriesForm.field("vehicleId").value());
-        if(s!= null){
-            return ok("seriesExists");
-        }
         series.vehicle=Vehicle.finderById(vehicleId);
         series.doneBy = User.byUsername(session("userId")).username;
         System.out.println("------------------- \n series saved successfully");

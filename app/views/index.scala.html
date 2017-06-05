@@ -48,6 +48,9 @@
                                                         <div class="caption">
                                                                 <center><span style="color: #61af50;">{{v.vehicleName |uppercase}}</span></center>
                                                         </div>
+                                                        <div class="caption">
+                                                                <center><span style="color: #61af50;">{{v.fablicationYear |uppercase}}</span></center>
+                                                        </div>
                                                 </a>
                                         </div>
                                 </div>
@@ -75,7 +78,10 @@
                                 <div ng-repeat="s in seriesType" class="col-md-4">
                                         <div class="thumbnail">
                                                 <a href="" ng-click="selectParttype(s.id)">
-                                                        <center><h1>Serie name:<span style="color: #61af50;"> {{s.serieNo}}</span></h1></center>
+                                                        <center><h3>Serie name:<span style="color: #61af50;"> {{s.serieName}}</span></h3></center>
+                                                        <div class="caption">
+                                                                <center>Serie number: {{s.serieNo |uppercase}}</center>
+                                                        </div>
                                                         <div class="caption">
                                                                 <center>Fabrication year: {{s.fablicationYear |uppercase}}</center>
                                                         </div>
@@ -107,7 +113,10 @@
                                                 <a href="" ng-click="selectspareparty(sp.id)">
                                                         <img src="@routes.Assets.at("images/{{sp.image}}")" alt="{{sp.typeName}}" class="img-responsive" style="height: 100px;width:200px" >
                                                         <div class="caption">
-                                                                <center>Part type: <span style="color: #61af50;"> {{sp.description }}</span></center>
+                                                                <center>Part #: <span style="color: #61af50;"> {{sp.id }}</span></center>
+                                                        </div>
+                                                        <div class="caption">
+                                                                <center>Part name: <span style="color: #61af50;"> {{sp.typeName }}</span></center>
                                                         </div>
                                                 </a>
                                         </div>
@@ -130,59 +139,57 @@
                         <br>
                         @actionFlow()
                 </div>
-                <div class="col-lg-9">
+                <div class="col-lg-5">
+                        <center ><b><span style="color: #61af50;"> {{getSparePartIndex.partName}} Image</span> </b></center>
+                        <hr />
+                        <img src="@routes.Assets.at("images/{{getSparePartIndex.image}}")" class="img-responsive" style="height: 100%;width:100%;">
+                </div>
+                <div class="col-lg-4">
                         <center ><b>Details for <span style="color: #61af50;"> {{getSparePartIndex.partName}}</span> </b></center>
                         <hr />
-                        <center><img src="@routes.Assets.at("images/{{getSparePartIndex.image}}")" class="img-responsive" style="height: 80px;width:80px"></center>
-                        <table style="width: 100%;height: 100%">
-                                <tr>
-                                <td>
-                                        <center>Part number: <span style="font-size: 16px; color: #61af50;"> 000</span></center>
-                                </td>
-                                </tr>
-                                <tr>
-                                <td>
-                                        <center>Model number: <span style="font-size: 16px; color: #61af50;"> {{getSparePartIndex.modelNumber}}</span></center>
-                                </td>
-                                </tr>
-                                <tr>
-                                <td>
-                                        <center>Manufacture of the spare part: <span style="font-size: 16px; color: #61af50;"> XYZ</span></center>
-                                </td>
-                                </tr>
-                                <tr>
-                                <td>
-                                  <center>Manufacture price: <span style="font-size: 16px; color: #61af50;"> {{getSparePartIndex.manufacturerPrice}}</span></center>
-                                </td>
-                                </tr>
+                        <table style="width: 100%;height: 100%" class="display table table-bordered table-striped">
                                 <tr>
                                         <td>
-                                                <center>Manufacture country: <span style="font-size: 16px; color: #61af50;"> XYZ</span></center>
+                                               Spare part name: <span style="font-size: 16px; color: #61af50;"> {{getSparePartIndex.partName}}</span>
                                         </td>
                                 </tr>
                                 <tr>
                                         <td>
-                                                <center>Genuine or counterfeit of spare part<span style="font-size: 16px; color: #61af50;"> {{getSparePartIndex.originality}}</span></center>
+                                                Model number: <span style="font-size: 16px; color: #61af50;"> {{getSparePartIndex.modelNumber}}</span>
                                         </td>
                                 </tr>
-                                <tr>
                                 <tr>
                                         <td>
-                                                <center>Year of fabrication: <span style="font-size: 16px; color: #61af50;">{{getSparePartIndex.fablicationYear}}</span></center>
+                                                Year of fabrication: <span style="font-size: 16px; color: #61af50;">{{getSparePartIndex.fablicationYear}}</span>
                                         </td>
                                 </tr>
                                 <tr>
-                                <td>
-                                        <center>Spare part name: <span style="font-size: 16px; color: #61af50;"> {{getSparePartIndex.partName}}</span></center>
-                                </td>
+                                        <td>
+                                                Manufacture country: <span style="font-size: 16px; color: #61af50;"> XYZ</span>
+                                        </td>
                                 </tr>
                                 <tr>
-                                <td>
-                                        <center>Fitting part name: <span style="font-size: 16px; color: #61af50;"> {{getSparePartIndex.fittingName}}</span></center>
-                                </td>
+                                        <td>
+                                               Manufacture of the spare part: <span style="font-size: 16px; color: #61af50;"> XYZ</span>
+                                        </td>
+                                </tr>
+                                <tr>
+                                        <td>
+                                                Genuine or counterfeit of spare part<span style="font-size: 16px; color: #61af50;"> {{getSparePartIndex.originality}}</span>
+                                        </td>
+                                </tr>
+                                <tr>
+                                        <td>
+                                                Manufacture price: <span style="font-size: 16px; color: #61af50;"> {{getSparePartIndex.manufacturerPrice}}</span>
+                                        </td>
+                                </tr>
+                                <tr>
+                                <tr>
                                 </tr>
                         </table>
                 </div>
+
+
 
         </div>
         <div ng-show="showSearch" style="height:100%;margin-top:0" class="panel panel-default col-lg-12">
@@ -201,57 +208,53 @@
                         <br>
                         @actionFlow()
                 </div>
-                <div class="col-lg-9" style="padding-bottom: 3%;">
-                        <center ><b>Spare part search results</b></center>
+                <div class="col-lg-5">
+                        <center ><b><span style="color: #61af50;"> {{getSparePartIndex.partName}} Image</span> </b></center>
                         <hr />
-                        <center><img src="@routes.Assets.at("images/{{getSparePartIndex.partType.series.vehicle.bland.image}}")" class="img-responsive" style="height: 80px;width:80px"></center>
-                        <table style="width: 100%;height: 100%;">
+                        <img src="@routes.Assets.at("images/{{getSparePartIndex.image}}")" class="img-responsive" style="height: 100%;width:100%;">
+                </div>
+                <div class="col-lg-4">
+                        <center ><b>Details for <span style="color: #61af50;"> {{getSparePartIndex.partName}}</span> </b></center>
+                        <hr />
+                        <table style="width: 100%;height: 100%" class="display table table-bordered table-striped">
                                 <tr>
                                         <td>
-                                                <center>Part number: <span style="font-size: 16px; color: #61af50;"> 000</span></center>
+                                                Spare part name: <span style="font-size: 16px; color: #61af50;"> {{getSparePartIndex.partName}}</span>
                                         </td>
                                 </tr>
                                 <tr>
                                         <td>
-                                                <center>Model number: <span style="font-size: 16px; color: #61af50;"> {{getSparePartIndex.modelNumber}}</span></center>
+                                                Model number: <span style="font-size: 16px; color: #61af50;"> {{getSparePartIndex.modelNumber}}</span>
                                         </td>
                                 </tr>
                                 <tr>
                                         <td>
-                                                <center>Manufacture of the spare part: <span style="font-size: 16px; color: #61af50;"> XYZ</span></center>
+                                                Year of fabrication: <span style="font-size: 16px; color: #61af50;">{{getSparePartIndex.fablicationYear}}</span>
                                         </td>
                                 </tr>
                                 <tr>
                                         <td>
-                                                <center>Manufacture price: <span style="font-size: 16px; color: #61af50;"> {{getSparePartIndex.manufacturerPrice}}</span></center>
+                                                Manufacture country: <span style="font-size: 16px; color: #61af50;"> XYZ</span>
                                         </td>
                                 </tr>
                                 <tr>
                                         <td>
-                                                <center>Manufacture country: <span style="font-size: 16px; color: #61af50;"> XYZ</span></center>
+                                                Manufacture of the spare part: <span style="font-size: 16px; color: #61af50;"> XYZ</span>
                                         </td>
                                 </tr>
                                 <tr>
                                         <td>
-                                                <center>Genuine or counterfeit of spare part<span style="font-size: 16px; color: #61af50;"> {{getSparePartIndex.originality}}</span></center>
+                                                Genuine or counterfeit of spare part<span style="font-size: 16px; color: #61af50;"> {{getSparePartIndex.originality}}</span>
+                                        </td>
+                                </tr>
+                                <tr>
+                                        <td>
+                                                Manufacture price: <span style="font-size: 16px; color: #61af50;"> {{getSparePartIndex.manufacturerPrice}}</span>
                                         </td>
                                 </tr>
                                 <tr>
                         <tr>
-                                <td>
-                                        <center>Year of fabrication: <span style="font-size: 16px; color: #61af50;">{{getSparePartIndex.fablicationYear}}</span></center>
-                                </td>
                         </tr>
-                                <tr>
-                                        <td>
-                                                <center>Spare part name: <span style="font-size: 16px; color: #61af50;"> {{getSparePartIndex.partName}}</span></center>
-                                        </td>
-                                </tr>
-                                <tr>
-                                        <td>
-                                                <center>Fitting part name: <span style="font-size: 16px; color: #61af50;"> {{getSparePartIndex.fittingName}}</span></center>
-                                        </td>
-                                </tr>
                         </table>
                 </div>
 

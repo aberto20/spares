@@ -15,7 +15,7 @@
                     <ul class="nav nav-tabs">
                         <li role="presentation"><a href="" class="btn btn-success" ng-click="new = !new;getphoto='';btnSubmit=false">
                             <i ng-if="!new">Add a new user</i><i ng-if="new">View list user</i></a></li>
-                            <span class="pull-right"> <h1 style="padding:0px ; margin:0px">
+                        <span class="pull-right"> <h1 style="padding:0px ; margin:0px">
                             User management <i class="fa fa-user"></i></h1></span>
                     </ul>
                 </div>
@@ -35,46 +35,54 @@
                                                 First name
                                             </label>
                                             <input required ng-model="newUserInfo.firstName" name="firstName" placeholder="Enter user first name" class="form-control">
-                                            <p style="color: maroon" ng-show="myForm.firstName.$invalid && !myForm.firstName.$pristine" class="help-block">Fild is required.</p>
+                                            <p style="color: maroon" ng-show="myForm.firstName.$invalid && !myForm.firstName.$pristine" class="help-block">
+                                                Fild is required.</p>
                                             <label>
                                                 Last name
                                             </label>
                                             <input required ng-model="newUserInfo.lastName" name="lastName" placeholder="Enter user last name" class="form-control">
-                                            <p style="color: maroon" ng-show="myForm.lastName.$invalid && !myForm.lastName.$pristine" class="help-block">Fild is required.</p>
+                                            <p style="color: maroon" ng-show="myForm.lastName.$invalid && !myForm.lastName.$pristine" class="help-block">
+                                                Fild is required.</p>
                                             <label>
                                                 User priviledge
                                             </label>
                                             <select required ng-model="newUserInfo.role" name="role" class="form-control" >
                                                 <option value="admin">Admin</option>
                                             </select>
-                                            <p style="color: maroon" ng-show="myForm.role.$invalid && !myForm.role.$pristine" class="help-block">Fild is required.</p>
+                                            <p style="color: maroon" ng-show="myForm.role.$invalid && !myForm.role.$pristine" class="help-block">
+                                                Fild is required.</p>
                                             <label>
                                                 Phone number
                                             </label>
                                             <input required ng-model="newUserInfo.phone" name="phone" placeholder="Enter phone number" class="form-control">
-                                            <p style="color: maroon" ng-show="myForm.phone.$invalid && !myForm.phone.$pristine" class="help-block">Fild is required.</p>
+                                            <p style="color: maroon" ng-show="myForm.phone.$invalid && !myForm.phone.$pristine" class="help-block">
+                                                Fild is required.</p>
                                         </div>
                                         <div class="col-md-6">
                                             <label>
                                                 Email address
                                             </label>
                                             <input type="email" required ng-model="newUserInfo.email" name="email" placeholder="Enter email" class="form-control">
-                                            <p style="color: maroon" ng-show="myForm.email.$invalid && !myForm.email.$pristine" class="help-block">Invalid email.</p>
+                                            <p style="color: maroon" ng-show="myForm.email.$invalid && !myForm.email.$pristine" class="help-block">
+                                                Invalid email.</p>
                                             <label>
                                                 User name
                                             </label>
                                             <input required ng-model="newUserInfo.username" placeholder="Username" name="username" ng-change="checkUsername(newUserInfo.username)" class="form-control">
-                                            <p style="color: maroon" ng-show="myForm.username.$invalid && !myForm.username.$pristine" class="help-block">Fild is required.</p>
-                                            <p style="color: maroon" ng-show="errorMsg !=''" class="help-block">{{errorMsg}}</p>
+                                            <p style="color: maroon" ng-show="myForm.username.$invalid && !myForm.username.$pristine" class="help-block">
+                                                Fild is required.</p>
+                                            <p style="color: maroon" ng-show="errorMsg !=''" class="help-block">
+                                                {{errorMsg}}</p>
                                             <label>
                                                 Password
                                             </label>
                                             <input type="password" required ng-model="newUserInfo.password" name="password" placeholder="Enter password" class="form-control">
-                                            <p style="color: maroon" ng-show="myForm.password.$invalid && !myForm.password.$pristine" class="help-block">Fild is required.</p>
+                                            <p style="color: maroon" ng-show="myForm.password.$invalid && !myForm.password.$pristine" class="help-block">
+                                                Fild is required.</p>
                                             <label>
                                                 Confirm password
                                             </label>
-                                            <input  type="password" required ng-model="newUserInfo.cofPassword" placeholder="Confirm password" class="form-control">
+                                            <input type="password" required ng-model="newUserInfo.cofPassword" placeholder="Confirm password" class="form-control">
                                             <p ng-if="confirmMsg !=''" style="color: maroon">{{confirmMsg}}</p>
                                             <br>
                                             <div style="position:relative ;" class="pull-left">
@@ -86,7 +94,7 @@
                                                 <div ng-if="getphoto=='Error'" class="msgcv.class">{{msgcv.message}}</div>
 
                                             </div>
-                                            <button style="margin-left: 1%;" type="submit" ng-disabled="myForm.$invalid||disable" class="btn btn-success pull-right">
+                                            <button style="margin-left: 1% ;" type="submit" ng-disabled="myForm.$invalid||disable" class="btn btn-success pull-right">
                                                 Save</button> <button ng-click="new = false" class="btn btn-default pull-right">
                                             Cancel</button>
 
@@ -111,26 +119,27 @@
 
                     </div>
                 </form>Select records per page :
-                <select ng-model="number" style="width: 20%; margin: 0.5%;">
+                <select ng-model="number" style="width: 20% ; margin: 0.5% ;">
                     <option value="5">5</option>
                     <option value="10">10</option>
                     <option value="50">50</option>
                     <option value="1000000">All</option>
                 </select>
                 <br>
-                <div style="min-height:400px;" class="">
+                <div style="min-height:400px ;" class="">
                     <table ng-init="loadUser();number=5" class="table table-striped" style="">
                         <tr class="success">
-                            <th >Edit</th><th >photo</th><th>First name</th><th>Last name</th><th>Role</th><th >Phone</th><th >email</th><th>Date</th><th>Remove</th>
+                            <th >Edit</th><th >photo</th><th>First name</th><th>Last name</th><th>Role</th><th >
+                            Phone</th><th >email</th><th>Date</th><th>Remove</th>
                         </tr>
                         <tr dir-paginate="a in users |filter:search |itemsPerPage:number">
-                            <td><button ng-click="a.edit = true" ng-hide="a.edit" class="btn btn-default"><span style="color: #3596d4;" class="glyphicon glyphicon-pencil"></span></button>
-                                <div ng-show="a.edit" class="panel panel-default" style="z-index:1000 ; position:absolute ; width:90%;; background:whitesmoke">
+                            <td><button ng-click="a.edit = true" ng-hide="a.edit" class="btn btn-default"><span style="color: #3596d4 ;" class="glyphicon glyphicon-pencil"></span></button>
+                                <div ng-show="a.edit" class="panel panel-default" style="z-index:1000 ; position:absolute ; width:90% ; ; background:whitesmoke">
                                     <div>
-                                        <a href="" class="pull-right" ng-click="a.edit = false" style="color:#3796d3;"><li class="fa fa-arrow-up"></li> </a>
+                                        <a href="" class="pull-right" ng-click="a.edit = false" style="color:#3796d3 ;"><li class="fa fa-arrow-up"></li> </a>
                                     </div>
-                                    <span style="color: #3696d4;"> <h3>&nbsp;&nbsp;&nbsp;{{a.firstName}} {{a.lastName}} modification form <li class="glyphicon glyphicon-pencil"></li> </h3></span>
-                                    <div class="row" style="margin-top: -5%;">
+                                    <span style="color: #3696d4 ;"> <h3>&nbsp;&nbsp;&nbsp;{{a.firstName}} {{a.lastName}} modification form <li class="glyphicon glyphicon-pencil"></li> </h3></span>
+                                    <div class="row" style="margin-top: -5% ;">
                                         <div class="panel-body">
                                             <hr>
                                             <div class="col-md-6">
@@ -171,87 +180,89 @@
                                                 </label>
                                                 <input class="form-control" ng-model="a.password">
                                                 <br />
-                                                <button ng-click="updateUser(a)" class="btn btn-success pull-right" style="margin-left: 1%;">
+                                                <button ng-click="updateUser(a)" class="btn btn-success pull-right" style="margin-left: 1% ;">
                                                     Update {{a.username}}</button> <button ng-click="a.edit = false" class="btn btn-default pull-right">
                                                 Cancel</button>
-                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                            <!-- Modal -->
-                                        <div id="myModal{{a.id}}" class="modal fade" role="dialog">
-                                            <div class="modal-dialog">
-                                                    <!-- Modal content-->
-                                                <div class="modal-content">
-                                                    <form ng-submit="disableUser(a)" >
-                                                        <div class="modal-header">
-                                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                            <h4 class="modal-title">
-                                                                Do you want to delete {{a.firstName}} {{a.lastName}} ?</h4>
-                                                        </div>
-                                                        <div class="modal-body">
-
-                                                            <label>Delete reason</label>
-                                                            <textarea class="form-control" ng-model="a.deleteReason" required></textarea>
-
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="submit" class="btn btn-success" >
-                                                                Delete</button><button type="button" class="btn btn-default" data-dismiss="modal">
-                                                            Close</button>
-                                                        </div>
-                                                    </form>
+                                </div>
+                                    <!-- Modal -->
+                                <div id="myModal{{a.id}}" class="modal fade" role="dialog">
+                                    <div class="modal-dialog">
+                                            <!-- Modal content-->
+                                        <div class="modal-content">
+                                            <form ng-submit="disableUser(a)" >
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                    <h4 class="modal-title">
+                                                        Do you want to delete {{a.firstName}} {{a.lastName}} ?</h4>
                                                 </div>
+                                                <div class="modal-body">
 
-                                            </div>
-                                        </div>
-                                            <!-- Modal -->
-                                        <div id="myModalEdit{{a.id}}" class="modal fade" role="dialog">
-                                            <div class="modal-dialog">
-                                                    <!-- Modal content-->
-                                                <div class="modal-content">
-                                                    <form ng-submit="updateUserImage(a)" method="post" >
-                                                        <div class="modal-header">
-                                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                            <h4 class="modal-title">
-                                                                <span style="color: white;"> Change photo for {{a.firstName}} {{a.lastName}} ?</span></h4>
-                                                        </div>
-                                                        <div class="modal-body">
+                                                    <label>Delete reason</label>
+                                                    <textarea class="form-control" ng-model="a.deleteReason" required></textarea>
 
-                                                            <div style="position:relative ;">
-                                                                <a class='btn btn-primary' href='javascript:;'>
-
-                                                                    Photo upload ....
-                                                                    <input type="file" ng-model="photo" onchange="angular.element(this).scope().uploadPhoto(this.files)" name="photo" style='position:absolute ; z-index:2 ; top:0 ; left:0 ; filter: alpha(opacity=0) ; -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)" ; opacity:0 ; background-color:transparent ; color:transparent ;' name="file_source" size="40" >
-
-                                                                </a>
-                                                                    &nbsp;
-
-                                                               <img ng-show="btnSubmit" src="@routes.Assets.at("images/{{getphoto}}")" style="width: 40px ; height: 40px ;" class="img-responsive img-thumbnail">
-                                                                <div ng-if="getphoto=='Error'" class="msgcv.class">
-                                                                    {{msgcv.message}}</div>
-
-                                                            </div>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="submit" class="btn btn-success" >Change picture</button><button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                        </div>
-                                                    </form>
                                                 </div>
-
-                                            </div>
+                                                <div class="modal-footer">
+                                                    <button type="submit" class="btn btn-success" >
+                                                        Delete</button><button type="button" class="btn btn-default" data-dismiss="modal">
+                                                    Close</button>
+                                                </div>
+                                            </form>
                                         </div>
-                            </td><td ><a href="#" data-toggle="modal" data-target="#myModalEdit{{a.id}}" ><img ng-if="a.photo ==''" src="@routes.Assets.at("images/avatar.png")" style="width: 40px ; height: 40px ;" class="img-responsive img-thumbnail"><img ng-if="a.photo !=''" src="@routes.Assets.at("images/{{a.photo}}")" style="width: 40px ; height: 40px ;" class="img-responsive img-thumbnail"></a></td><td>{{a.firstName}}</td><td>{{a.lastName}}</td><td >{{a.role}}</td><td >
+
+                                    </div>
+                                </div>
+                                    <!-- Modal -->
+                                <div id="myModalEdit{{a.id}}" class="modal fade" role="dialog">
+                                    <div class="modal-dialog">
+                                            <!-- Modal content-->
+                                        <div class="modal-content">
+                                            <form ng-submit="updateUserImage(a)" method="post" >
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                    <h4 class="modal-title">
+                                                        <span style="color: white ;">
+                                                            Change photo for {{a.firstName}} {{a.lastName}} ?</span></h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div style="position:relative ;">
+                                                        <a class='btn btn-primary' href='javascript:;'>
+                                                            Photo upload ....
+                                                            <input type="file" ng-model="photo" onchange="angular.element(this).scope().uploadPhoto(this.files)" name="photo" style='position:absolute ; z-index:2 ; top:0 ; left:0 ; filter: alpha(opacity=0) ; -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)" ; opacity:0 ; background-color:transparent ; color:transparent ;' name="file_source" size="40" >
+
+                                                        </a>
+                                                            &nbsp;
+                                                        <img ng-show="btnSubmit" src="@routes.Assets.at("images/{{getphoto}}")" style="width: 40px ; height: 40px ;" class="img-responsive img-thumbnail">
+                                                        <div ng-if="getphoto=='Error'" class="msgcv.class">
+                                                            {{msgcv.message}}</div>
+
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="submit" class="btn btn-success" >
+                                                        Change picture</button><button type="button" class="btn btn-default" data-dismiss="modal">
+                                                    Close</button>
+                                                </div>
+                                            </form>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </td><td ><a href="#" data-toggle="modal" data-target="#myModalEdit{{a.id}}" ><img ng-if="a.photo ==''" src="@routes.Assets.at("images/avatar.png")" style="width: 40px ; height: 40px ;" class="img-responsive img-thumbnail"><img ng-if="a.photo !=''" src="@routes.Assets.at("images/{{a.photo}}")" style="width: 40px ; height: 40px ;" class="img-responsive img-thumbnail"></a></td><td>
+                            {{a.firstName}}</td><td>{{a.lastName}}</td><td >{{a.role}}</td><td>
                             {{a.phone}}</td><td >
                             {{a.email}}</td><td >
-                            {{a.doneAt|date}}</td><td><button type="button" data-toggle="modal" data-target="#myModal{{a.id}}" class="btn btn-default pull-right" ng-if="a.active =='1'"><span style="color: red;" class="glyphicon glyphicon-remove"></span></button></td>
+                            {{a.doneAt|date}}</td><td><button type="button" data-toggle="modal" data-target="#myModal{{a.id}}" class="btn btn-default pull-right" ng-if="a.active =='1'"><span style="color: red ;" class="glyphicon glyphicon-remove"></span></button></td>
                         </tr>
                         <tr class="success">
-                            <th>Edit</th><th >photo</th><th>First name</th><th>Last name</th><th>Role</th><th >Phone</th><th >email</th><th>Date</th><th>Remove</th>
+                            <th>Edit</th><th >photo</th><th>First name</th><th>Last name</th><th>Role</th><th >
+                            Phone</th><th >email</th><th>Date</th><th>Remove</th>
                         </tr>
                     </table>
-                    <div style="margin-top: -3%;" class="pull-right">
-                    <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="/assets/partials/tables/dirPagination.tpl.html"></dir-pagination-controls>
+                    <div style="margin-top: -3% ;" class="pull-right">
+                        <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="/assets/partials/tables/dirPagination.tpl.html"></dir-pagination-controls>
                     </div>
                 </div>
             </div>

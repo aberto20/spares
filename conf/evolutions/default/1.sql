@@ -6,7 +6,7 @@
 create table bland (
   id                        bigint auto_increment not null,
   bland_name                varchar(255),
-  description               varchar(255),
+  description               TEXT,
   image                     varchar(255),
   delete_status             tinyint(1) default 0,
   delete_reason             varchar(255),
@@ -19,7 +19,7 @@ create table part_type (
   id                        bigint auto_increment not null,
   type_name                 varchar(255),
   image                     varchar(255),
-  description               varchar(255),
+  description               TEXT,
   delete_status             tinyint(1) default 0,
   delete_reason             varchar(255),
   done_by                   varchar(255),
@@ -44,7 +44,7 @@ create table series (
 create table spare_part (
   id                        bigint auto_increment not null,
   part_name                 varchar(255),
-  description               varchar(255),
+  description               TEXT,
   serial_number             varchar(255),
   model_number              varchar(255),
   image                     varchar(255),
@@ -81,7 +81,7 @@ create table user (
 create table vehicle (
   id                        bigint auto_increment not null,
   vehicle_name              varchar(255),
-  description               varchar(255),
+  description               TEXT,
   image                     varchar(255),
   fablication_year          varchar(255),
   delete_status             tinyint(1) default 0,

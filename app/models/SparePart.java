@@ -2,10 +2,8 @@ package models;
 
 import com.avaje.ebean.Expr;
 import play.db.ebean.Model;
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+
+import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
@@ -17,6 +15,7 @@ public class SparePart extends Model {
     @Id
     public long id;
     public String partName = "";
+    @Column(columnDefinition = "TEXT")
     public String description = "";
     public String serialNumber = "";
     public String modelNumber = "";

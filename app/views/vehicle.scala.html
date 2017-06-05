@@ -31,7 +31,7 @@
                                     </label>
                                     <select required ng-model="newVehicleInfo.blandId" class="form-control">
                                         <option ng-repeat="m in blands" value="{{m.id}}">
-                                            {{m.blandName}} [ {{m.description}} ]</option>
+                                            {{m.blandName}}</option>
                                     </select>
                                     <label>
                                         Vehicle name
@@ -203,7 +203,7 @@
                             {{a.doneAt|date}}</td><td><button type="button" data-toggle="modal" data-target="#myModal{{a.id}}" class="btn btn-default pull-right" ><span style="color: red ;" class=" glyphicon glyphicon-remove"></span></button></td>
                         </tr>
                         <tr class="success">
-                            <th>Edit</th><th>Image</th><th>Bland name</th><th>Vehicle name</th><th>Description</th><th>
+                            Bland name            <th>Edit</th><th>Image</th><th>Bland name</th><th>Vehicle name</th><th>Description</th><th>
                             Fabrication year</th><th >Done by</th><th >date</th><th>Remove</th>
                         </tr>
 

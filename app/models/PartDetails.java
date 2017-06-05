@@ -4,6 +4,7 @@ import com.avaje.ebean.Expr;
 import play.db.ebean.Model;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import java.sql.Timestamp;
@@ -18,6 +19,7 @@ public class PartDetails extends Model {
     public long id;
     public String typeName = "";
     public String image = "";
+    @Column(columnDefinition = "TEXT")
     public String description = "";
 
     public boolean deleteStatus = false;

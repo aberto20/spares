@@ -46,6 +46,8 @@ POST    /updatePartType/                 controllers.Application.updatePartType(
 POST    /deletePartType/:id              controllers.Application.deletePartType(id:Long)
 POST    /uploadImage/                    controllers.Application.uploadImage()
 POST    /updateUserImage/:id             controllers.Application.updateUserImage(id:Long)
+POST    /updatePartImage/:id             controllers.Application.updatePartImage(id:Long)
+POST    /updateTypeImage/:id             controllers.Application.updateTypeImage(id:Long)
 POST    /updateVehicleImage/:id             controllers.Application.updateVehicleImage(id:Long)
 GET     /vehicleByBland/:id              controllers.Application.vehicleByBland(id:Long)
 GET     /vehicleBySerie/:id              controllers.Application.vehicleBySerie(id:Long)

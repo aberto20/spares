@@ -3,6 +3,7 @@ package models;
 import com.avaje.ebean.Expr;
 import play.db.ebean.Model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.sql.Timestamp;
@@ -17,6 +18,7 @@ public class Bland extends Model {
     @Id
     public long id;
     public String blandName = "";
+    @Column(columnDefinition = "TEXT")
     public String description = "";
     public String image = "";
 
