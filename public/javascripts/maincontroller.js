@@ -6,24 +6,22 @@
     }
     $scope.selectVehicle = function (id) {
         $http.get('/vehicleByBland/'+id).success(function (data, status, headers, config){
-            $scope.vehicleType=data;
-            for(var d in data){
-                if(data[d].id == id){
-                    $scope.getvehicleIndex= data[d];
-                }
+        $scope.vehicleType=data;
+        for(var d in data){
+            if(data[d].id == id){
+                $scope.getvehicleIndex= data[d];
             }
-            $scope.showVehile=true;
-            $scope.showBland=false;
-            $scope.showSerie=false;
-            $scope.showParttype=false;
-            $scope.showSparepart=false;
-            $scope.showSparepartDetails=false;
-            $scope.showSearch=false;
-            $scope.showsearchDetails=false;
-            $scope.showsearchDetails=false;
-
+        }
+        $scope.showVehile=true;
+        $scope.showBland=false;
+        $scope.showSerie=false;
+        $scope.showParttype=false;
+        $scope.showSparepart=false;
+        $scope.showSparepartDetails=false;
+        $scope.showSearch=false;
+        $scope.showsearchDetails=false;
+        $scope.showsearchDetails=false;
         });
-
     };
     $scope.showVehilePage=function(){
         $scope.showVehile=true;
@@ -79,7 +77,7 @@
         $http.get('/vehicleBySerie/'+id).success(function (data, status, headers, config){
             for(var d in data){
                 if(data[d].id == id){
-                    $scope.getSerieIndex= data[d];
+                    $scope.getSerieIndex = data[d];
                 }
             }
             $scope.seriesType=data;
@@ -482,11 +480,6 @@
         $scope.dataLoading = true;
         $scope.newVehicleInfo.image=$scope.getphoto;
         $http.post('/save/vehicle/',$scope.newVehicleInfo ).success(function (data, status, headers, config){
-            //alert(JSON.stringify(data));
-            if (data=='vehicleNameExists'){
-                alert('Ethered vehicle name exist !');
-                return;
-            }
             $scope.vehicles=data;
             $scope.new=false;
             $scope.newVehicleInfo="";

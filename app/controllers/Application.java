@@ -286,10 +286,6 @@ public class Application extends Controller {
     public static Result saveVehicle(){
         Form<Vehicle> vehicleFrom = Form.form(Vehicle.class).bindFromRequest();
         Vehicle vehicle = vehicleFrom.get();
-        Vehicle v = Vehicle.findByVehicleName(vehicle.vehicleName);
-        if (v != null){
-            return ok("vehicleNameExists");
-        }
         long blandId=Long.parseLong(vehicleFrom.field("blandId").value());
         vehicle.bland = Bland.finderById(blandId);
         vehicle.doneBy=User.findByUsername(session("userId")).username;
