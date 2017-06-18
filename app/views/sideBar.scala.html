@@ -1,10 +1,9 @@
 @(page:String)
 <div  class="list-group success" style="width: 130%; margin-top: -20%; margin-left: -10%;">
-    <a class="list-group-item @if(page=="dashboard"){active}"  href="/dashboarAdmin/">Dashboard</a>
-    <a class="list-group-item @if(page=="user"){active} "  href="/user/">Manage user</a>
-    <a class="list-group-item @if(page=="bland"){active}"  href="/blandPage/">Vehicle branding</a>
-    <a class="list-group-item @if(page=="vehicle"){active}"  href="/VehiclePage/">Mange vehicle</a>
-    <a class="list-group-item @if(page=="series"){active}"  href="/SeriesPage/">Mange vehicle series</a>
-    <a class="list-group-item @if(page=="sparePartType"){active}"  href="/partTypePage/">Manage spare part type</a>
-    <a class="list-group-item @if(page=="sparePart"){active}"  href="/sparePart/">Manage spare part</a>
+    <a class="list-group-item @if(page=="user"){active} "  href="@routes.Application.user()">System users</a>
+    <a class="list-group-item @if(page=="bland"){active}"  href="@routes.Application.blandPage()">Vehicle brand</a>
+    <a class="list-group-item @if(page=="models"){active}"  href="@routes.Application.models()">Manage model</a>
+    <a class="list-group-item @if(page=="sparePartType"){active}"  href="@routes.Application.partTypePage()">Spare part types</a>
+    <a class="list-group-item @if(page=="sparePart"){active}"  href="@routes.Application.sparePart()">Manage spare part</a>
+    <a class="list-group-item @if(page=="details"){active}"  href="@routes.Application.details()">Spare part details</a>
 </div>

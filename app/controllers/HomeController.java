@@ -17,13 +17,13 @@ public class HomeController extends Controller {
             user.active=true;
             user.doneAt=new Timestamp(new Date().getTime());
             user.doneBy="default";
-            user.firstName="Bayingana";
-            user.lastName="Abel";
+            user.firstName="NKUNDIMANA";
+            user.lastName="Evalist";
             user.role="admin";
-            user.email="aberto20@gmail.com";
+            user.email="nkundimana@gmail.com";
             user.password="admin";
             user.username="admin";
-            user.phone="0785185421";
+            user.phone="0788885368";
             user.save();
         }
         return ok(index.render());

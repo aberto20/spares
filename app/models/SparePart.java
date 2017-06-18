@@ -16,14 +16,15 @@ public class SparePart extends Model {
     public long id;
     public String partName = "";
     @Column(columnDefinition = "TEXT")
-    public String description = "";
-    public String serialNumber = "";
+    public String country = "";
+    public String manufacturer = "";
     public String modelNumber = "";
     public String image = "";
     public String manufacturerPrice = "";
     public String fittingName = "";
     public String originality = "";
     public String fablicationYear = "";
+    public String blandId = "";
 
     @ManyToOne(cascade = CascadeType.ALL)
     public PartType partType;

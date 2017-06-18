@@ -3,10 +3,7 @@ package models;
 import com.avaje.ebean.Expr;
 import play.db.ebean.Model;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
@@ -14,24 +11,20 @@ import java.util.List;
 /**
  * Created by lenovo on 5/20/2017.
  */
+@Entity
 public class PartDetails extends Model {
     @Id
     public long id;
-    public String typeName = "";
-    public String image = "";
-    @Column(columnDefinition = "TEXT")
-    public String description = "";
-
-    public boolean deleteStatus = false;
-    public String deleteReason = "";
     public String doneBy = "";
     public Timestamp doneAt = new Timestamp(new Date().getTime());
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    public SparePart sparePart;
+    public boolean deleteStatus = false;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    public PartType partType;
+    public Bland bland;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    public SparePart sparePart;
 
     public static Model.Finder<Long, PartDetails> find = new Model.Finder<Long, PartDetails>(Long.class, PartDetails.class);
     public static List<PartDetails> all(){

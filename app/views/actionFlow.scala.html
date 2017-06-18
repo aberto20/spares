@@ -1,139 +1,93 @@
-<div ng-show="showVehile" class="list-group success">
-    <div >
-        <table style="width: 100%;height: 100%">
-            <tr>
-                <td> <center><img width="80" height="80" src="@routes.Assets.at("images/{{getvehicleIndex.bland.image}}")" style="height: 80px;width:80px"></center></td>
-            </tr>
-            <tr>
-                <td>
-                    Bland: <span style="color: #61af50;"> {{getvehicleIndex.bland.blandName}}</span><br />
-                    Description:<span style="color: #61af50;"> {{getvehicleIndex.bland.description}}</span>
-                </td>
-            </tr>
-        </table>
-    </div>
-</div>
-<div ng-show="showSerie" class="list-group success">
+<div ng-show="showBlands" class="list-group success">
     <div  >
         <table style="width: 100%;height: 100%">
             <tr>
-                <td> <center><img src="@routes.Assets.at("images/{{getvehicleIndex.bland.image}}")" class="img-responsive" style="height: 80px;width:80px"></center></td>
+                <td> <center><img src="@routes.Assets.at("images/{{getVehicleByBlandIndex.bland.image}}")" class="img-responsive" style="height: 80px;width:80px"></center></td>
             </tr>
             <tr>
                 <td>
-                    <center>Bland:<span style="color: #61af50;"> {{getvehicleIndex.bland.blandName}}</span></center>
+                    <center>{{getVehicleByBlandIndex.bland.blandName}}</center>
                 </td>
             </tr>
-            <tr>
-                <td>
-                    <center>Description:<span style="color: #61af50;"> {{getvehicleIndex.bland.description}}</span></center>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <center>Vehicle:<span style="color: #61af50;"> {{getvehicleIndex.vehicleName}}</span></center>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <center>Fabrication year:<span style="color: #61af50;"> {{getvehicleIndex.fablicationYear}}</span></center>
-                </td>
-            </tr>
+
         </table>
+        <hr >
     </div>
+</div>
+<div ng-show="showModels" class="list-group success">
+    <div  >
+        <table style="width: 100%;height: 100%">
+            <tr>
+                <td>
+                    <center>{{getVehicleByBlandIndex.modelName}}</center>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <center>{{getVehicleByBlandIndex.fabYear}}</center>
+                </td>
+            </tr>
 
-
+        </table>
+        <hr >
+    </div>
 </div>
 <div ng-show="showParttype" class="list-group success">
     <div  >
         <table style="width: 100%;height: 100%">
             <tr>
-                <td> <center><img src="@routes.Assets.at("images/{{getvehicleIndex.bland.image}}")" class="img-responsive" style="height: 80px;width:80px"></center></td>
+                <td>
+                    <center>{{getParttypeIndex.typeName}}</center>
+                </td>
             </tr>
             <tr>
                 <td>
-                    <center>{{getvehicleIndex.bland.blandName}}</center>
+                    <center>{{getParttypeIndex.vehicleModel.fabYear}}</center>
                 </td>
             </tr>
         </table>
         <hr >
-        <center ><b>Series details</b></center>
-        <table style="width: 100%;height: 100%">
-            <tr>
-                <td>
-                    Serie name: <span style="color: #61af50;">{{getSerieIndex.serieName}}</span>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    Serie number: <span style="color: #61af50;">{{getSerieIndex.serieNo}}</span>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    Fabrication year: <span style="color: #61af50;">{{getSerieIndex.fablicationYear}}</span>
-                </td>
-            </tr>
-        </table>
-        <hr>
-        <center ><b>Part type details</b></center>
-        <table style="width: 100%;height: 100%">
-            <tr>
-                <td>
-                   Part type name: <span style="color: #61af50;">{{getParttypeIndex.typeName}}</span>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    Part description: <span style="color: #61af50;">{{getParttypeIndex.description}}</span>
-                </td>
-            </tr>
-        </table>
     </div>
 </div>
-<div ng-show="showSparepart" class="list-group success">
-    <h3 style="text-align: center">Details</h3>
+<div ng-show="showSpareParties" class="list-group success">
     <div  >
         <table style="width: 100%;height: 100%">
+
             <tr>
-                <td> <center><img src="@routes.Assets.at("images/{{getvehicleIndex.bland.image}}")" class="img-responsive" style="height: 80px;width:80px"></center></td>
+                <td> <center><img src="@routes.Assets.at("images/{{getSparePartties.partType.image}}")" class="img-responsive" style="height: 80px;width:80px"></center></td>
             </tr>
             <tr>
                 <td>
-                    <center>Bland: <span style="color: #61af50;">{{getvehicleIndex.bland.blandName}}</span></center>
+                    <center>{{getSparePartties.partType.typeName}}</center>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <center>{{getSparePartties.modelNumber}}</center>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <center>{{getSparePartties.fablicationYear}}</center>
                 </td>
             </tr>
         </table>
         <hr >
-        <center><b>Series details</b></center>
+    </div>
+</div>
+<div ng-show="showSpareparts" class="list-group success">
+
+    <div >
+        <b><center>Part type details</center></b>
         <table style="width: 100%;height: 100%">
             <tr>
                 <td>
-                    Serie name: <span style="color: #61af50;">{{getSerieIndex.serieName}}</span>
+                   <center> Part name: <span style="color: #61af50;"> {{getParttypeIndex.typeName}}</span></center>
                 </td>
             </tr>
             <tr>
                 <td>
-                    Serie number: <span style="color: #61af50;">{{getSerieIndex.serieNo}}</span>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    Fabrication year: <span style="color: #61af50;">{{getSerieIndex.fablicationYear}}</span>
-                </td>
-            </tr>
-        </table>
-        <hr>
-        <b>Part type details</b>
-        <table style="width: 100%;height: 100%">
-            <tr>
-                <td>
-                    Part name: <span style="color: #61af50;"> {{getParttypeIndex.typeName}}</span>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                Serie number: <span style="color: #61af50;">{{getParttypeIndex.description}}</span>
+                    <center>Serie number: <span style="color: #61af50;">{{getParttypeIndex.description}}</span></center>
                 </td>
             </tr>
         </table>
@@ -144,31 +98,17 @@
     <div>
         <table style="width: 100%;height: 100%">
             <tr>
-                <td><center><img src="@routes.Assets.at("images/{{getSparePartIndex.partType.series.vehicle.bland.image}}")" class="img-responsive" style="height: 80px;width:80px"></center></td>
+                <td><center><img src="@routes.Assets.at("images/{{getSparePartIndex.image}}")" class="img-responsive" style="height: 80px;width:80px"></center></td>
             </tr>
             <tr>
                 <td>
-                    <center>Bland name: <span style="color: #61af50;"> {{getSparePartIndex.partType.series.bland.blandName}}</span></center>
+                    <center>Bland name: <span style="color: #61af50;"> {{getSparePartIndex.partType.typeName}}</span></center>
                 </td>
             </tr>
         </table>
         <hr >
-        <center ><b>Series details</b></center>
-        <table style="width: 100%;height: 100%">
-            <tr>
-                <td>
-                    Serie number: <span style="color: #61af50;">{{getSparePartIndex.partType.series.serieNo}}</span>
-                </td>
-            </tr>
-        </table>
-        <hr>
         <center ><b>Part type details</b></center>
         <table style="width: 100%;height: 100%">
-            <tr>
-                <td>
-                    Part type name: <span style="color: #61af50;">{{getSparePartIndex.partType.typeName}}</span>
-                </td>
-            </tr>
             <tr>
                 <td>
                     Part type description: <span style="color: #61af50;">{{getSparePartIndex.partType.description}}</span>

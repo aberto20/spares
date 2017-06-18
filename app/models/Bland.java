@@ -3,10 +3,9 @@ package models;
 import com.avaje.ebean.Expr;
 import play.db.ebean.Model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -26,6 +25,7 @@ public class Bland extends Model {
     public String deleteReason = "";
     public String doneBy = "";
     public Timestamp doneAt = new Timestamp(new Date().getTime());
+
 
     public static Model.Finder<Long, Bland> find = new Model.Finder<Long, Bland>(Long.class, Bland.class);
     public static List<Bland> all(){

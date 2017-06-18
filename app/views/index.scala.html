@@ -1,73 +1,36 @@
 @main("Home"){
 <div ng-controller="MainController" class="container">
 @frontHeader()
-        <div ng-show="showBland" ng-init="loadBlands()" style="height:100%;margin-top:0" class="panel panel-default">
-                <div class="page-heading">
-                        <div class="page-breadcrumb">
-                                <ul id="breadcrumbs-one">
-                                        <li class="active" class="active"><a href="@routes.HomeController.index()"><span class="fa fa-home"></span> Home</a></li>
-                                        <li class="active"><a ><span class="label label-info"></span><i class="fa fa-cogs"></i> Vehicle bland</a></li>
-                                </ul>
-                        </div>
-                </div>
-                <div style="font-size: 24px; color: #3298d1;" ><center><h2>Please select vehicle bland to browse vehicles and vehicle parts... </h2></center></div>
+<div ng-show="showBland"  ng-init="loadBlands()" style="height:100%;margin-top:0" class="panel panel-default">
+        <div class="page-heading">
+        <div class="page-breadcrumb">
+                <ul id="breadcrumbs-one">
+                        <li class="active" class="active"><a href="@routes.HomeController.index()"><span class="fa fa-home"></span> Home</a></li>
+                        <li class="active"><a ><span class="label label-info"></span><i class="fa fa-cogs"></i> Vehicle bland</a></li>
+                </ul>
+        </div>
+        </div>
+        <div   class="row">
+                <div style="font-size: 24px; color: #3298d1;" ><center><h3>Please select vehicle bland to browse part types and vehicle spare parts... </h3></center></div>
                 <hr />
-                <div   class="row">
-                        <div ng-repeat="m in blands" class="col-md-4" style="padding: 2%;">
-                                <div class="thumbnail">
-                                             <a ng-click="selectVehicle(m.id)" href="">
-                                                <img src="@routes.Assets.at("images/{{m.image}}")" alt="{{m.blandName}}" class="img-responsive" style="height: 100px;width:200px" >
-                                                <div class="caption">
-                                                        <center><span style="font-size: 18px; color: #61af51;"> {{m.blandName |uppercase}} </span></center>
-                                                </div>
-                                             </a>
+                <div ng-repeat="m in blands" class="col-md-4" style="padding: 2%;">
+                        <div class="thumbnail">
+                             <a ng-click="selectVehicleModel2(m.id)" href="">
+                                <img src="@routes.Assets.at("images/{{m.image}}")" alt="{{m.blandName}}" class="img-responsive" style="height: 100px;width:200px" >
+                                <div class="caption">
+                                        <center><span style="font-size: 18px; color: #61af51;"> {{m.blandName |uppercase}} </span></center>
                                 </div>
+                        </a>
                         </div>
                 </div>
-
         </div>
-        <div ng-show="showVehile" style="height:100%; width: 100%;" class="panel panel-default col-lg-12">
-                <div class="page-heading" style="margin-left: -1.5%; margin-right: -1.5%;">
-                        <div class="page-breadcrumb">
-                                <ul id="breadcrumbs-one">
-                                        <li class="active" class="active"><a ng-click="showBlandPage()" href=""><span class="fa fa-cogs"></span> Vehicle blands</a></li>
-                                        <li class="active"><a ><span class="label label-info"></span><i class="fa fa-cogs"></i> Vehicles</a></li>
-                                </ul>
-                        </div>
-                </div>
-                <div  class="col-lg-3">
-                        <br>
-                   @actionFlow()
-                </div>
-                <div class="col-lg-9">
-                        <div   class="row">
-                                <div ng-repeat="v in vehicleType" class="col-md-4">
-                                        <div class="thumbnail">
-                                                <a ng-click="selectSeries(v.id)" href="">
-                                                        <img src="@routes.Assets.at("images/{{v.image}}")" alt="{{v.vehicleName}}" class="img-responsive" style="height: 70px;width:70px" >
-                                                        <div class="caption">
-                                                                <center><span style="color: #61af50;">{{v.vehicleName |uppercase}}</span></center>
-                                                        </div>
-                                                        <div class="caption">
-                                                                <center><span style="color: #61af50;">{{v.fablicationYear |uppercase}}</span></center>
-                                                        </div>
-                                                </a>
-                                        </div>
-                                </div>
-
-                        </div>
-                </div>
-
-        </div>
-        <div ng-show="showSerie" style="height:100%;margin-top:0" class="panel panel-default col-lg-12">
-                <div class="page-heading" style="margin-left: -1.5%; margin-right: -1.5%;">
-                        <div class="page-breadcrumb">
-                                <ul id="breadcrumbs-one">
-                                        <li class="active" class="active"><a ng-click="showBlandPage()" href=""><span class="fa fa-cogs"></span> Vehicle bland</a></li>
-                                        <li class="active"><a ng-click="showVehilePage()" href=""><span class="label label-info"></span><i class="fa fa-arrow-right"></i> Vehicle</a></li>
-                                        <li class="active"><a ><span class="label label-info"></span><i class="fa fa-thumbs-up"></i> Series</a></li>
-                                </ul>
-                        </div>
+</div>
+<div ng-show="showModel"  style="height:100%;margin-top:0" class="panel panel-default col-lg-12">
+                <div class="page-breadcrumb" style="margin-left: -1.5%; margin-right: -1.5%;">
+                        <ul id="breadcrumbs-one">
+                                <li class="active" class="active"><a ng-click="showBlandPage()" href=""><span class="fa fa-cogs"></span> Vehicle bland</a></li>
+                                <li class="active" class="active"><a ng-click="showModelPage()" href=""><span class="fa fa-cogs"></span> Vehicle model</a></li>
+                        </ul>
                 </div>
                 <div class="col-lg-3">
                         <br>
@@ -75,15 +38,22 @@
                 </div>
                 <div class="col-lg-9">
                         <div   class="row">
-                                <div ng-repeat="s in seriesType" class="col-md-4">
+                                <div style="font-size: 24px; color: #3298d1;" ><center><h3>Please select vehicle model to browse part types and vehicle spare parts... </h3></center></div>
+                                <hr />
+                                <div ng-repeat="v in vehicleModel" class="col-md-4">
                                         <div class="thumbnail">
-                                                <a href="" ng-click="selectParttype(s.id)">
-                                                        <center><h3>Serie name:<span style="color: #61af50;"> {{s.serieName}}</span></h3></center>
+                                                <a href="" ng-click="selectPartTypeabel(v.id)">
                                                         <div class="caption">
-                                                                <center>Serie number: {{s.serieNo |uppercase}}</center>
+                                                                <center><img src="@routes.Assets.at("images/{{v.image}}")" alt="{{v.modelName}}" class="img-responsive" style="height: 100px;width:200px" ></center>
                                                         </div>
                                                         <div class="caption">
-                                                                <center>Fabrication year: {{s.fablicationYear |uppercase}}</center>
+                                                                <center>Vehicle model name : <span style="color: #61af50;"> {{v.modelName }}</span></center>
+                                                        </div>
+                                                        <div class="caption">
+                                                                <center>Vehicle model name : <span style="color: #61af50;"> {{v.modelName }}</span></center>
+                                                        </div>
+                                                        <div class="caption">
+                                                                <center>Fabrication year: <span style="color: #61af50;"> {{v.fabYear }}</span></center>
                                                         </div>
                                                 </a>
                                         </div>
@@ -93,12 +63,11 @@
                 </div>
 
         </div>
-        <div ng-show="showParttype" style="height:100%;margin-top:0" class="panel panel-default col-lg-12">
+<div ng-show="showParttype" style="height:100%;margin-top:0" class="panel panel-default col-lg-12">
                 <div class="page-breadcrumb" style="margin-left: -1.5%; margin-right: -1.5%;">
                         <ul id="breadcrumbs-one">
                                 <li class="active" class="active"><a ng-click="showBlandPage()" href=""><span class="fa fa-cogs"></span> Vehicle bland</a></li>
-                                <li class="active"><a ng-click="showVehilePage()" href=""><span class="label label-info"></span><i class="fa fa-arrow-right"></i> Vehicle</a></li>
-                                <li class="active"><a ng-click="showSeriePage()" href=""><span class="label label-info"></span><i class="fa fa-arrow-right"></i> Series</a></li>
+                                <li class="active"><a href="#" ng-click="showModelPage()"><span class="label label-info"></span><i class="fa fa-thumbs-up"></i> Vehicle model</a></li>
                                 <li class="active"><a ><span class="label label-info"></span><i class="fa fa-thumbs-up"></i> Part type</a></li>
                         </ul>
                 </div>
@@ -108,15 +77,22 @@
                 </div>
                 <div class="col-lg-9">
                         <div   class="row">
-                                <div ng-repeat="sp in sparepartTypes" class="col-md-4">
+                                <div style="font-size: 24px; color: #3298d1;" ><center><h3>Please select part type to browse vehicle spare parts... </h3></center></div>
+                                <hr />
+                                <div ng-repeat="s in sparepartTypes" class="col-md-4">
                                         <div class="thumbnail">
-                                                <a href="" ng-click="selectspareparty(sp.id)">
-                                                        <img src="@routes.Assets.at("images/{{sp.image}}")" alt="{{sp.typeName}}" class="img-responsive" style="height: 100px;width:200px" >
+                                                <a href="" ng-click="selectspareparties(s.id)">
                                                         <div class="caption">
-                                                                <center>Part #: <span style="color: #61af50;"> {{sp.id }}</span></center>
+                                                                <center><img src="@routes.Assets.at("images/{{s.image}}")" alt="{{s.typeName}}" class="img-responsive" style="height: 100px;width:200px" ></center>
                                                         </div>
                                                         <div class="caption">
-                                                                <center>Part name: <span style="color: #61af50;"> {{sp.typeName }}</span></center>
+                                                                <center>Part type #: <span style="color: #61af50;"> {{s.id }}</span></center>
+                                                        </div>
+                                                        <div class="caption">
+                                                                <center>Part type name : <span style="color: #61af50;"> {{s.typeName }}</span></center>
+                                                        </div>
+                                                        <div class="caption">
+                                                                <center>Part type Description: <span style="color: #61af50;"> {{s.description }}</span></center>
                                                         </div>
                                                 </a>
                                         </div>
@@ -126,56 +102,85 @@
                 </div>
 
         </div>
-        <div ng-show="showSparepart" style="height:100%;margin-top:0" class="panel panel-default col-lg-12">
+<div ng-show="Please select spare part to browse vehicle spare parts information" style="height:100%;margin-top:0" class="panel panel-default col-lg-12">
+                <div class="page-breadcrumb" style="margin-left: -1.5%; margin-right: -1.5%;">
+                        <ul id="breadcrumbs-one">
+                                <li class="active" class="active"><a href="#" ng-click="showBlandPage()"><span class="fa fa-home"></span> Home</a></li>
+                                <li class="active" class="active"><a href="#" ng-click="showModelPage()" href=""><span class="fa fa-cogs"></span> Vehicle bland</a></li>
+                                <li class="active" class="active"><a href="#" ng-click="showPartType()" href=""><span class="fa fa-cogs"></span> Part type</a></li>
+                                <li class="active"><a ><span class="label label-info"></span><i class="fa fa-thumbs-up"></i> Spare part</a></li>
+                        </ul>
+                </div>
+                <div class="col-lg-3">
+                        <br>
+                        @actionFlow()
+                </div>
+                <div class="col-lg-9">
+                        <div   class="row">
+                                <div style="font-size: 24px; color: #3298d1;" ><center><h3>Please select spare part to browse vehicle spare parts information </h3></center></div>
+                                <hr />
+                                <div ng-repeat="sp in sparepartss" class="col-md-4">
+                                        <div class="thumbnail">
+                                                <a href="" ng-click="selectspareparty(sp.id)">
+                                                        <img src="@routes.Assets.at("images/{{sp.image}}")" alt="{{sp.typeName}}" class="img-responsive" style="height: 100px;width:200px" >
+                                                        <div class="caption">
+                                                                <center>Part #: <span style="color: #61af50;"> {{sp.id }}</span></center>
+                                                        </div>
+                                                        <div class="caption">
+                                                                <center>Part name: <span style="color: #61af50;"> {{sp.partName }}</span></center>
+                                                        </div>
+                                                </a>
+                                        </div>
+                                </div>
+
+                        </div>
+                </div>
+
+        </div>
+<div ng-show="showSparepart" style="height:100%;margin-top:0" class="panel panel-default col-lg-12">
         <div class="page-breadcrumb" style="margin-left: -1.5%; margin-right: -1.5%;">
                 <ul id="breadcrumbs-one">
                         <li class="active" class="active"><a ng-click="showBlandPage()" href=""><span class="fa fa-cogs"></span> Vehicle bland</a></li>
-                        <li class="active"><a ng-click="showVehilePage()" href=""><span class="label label-info"></span><i class="fa fa-arrow-right"></i> Vehicle</a></li>
-                        <li class="active"><a ng-click="showSeriePage()" href=""><span class="label label-info"></span><i class="fa fa-arrow-right"></i> Series</a></li>
                         <li class="active"><a ng-click="showParttypePage()" href=""><span class="label label-info"></span><i class="fa fa-thumbs-up"></i> Part type</a></li>
+                        <li class="active"><a><span class="label label-info"></span><i class="fa fa-thumbs-up"></i> Spare part information</a></li>
                 </ul>
         </div>
                 <div class="col-lg-3">
                         <br>
                         @actionFlow()
                 </div>
+        <div style="font-size: 24px; color: #3298d1;" ><center><h3>Vehicle spare part details </h3></center></div>
+        <hr />
                 <div class="col-lg-5">
-                        <center ><b><span style="color: #61af50;"> {{getSparePartIndex.partName}} Image</span> </b></center>
+                        <center ><b><span style="color: #61af50;"> {{getSparePartiesIndex.partName}} Image</span> </b></center>
                         <hr />
-                        <img src="@routes.Assets.at("images/{{getSparePartIndex.image}}")" class="img-responsive" style="height: 100%;width:100%;">
+                        <img src="@routes.Assets.at("images/{{getSparePartIndex.image}}")" class="img-responsive" style="height: 80%;width:100%;">
                 </div>
                 <div class="col-lg-4">
-                        <center ><b>Details for <span style="color: #61af50;"> {{getSparePartIndex.partName}}</span> </b></center>
-                        <hr />
                         <table style="width: 100%;height: 100%" class="display table table-bordered table-striped">
                                 <tr>
                                         <td>
-                                               Spare part name: <span style="font-size: 16px; color: #61af50;"> {{getSparePartIndex.partName}}</span>
+                                                Spare part name: <span style="font-size: 16px; color: #61af50;"> {{getSparePartIndex.partName}}</span>
                                         </td>
                                 </tr>
                                 <tr>
                                         <td>
-                                                Model number: <span style="font-size: 16px; color: #61af50;"> {{getSparePartIndex.modelNumber}}</span>
+                                                Part number : <span style="font-size: 16px; color: #61af50;"> {{getSparePartIndex.modelNumber}}</span>
                                         </td>
                                 </tr>
                                 <tr>
                                         <td>
-                                                Year of fabrication: <span style="font-size: 16px; color: #61af50;">{{getSparePartIndex.fablicationYear}}</span>
+                                                Model of the motor vehicle that uses the spare part(VIN): <span style="font-size: 16px; color: #61af50;"> {{getSparePartIndex.bland.blandName}}</span>
                                         </td>
                                 </tr>
                                 <tr>
                                         <td>
-                                                Manufacture country: <span style="font-size: 16px; color: #61af50;"> XYZ</span>
+                                                Manufacture of the spare part: <span style="font-size: 16px; color: #61af50;"> {{getSparePartIndex.manufacturer}}</span>
                                         </td>
                                 </tr>
                                 <tr>
                                         <td>
-                                               Manufacture of the spare part: <span style="font-size: 16px; color: #61af50;"> XYZ</span>
-                                        </td>
-                                </tr>
-                                <tr>
-                                        <td>
-                                                Genuine or counterfeit of spare part<span style="font-size: 16px; color: #61af50;"> {{getSparePartIndex.originality}}</span>
+                                                Date of manufacturer : <span style="font-size: 16px; color: #61af50;">{{getSparePartIndex.fablicationYear}}</span>
                                         </td>
                                 </tr>
                                 <tr>
@@ -184,23 +189,30 @@
                                         </td>
                                 </tr>
                                 <tr>
-                                <tr>
+                                        <td>
+                                                Country of manufacturer: <span style="font-size: 16px; color: #61af50;"> {{getSparePartIndex.country}}</span>
+                                        </td>
                                 </tr>
+                                <tr>
+                                        <td>Please select spare part to browse vehicle spare parts information
+                                                Genuine or counterfeit of spare part<span style="font-size: 16px; color: #61af50;"> {{getSparePartIndex.originality}}</span>
+                                        </td>
+                                </tr>
+                                <tr>
+                        <tr>
+                        </tr>
                         </table>
                 </div>
 
 
 
         </div>
-        <div ng-show="showSearch" style="height:100%;margin-top:0" class="panel panel-default col-lg-12">
+<div ng-show="showSearch" style="height:100%;margin-top:0" class="panel panel-default col-lg-12">
                       <div class="page-breadcrumb" style="margin-left: -1.5%; margin-right: -1.5%;">
                         <ul id="breadcrumbs-one">
                                 <li class="active" class="active"><a ng-click="showBlandPage()" href=""><span class="fa fa-cogs"></span> Vehicle bland</a></li>
-                                <li class="active"><a ng-click="showVehilePage()" href=""><span class="label label-info"></span><i class="fa fa-arrow-right"></i> Vehicle</a></li>
-                                <li class="active"><a ng-click="showSeriePage()" href=""><span class="label label-info"></span><i class="fa fa-arrow-right"></i> Series</a></li>
-                                <li class="active"><a ng-click="showParttypePage()" href=""><span class="label label-info"></span><i class="fa fa-arrow-right"></i> Part type</a></li>
                                 <li class="active"><a ng-click="showsparepartyPage()" href=""><span class="label label-info"></span><i class="fa fa-arrow-right"></i> Part type</a></li>
-                                <li class="active"><a><span class="label label-info"></span><i class="fa fa-thumbs-up"></i> Spare Part details</a></li>
+                                <li class="active"><a><span class="label label-info"></span><i class="fa fa-thumbs-up"></i> Spare Part information</a></li>
                         </ul>
                 </div>
 
@@ -218,38 +230,43 @@
                         <hr />
                         <table style="width: 100%;height: 100%" class="display table table-bordered table-striped">
                                 <tr>
+                                <td>
+                                        Spare part name: <span style="font-size: 16px; color: #61af50;"> {{getSparePartIndex.partName}}</span>
+                                </td>
+                                </tr>
+                                <tr>
+                                <td>
+                                        Part number : <span style="font-size: 16px; color: #61af50;"> {{getSparePartIndex.modelNumber}}</span>
+                                </td>
+                                </tr>
+                                <tr>
+                                <td>
+                                        Model of the motor vehicle that uses the spare part(VIN): <span style="font-size: 16px; color: #61af50;"> {{getSparePartIndex.bland.blandName}}</span>
+                                </td>
+                                </tr>
+                                <tr>
                                         <td>
-                                                Spare part name: <span style="font-size: 16px; color: #61af50;"> {{getSparePartIndex.partName}}</span>
+                                                Manufacture of the spare part: <span style="font-size: 16px; color: #61af50;"> {{getSparePartIndex.manufacturer}}</span>
+                                        </td>
+                                </tr>
+                                <tr>
+                                <td>
+                                        Date of manufacturer : <span style="font-size: 16px; color: #61af50;">{{getSparePartIndex.fablicationYear}}</span>
+                                </td>
+                                </tr>
+                                <tr>
+                                        <td>
+                                                Manufacture price: <span style="font-size: 16px; color: #61af50;"> {{getSparePartIndex.manufacturerPrice}}</span>
                                         </td>
                                 </tr>
                                 <tr>
                                         <td>
-                                                Model number: <span style="font-size: 16px; color: #61af50;"> {{getSparePartIndex.modelNumber}}</span>
-                                        </td>
-                                </tr>
-                                <tr>
-                                        <td>
-                                                Year of fabrication: <span style="font-size: 16px; color: #61af50;">{{getSparePartIndex.fablicationYear}}</span>
-                                        </td>
-                                </tr>
-                                <tr>
-                                        <td>
-                                                Manufacture country: <span style="font-size: 16px; color: #61af50;"> XYZ</span>
-                                        </td>
-                                </tr>
-                                <tr>
-                                        <td>
-                                                Manufacture of the spare part: <span style="font-size: 16px; color: #61af50;"> XYZ</span>
+                                                Country of manufacturer: <span style="font-size: 16px; color: #61af50;"> {{getSparePartIndex.country}}</span>
                                         </td>
                                 </tr>
                                 <tr>
                                         <td>
                                                 Genuine or counterfeit of spare part<span style="font-size: 16px; color: #61af50;"> {{getSparePartIndex.originality}}</span>
-                                        </td>
-                                </tr>
-                                <tr>
-                                        <td>
-                                                Manufacture price: <span style="font-size: 16px; color: #61af50;"> {{getSparePartIndex.manufacturerPrice}}</span>
                                         </td>
                                 </tr>
                                 <tr>

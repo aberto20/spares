@@ -4,120 +4,85 @@
     }else {
         $scope.displaydata='Show list users';
     }
-    $scope.selectVehicle = function (id) {
-        $http.get('/vehicleByBland/'+id).success(function (data, status, headers, config){
-        $scope.vehicleType=data;
-        for(var d in data){
-            if(data[d].id == id){
-                $scope.getvehicleIndex= data[d];
-            }
-        }
-        $scope.showVehile=true;
-        $scope.showBland=false;
-        $scope.showSerie=false;
-        $scope.showParttype=false;
-        $scope.showSparepart=false;
-        $scope.showSparepartDetails=false;
-        $scope.showSearch=false;
-        $scope.showsearchDetails=false;
-        $scope.showsearchDetails=false;
-        });
-    };
-    $scope.showVehilePage=function(){
-        $scope.showVehile=true;
-        $scope.showBland=false;
-        $scope.showSerie=false;
-        $scope.showParttype=false;
-        $scope.showSparepart=false;
-        $scope.showSparepartDetails=false;
-        $scope.showSearch=false;
-        $scope.showsearchDetails=false;
-    };
     $scope.showBlandPage=function(){
-        $scope.showVehile=false;
         $scope.showBland=true;
-        $scope.showSerie=false;
+        $scope.showBlands=true;
+        $scope.showModels = false;
+        $scope.showBlands = false;
+        $scope.showParttypes=false;
+        $scope.showSpareparts=false;
         $scope.showParttype=false;
         $scope.showSparepart=false;
         $scope.showSparepartDetails=false;
         $scope.showSearch=false;
         $scope.showsearchDetails=false;
     };
-    $scope.showSeriePage=function(){
-        $scope.showVehile=false;
-        $scope.showBland=false;
-        $scope.showSerie=true;
-        $scope.showParttype=false;
-        $scope.showSparepart=false;
-        $scope.showSparepartDetails=false;
-        $scope.showSearch=false;
-        $scope.showsearchDetails=false;
+    $scope.showModelPage=function(){
+        $scope.showModel = true;
+        $scope.showModels = true;
+        $scope.showBland = false;
+        $scope.showBlands = true;
+        $scope.showBlands=true;
+        $scope.showParttypes=false;
+        $scope.showSpareparts=false;
+        $scope.showParttype = false;
+        $scope.showSparepart = false;
+        $scope.showSparepartDetails = false;
+        $scope.showSearch = false;
+        $scope.showsearchDetails = false;
     };
     $scope.showParttypePage=function(){
         $scope.showBland=false;
-        $scope.showVehile=false;
-        $scope.showSerie=false;
+        $scope.showBlands=true;
+        $scope.showModels = true;
         $scope.showParttype=true;
+        $scope.showParttypes=true;
+        $scope.showBlands=true;
+        $scope.showSpareparts=false;
         $scope.showSparepart=false;
         $scope.showSparepartDetails=false;
         $scope.showSearch=false;
         $scope.showsearchDetails=false;
     };
     $scope.showsparepartyPage=function(){
-        $scope.showVehile=false;
         $scope.showBland=false;
-        $scope.showSerie=false;
+        $scope.showModels = true;
         $scope.showParttype=false;
+        $scope.showParttypes=true;
         $scope.showSparepart=true;
+        $scope.showSpareparts=true;
         $scope.showSparepartDetails=false;
         $scope.showSearch=false;
         $scope.showsearchDetails=false;
     };
-    $scope.selectSeries = function (id) {
-        $http.get('/vehicleBySerie/'+id).success(function (data, status, headers, config){
-            for(var d in data){
-                if(data[d].id == id){
-                    $scope.getSerieIndex = data[d];
-                }
-            }
-            $scope.seriesType=data;
-            $scope.showVehile=false;
-            $scope.showBland=false;
-            $scope.showSerie=true;
-            $scope.showParttype=false;
-            $scope.showSparepart=false;
-            $scope.showSparepartDetails=false;
-            $scope.showSearch=false;
-            $scope.showsearchDetails=false;
-        });
-    };
-    $scope.selectParttype = function (id) {
+    $scope.selectPartTypeabel=function(id){
         $http.get('/vehicleByPartType/'+id).success(function (data, status, headers, config){
-            //alert(JSON.stringify(data));
             for(var d in data){
                 if(data[d].id == id){
-                    $scope.getParttypeIndex= data[d];
+                    $scope.getParttypeIndex = data[d];
                 }
             }
-            $scope.sparepartTypes=data;
+            console.log('ID:'+id);
+            console.log('DATA:'+data);
+            $scope.sparepartTypes = data;
             $scope.showBland=false;
-            $scope.showVehile=false;
-            $scope.showSerie=false;
+            $scope.showBlands=true;
+            $scope.showModel = false;
+            $scope.showModels = true;
             $scope.showParttype=true;
+            $scope.showParttypes=false;
+            $scope.showSpareParties=false;
+            $scope.showSparePartiess=false;
             $scope.showSparepart=false;
             $scope.showSparepartDetails=false;
             $scope.showSearch=false;
             $scope.showsearchDetails=false;
-
         });
-
     };
+
     $scope.getCurrency=function(){
         $http.get('http://free.currencyconverterapi.com/api/v3/currencies').success(function (data, status, headers, config){
-            //alert(JSON.stringify(data));
-           $scope.currency=data.results;
-
-
+           $scope.currency = data.results;
         });
     };
     $scope.searchpartModel = function (model) {
@@ -132,8 +97,6 @@
             if(data!=""){
                 $scope.getSparePartIndex=data;
                 $scope.showBland=false;
-                $scope.showVehile=false;
-                $scope.showSerie=false;
                 $scope.showSearch=true;
                 $scope.showParttype=false;
                 $scope.showSparepart=false;
@@ -141,6 +104,29 @@
                 $scope.showSparepartDetails=false;
             }
 
+
+        });
+
+    };
+    $scope.selectspareparties = function (id) {
+        $http.get('/sparePartByPartType/'+id).success(function (data, status, headers, config){
+            for(var d in data){
+                if(data[d].id == id){
+                    $scope.getSparePartties= data[d];
+                }
+            }
+            $scope.sparepartss=data;
+            $scope.showBland=false;
+            $scope.showBlands=true;
+            $scope.showParttype=false;
+            $scope.showParttypes=true;
+            $scope.showSpareParties=true;
+            $scope.showSparePartiess=true;
+            $scope.showSparepart=false;
+            $scope.showSpareparts=false;
+            $scope.showSparepartDetails=false;
+            $scope.showSearch=false;
+            $scope.showsearchDetails=false;
 
         });
 
@@ -153,11 +139,14 @@
                 }
             }
             $scope.sparepartss=data;
-            $scope.showVehile=false;
             $scope.showBland=false;
-            $scope.showSerie=false;
+            $scope.showBlands=true;
             $scope.showParttype=false;
+            $scope.showParttypes=true;
+            $scope.showSpareParties=false;
+            $scope.showSparePartiess=false;
             $scope.showSparepart=true;
+            $scope.showSpareparts=true;
             $scope.showSparepartDetails=false;
             $scope.showSearch=false;
             $scope.showsearchDetails=false;
@@ -165,17 +154,58 @@
         });
 
     };
+    $scope.selectVehicleModel2 = function (id) {
+        $http.get('/vehicleByBland/'+id).success(function (data, status, headers, config){
+            for(var d in data){
+                if(data[d].id == id){
+                    $scope.getVehicleByBlandIndex= data[d];
+                }
+            }
+            $scope.vehicleModel=data;
+            $scope.showModel=true;
+            $scope.showBlands=true;
+            $scope.showBland=false;
+            $scope.showParttype=false;
+            $scope.showSpareParties=false;
+            $scope.showSparePartiess=false;
+            $scope.showSparepart=false;
+            $scope.showSparepartDetails=false;
+            $scope.showSearch=false;
+            $scope.showsearchDetails=false;
+
+        });
+
+    };
+    $scope.selectVehicleModel = function (id) {
+        $http.get('/modelByBland/'+id).success(function (data, status, headers, config){
+            for(var d in data){
+                if(data[d].id == id){
+                    $scope.getVehicleModelIndex = data[d];
+                }
+            }
+            $scope.sparepartss=data;
+            $scope.showModel=true;
+            $scope.showBland=false;
+            $scope.showParttype=false;
+            $scope.showSparepart=false;
+            $scope.showSpareParties=false;
+            $scope.showSparePartiess=false;
+            $scope.showSparepartDetails=false;
+            $scope.showSearch=false;
+            $scope.showsearchDetails=false;
+        });
+    };
     $scope.selectsparepartyDetails = function (id) {
         $http.get('/loadCurrentUser/').success(function (data, status, headers, config){
             //alert(JSON.stringify(data));
 
             $scope.sparepartDetail=data;
-            $scope.showVehile=false;
             $scope.showBland=false;
-            $scope.showSerie=false;
             $scope.showParttype=false;
             $scope.showSparepart=false;
             $scope.showSparepartDetails=true;
+            $scope.showSpareParties=false;
+            $scope.showSparePartiess=false;
             $scope.showSearch=false;
             $scope.showsearchDetails=false;
 
@@ -271,6 +301,21 @@
         });
 
     };
+    $scope.updateBlandImage = function (bland) {
+        $scope.dataLoading = true;
+        bland.image=$scope.getphoto;
+        $http.post('/updateBlandImage/'+bland.id, bland).success(function (data, status, headers, config){
+            if (data=='ok'){
+                $scope.blands = data;
+                $scope.dataLoading = false;
+                window.location='/blandPage/';
+            }else {
+                alert('Bland part image not updated there is an error');
+                $scope.dataLoading = false;
+                return;
+            }
+        });
+    };
     $scope.updateTypeImage = function (partType) {
         $scope.dataLoading = true;
         partType.image=$scope.getphoto;
@@ -281,6 +326,24 @@
                 window.location='/partTypePage/';
             }else {
                 alert('Part type image not updated there is an error');
+                $scope.dataLoading = false;
+                return;
+            }
+
+
+        });
+
+    };
+    $scope.updateModelImage = function (partType) {
+        $scope.dataLoading = true;
+        partType.image=$scope.getphoto;
+        $http.post('/updateModelImage/'+partType.id, partType).success(function (data, status, headers, config){
+            if (data=='ok'){
+                $scope.partTypes=data;
+                $scope.dataLoading = false;
+                window.location='/model/page/';
+            }else {
+                alert('Vehicle model image not updated there is an error');
                 $scope.dataLoading = false;
                 return;
             }
@@ -358,6 +421,28 @@
         });
 
     };
+    $scope.saveBland = function () {
+        $scope.dataLoading = true;
+        $scope.newBlandInfo.image=$scope.getphoto;
+        $http.post('/save/bland/',$scope.newBlandInfo ).success(function (data, status, headers, config){
+            if (data=='blandNameExist'){
+                alert('Entered bland name exist !');
+                return;
+            }
+            $scope.blands=data;
+            $scope.new=false;
+            $scope.dataLoading = false;
+        });
+    };
+    $scope.saveModel = function () {
+        $scope.dataLoading = true;
+        $scope.newModelInfo.image=$scope.getphoto;
+        $http.post('/save/model/',$scope.newModelInfo).success(function (data, status, headers, config){
+            $scope.vehicleModels = data;
+            $scope.new=false;
+            $scope.dataLoading = false;
+        });
+    };
     $scope.saveSeries = function(){
      $scope.dataLoading = true;
         $http.post('/save/series/', $scope.newSeriesInfo ).success(function (data, status, header, config){
@@ -387,16 +472,55 @@
         });
 
     };
+    $scope.updateModel = function (vehicleModel) {
+        $scope.dataLoading = true;
+        $http.post('/update/model/',vehicleModel).success(function (data, status, headers, config){
+            $scope.vehicleModels = data;
+            for(var d in data){
+                if(data[d].id == vehicleModel.id){
+                    data[d].edit = false;
+                }
+            }
+            $scope.dataLoading = false;
+        });
+    };
+    $scope.updateAddBland = function (bland) {
+        $scope.dataLoading = true;
+        $http.post('/update/add/bland/',bland).success(function (data, status, headers, config){
+            $scope.partDetails = data;
+            for(var d in data){
+                if(data[d].id == bland.id){
+                    data[d].edit = false;
+                }
+            }
+            $scope.dataLoading = false;
+        });
+    };
     $scope.disableBland=function (bland) {
         if(confirm("do you real want to delete "+bland.blandName + "?")) {
             $http.post('/delete/bland/' + bland.id, bland).success(function (data, status, headers, config) {
                 //alert(JSON.stringify(data));
-
                 $scope.blands = data;
                 data.edit = false;
                 window.location="/blandPage/";
-
-
+            });
+        }
+    };
+    $scope.disableModel = function (vehicleModel) {
+        if(confirm("do you real want to delete "+vehicleModel.modelName + "?")) {
+            $http.post('/delete/model/' + vehicleModel.id, vehicleModel).success(function (data, status, headers, config) {
+                $scope.vehicleModels = data;
+                data.edit = false;
+                window.location="/model/page/";
+            });
+        }
+    };
+    $scope.disableAddBland=function (partDetails) {
+        if(confirm("do you real want to delete ?")) {
+            $http.post('/delete/add/bland/' + partDetails.id, partDetails).success(function (data, status, headers, config) {
+            $scope.blands = data;
+            data.edit = false;
+            window.location="/part/details/";
             });
         }
     };
@@ -422,7 +546,7 @@
         $http.post('/signin/',{username:$scope.username,password:$scope.password} ).success(function (data, status, headers, config){
             //alert(JSON.stringify(data));
             if(data =="ok") {
-                window.location='/adminHome/';
+                window.location='/user/';
             } else {
                 $scope.error = 'Wrong username or password';
                 $scope.dataLoading = false;
@@ -438,23 +562,17 @@
         });
 
     };
-    $scope.loadVehicle = function () {
-        $http.get('/list/vehicle/').success(function (data, status, headers, config){
-            //alert(JSON.stringify(data));
-
-            $scope.vehicles=data;
-
-        });
-
-    };
     $scope.loadSerie = function () {
         $http.get('/loadSeries/').success(function (data, status, headers, config){
             //alert(JSON.stringify(data));
-
             $scope.series=data;
-
         });
 
+    };
+    $scope.loadPartDetails = function () {
+        $http.get('/load/part/details/').success(function (data, status, headers, config){
+            $scope.partDetails = data;
+        });
     };
     $scope.loadUser = function () {
         $http.get('/loadUsers/').success(function (data, status, headers, config){
@@ -473,46 +591,18 @@
         });
 
     };
+    $scope.loadModels = function () {
+        $http.get('/list/model/').success(function (data, status, headers, config){
+            $scope.vehicleModels = data;
+            $scope.showModel = true;
+
+        });
+
+    };
     $scope.home=function(){
         window.location="/";
     };
-    $scope.saveVehicle = function () {
-        $scope.dataLoading = true;
-        $scope.newVehicleInfo.image=$scope.getphoto;
-        $http.post('/save/vehicle/',$scope.newVehicleInfo ).success(function (data, status, headers, config){
-            $scope.vehicles=data;
-            $scope.new=false;
-            $scope.newVehicleInfo="";
-            $scope.dataLoading = false;
-        });
-    };
-    $scope.updateVehicle = function (vehicle) {
-        $scope.dataLoading = true;
-        $http.post('/update/vehicle/',vehicle).success(function (data, status, headers, config){
-            //alert(JSON.stringify(data));
-            $scope.vehicles=data;
-            for(var d in data){
-                if(data[d].id == vehicle.id){
-                    data[d].edit = false;
-                }
-            }
-            $scope.dataLoading = false;
-        });
-    };
-    $scope.disableVehicle=function (vehicle) {
-        if(confirm("do you real want to delete "+vehicle.vehicleName + "?")) {
-            $http.post('/delete/vehicle/' + vehicle.id, vehicle).success(function (data, status, headers, config) {
-                //alert(JSON.stringify(data));
-
-                $scope.vehicles = data;
-                data.edit = false;
-                window.location="/VehiclePage/";
-
-
-            });
-        }
-    };
-    $scope.loadSparePart=function () {
+    $scope.loadSparePart = function () {
         $http.get('/loadSparePart/').success(function (data, status, headers, config){
             //alert(JSON.stringify(data));
             $scope.spareParts=data;
@@ -543,19 +633,27 @@
 
         });
     };
+    $scope.saveAddBland = function () {
+        $scope.dataLoading = true;
+        $http.post('/save/add/bland/',$scope.newAddBlandInfo ).success(function (data, status, headers, config){
+
+            $scope.partDetails = data;
+            $scope.new=false;
+            $scope.newAddBlandInfo="";
+            $scope.dataLoading = false;
+
+        });
+    };
     $scope.updateSparePart=function (sparePart) {
         $scope.dataLoading = true;
         $http.post('/updateSparePart/',sparePart).success(function (data, status, headers, config){
-            //alert(JSON.stringify(data));
             $scope.spareParts=data;
             for(var d in data){
-                if(data[d].id == vehicle.id){
+                if(data[d].id == sparePart.id){
                     data[d].edit = false;
                 }
             }
             $scope.dataLoading = false;
-
-
         });
     };
     $scope.disableSparePart=function (sparePart) {
@@ -583,22 +681,6 @@
         });
 
     };
-    $scope.updateSeries = function (series) {
-        $scope.dataLoading = true;
-        $http.post('/updateSeries/',series).success(function (data, status, headers, config){
-            //alert(JSON.stringify(data));
-            $scope.series=data;
-            for(var d in data){
-                if(data[d].id == series.id){
-                    data[d].edit = false;
-                }
-            }
-            $scope.dataLoading = false;
-
-
-        });
-
-    };
     $scope.disableSeries=function (series) {
         if(confirm("do you real want to delete "+series.serieName + "?")) {
             $http.post('/deleteSeries/' + series.id, series).success(function (data, status, headers, config) {
@@ -614,17 +696,12 @@
     };
     $scope.savePartType = function () {
         $scope.dataLoading = true;
-        $scope.newVehicleInfo.image=$scope.getphoto;
-        $http.post('/savePartType/',$scope.newVehicleInfo ).success(function (data, status, headers, config){
+        $scope.newPartTypeInfo.image=$scope.getphoto;
+        $http.post('/savePartType/',$scope.newPartTypeInfo ).success(function (data, status, headers, config){
             //alert(JSON.stringify(data));
-            if (data=='partTypeExists'){
-                alert('Entered part type  exist !');
-                return;
-            }
-
-            $scope.loadSparePartTypes=data;
+            $scope.loadSparePartTypes = data;
             $scope.new=false;
-            $scope.newVehicleInfo="";
+            $scope.newPartTypeInfo = "";
             $scope.dataLoading = false;
 
         });
@@ -659,5 +736,4 @@
             });
         }
     };
-
 });

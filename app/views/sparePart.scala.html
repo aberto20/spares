@@ -2,19 +2,13 @@
     <div ng-controller="MainController" class="container">
         @inHeader()
         <div class="col-lg-2">
-
-
             <div style="height:36px">
 
             </div>
-
-
             @sideBar("sparePart")
-
-
         </div>
         <div class="col-lg-8" style="margin-left: 1% ; width: 82% ;">
-            <div style="min-height:300px">
+            <div style="min-height:300px ;">
 
                 <br>
 
@@ -31,75 +25,79 @@
                         Spare part management form <i class="fa fa-cogs"></i></h1></span>
                     </ul>
                 </div>
-                <form ng-submit="saveSparePart()" name="myForm" >
+                <form ng-submit="saveSparePart()" name="myForm">
                     <div ng-show="new" class="panel panel-default" style="border-top-style:none">
-
-
                         <div ng-init="loadSparePartType()" class="panel-body">
                             <div class="panel panel-default" style="background:whitesmoke">
                                 <div class="panel-heading">
                                     <h3 style="padding:0px ; margin:0px">New spare part registration</h3>
                                 </div>
-                                <div class="panel-body">
-                                    <label>
-                                        Part type
-                                    </label>
-                                    <select ng-model="newPartNameInfo.partTypeId" class="form-control">
-                                        <option ng-repeat="m in loadSparePartTypes" value="{{m.id}}">{{m.typeName}}</option>
-                                    </select>
-                                    <label>
-                                        part name
-                                    </label>
-                                    <input required ng-model="newPartNameInfo.partName" placeholder="part name" class="form-control">
-                                    <label>
-                                        description
-                                    </label>
-                                    <textarea ng-model="newPartNameInfo.description" placeholder="Description" class="form-control"></textarea>
-                                    <label>
-                                        Model number
-                                    </label>
-                                    <input type="text" ng-model="newPartNameInfo.modelNumber" placeholder="Image" class="form-control">
-                                    <label>
-                                        Manufacturer price
-                                    </label>
-                                    <input required ng-model="newPartNameInfo.manufacturerPrice" placeholder="Manufacturer year" class="form-control">
-                                    <label>
-                                        Fitting name
-                                    </label>
-                                    <input required ng-model="newPartNameInfo.fittingName" placeholder="Fitting name" class="form-control">
-                                    <label>
-                                        Originality
-                                    </label>
-                                    <input required ng-model="newPartNameInfo.originality" placeholder="Originality" class="form-control">
-                                    <label>
-                                        Fablication year
-                                    </label>
-                                    <input required ng-model="newPartNameInfo.fablicationYear" placeholder="Fablication year" class="form-control">
-                                    <br>
-                                    <div style="position:relative ;">
-                                        <a class='btn btn-primary' href='javascript:;'>
-                                            Photo upload ....
-                                            <input type="file" ng-model="newVehicleInfo.photo" onchange="angular.element(this).scope().uploadPhoto(this.files)" name="photo" style='position:absolute ; z-index:2 ; top:0 ; left:0 ; filter: alpha(opacity=0) ; -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)" ; opacity:0 ; background-color:transparent ; color:transparent ;' name="file_source" size="40" >
-                                        </a>
-                                            &nbsp;
-                                        <span ng-show="btnSubmit" ><img style="height: 50px ; width: 50px" src="@routes.Assets.at("images/{{getphoto}}")"></span>
-                                        <div ng-if="getphoto=='Error'" class="msgcv.class">{{msgcv.message}}</div>
+                                <div class="row">
+                                    <div class="panel-body" ng-init="loadBlands()">
+                                        <div class="col-md-6">
+                                            <label>
+                                                Select Part type
+                                            </label>
+                                            <select ng-model="newPartNameInfo.partTypeId" class="form-control">
+                                                <option ng-repeat="m in loadSparePartTypes" value="{{m.id}}">
+                                                    {{m.typeName}} [{{m.vehicleModel.modelName}} => {{m.vehicleModel.bland.blandName}}]</option>
+                                            </select>
+                                            <label>
+                                                part name
+                                            </label>
+                                            <input required ng-model="newPartNameInfo.partName" placeholder="part name" class="form-control">
+                                            <label>
+                                                Part number
+                                            </label>
+                                            <input type="text" ng-model="newPartNameInfo.modelNumber" placeholder="Part number" class="form-control">
+                                            <label>
+                                                Manufacturer of the spare part
+                                            </label>
+                                            <input required ng-model="newPartNameInfo.manufacturer" placeholder="Part Manufacturer" class="form-control">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label>
+                                                Date and year of manufacturer
+                                            </label>
+                                            <input required ng-model="newPartNameInfo.fablicationYear" placeholder="Date and year of manufacturer" class="form-control">
+                                            <label>
+                                                Manufacturer price
+                                            </label>
+                                            <input required ng-model="newPartNameInfo.manufacturerPrice" placeholder="Manufacturer price" class="form-control">
+                                            <label>
+                                                Country of manufacturer
+                                            </label>
+                                            <input required ng-model="newPartNameInfo.country" placeholder="Manufacturer country" class="form-control">
+                                            <label>
+                                                Genuine or counterfeit of spare part
+                                            </label>
+                                            <select ng-model="newPartNameInfo.originality" class="form-control">
+                                                <option value="Genuine">Part is Genuine</option>
+                                                <option value="counterfeit">Part is counterfeit</option>
+                                            </select>
+                                            <br>
+                                            <div style="position:relative ; margin-bottom: -4%;">
+                                                <a class='btn btn-primary' href='javascript:;'>
+                                                    Photo upload ....
+                                                    <input type="file" ng-model="newVehicleInfo.photo" onchange="angular.element(this).scope().uploadPhoto(this.files)" name="photo" style='position:absolute ; z-index:2 ; top:0 ; left:0 ; filter: alpha(opacity=0) ; -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)" ; opacity:0 ; background-color:transparent ; color:transparent ;' name="file_source" size="40" >
+                                                </a>
+                                                    &nbsp;
+                                                <span ng-show="btnSubmit" ><img style="height: 50px ; width: 50px" src="@routes.Assets.at("images/{{getphoto}}")"></span>
+                                                <div ng-if="getphoto=='Error'" class="msgcv.class">{{msgcv.message}}</div>
+                                            </div>
+                                            <hr>
+                                            <button type="submit" ng-disabled="myForm.$invalid" class="btn btn-success">
+                                                Save</button> <button ng-click="new = false" class="btn btn-default">
+                                            Cancel</button>
 
+                                        </div>
                                     </div>
-                                    <hr>
-
-
-                                    <button type="submit" ng-disabled="myForm.$invalid" class="btn btn-success">
-                                        Save</button> <button ng-click="new = false" class="btn btn-default">Cancel</button>
-
                                 </div>
                             </div>
                         </div>
 
                     </div>
                 </form>
-
-
                 <br>
                 <form class="" role="search" style = "width:100% ;">
                     <div>
@@ -121,75 +119,75 @@
                     <option value="1000000">All</option>
                 </select>
                 <br>
-                <div style="min-height:400px; width: 130%;" class="">
+                <div style="min-height:400px ; width: 100% ;" class="">
                     <table ng-init="loadSparePart();number=5" class="table table-striped" style="">
                         <tr class="success">
-                            <th>Edit</th><th>image</th><th>Type</th><th>Part name</th><th>Model</th><th>price</th><th>
-                            Fitting</th><th>Originality</th><th>Fabrication year</th><th >Done by</th><th >
-                            date</th><th></th>
+                            <th>Edit</th><th>image</th><th>Part No</th><th>Part name</th><th>Part type</th><th>
+                            Manuf. price</th><th>Fab year</th><th>Delete</th>
                         </tr>
                         <tr dir-paginate="a in spareParts |filter:search |itemsPerPage:number">
-                            <td><button ng-click="a.edit = true" ng-hide="a.edit" class="btn btn-default pull-left"><span style="color: #3696d4;" class="glyphicon glyphicon-pencil"></span></button>
-                                <div ng-show="a.edit" class="panel panel-default" style="z-index:1000 ; position:absolute ; width:80%; background:whitesmoke">
+                            <td><button ng-click="a.edit = true" ng-hide="a.edit" class="btn btn-default pull-left"><span style="color: #3696d4 ;" class="glyphicon glyphicon-pencil"></span></button>
+                                <div ng-show="a.edit" class="panel panel-default" style="z-index:1000 ; position:absolute ; width:80% ; background:whitesmoke">
                                     <div style="padding:5px ;">
                                         <a href="" class="pull-right" ng-click="a.edit = false" style="color:#3796d3 ;"><li class="fa fa-arrow-up"></li> </a>
                                     </div>
                                     <span style="color: #3696d4 ;"> <h3>&nbsp;&nbsp;&nbsp;{{a.partName}} modification form <li class="glyphicon glyphicon-pencil"></li> </h3></span>
                                     <hr />
                                     <div class="row">
-                                    <div class="panel-body">
-                                        <div class="col-md-6">
-                                            <label>
-                                                Part type
-                                        </label>
-                                        <select ng-model="a.partTypeId" class="form-control">
-                                            <option ng-repeat="m in loadSparePartTypes" value="{{m.id}}">
-                                                {{m.typeName}}</option>
-                                        </select>
-                                        <label>
-                                            Spare part name
-                                        </label>
-                                        <input required ng-model="a.partName" placeholder="spare part name" class="form-control">
-                                        <label>
-                                            description
-                                        </label>
-                                        <textarea ng-model="a.description" placeholder="Description" class="form-control">
-                                            {{a.description}}</textarea>
-                                        <label>
-                                            Model number
-                                        </label>
-                                    <input ng-model="a.modelNumber" placeholder="Model number" class="form-control">
+                                        <div class="panel-body">
+                                            <div class="col-md-6">
+                                                <label>
+                                                    Select Part type
+                                                </label>
+                                                <select ng-model="a.partTypeId" class="form-control">
+                                                    <option ng-repeat="m in loadSparePartTypes" value="{{m.id}}">
+                                                        {{m.typeName}} [{{m.vehicleModel.modelName}} => {{m.vehicleModel.bland.blandName}}]</option>
+                                                </select>
+                                                <label>
+                                                    part name
+                                                </label>
+                                                <input required ng-model="a.partName" class="form-control">
+                                                <label>
+                                                    Part number
+                                                </label>
+                                                <input type="text" ng-model="a.modelNumber" class="form-control">
+                                                <label>
+                                                    Manufacturer of the spare part
+                                                </label>
+                                                <input required ng-model="a.manufacturer" class="form-control">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label>
+                                                    Date and year of manufacturer
+                                                </label>
+                                                <input required ng-model="a.fablicationYear" class="form-control">
+                                                <label>
+                                                    Manufacturer price
+                                                </label>
+                                                <input required ng-model="a.manufacturerPrice" class="form-control">
+                                                <label>
+                                                    Country of manufacturer
+                                                </label>
+                                                <input required ng-model="a.country" class="form-control">
 
+                                                <label>
+                                                    Genuine or counterfeit of spare part
+                                                </label>
+                                                <select ng-model="a.originality" class="form-control">
+                                                    <option value="Genuine">Part is Genuine</option>
+                                                    <option value="counterfeit">Part is counterfeit</option>
+                                                </select>
+                                                <br>
+                                                <button ng-click="updateSparePart(a)" class="btn btn-success pull-right" style="margin-left: 1% ;">
+                                                    Update</button> <button ng-click="a.edit = false" class="btn btn-default pull-right">
+                                                Cancel</button>
+                                            </div>
                                         </div>
-                                        <div class="col-md-6">
-                                        <label>
-                                            Manufacturer Price
-                                        </label>
-                                        <input required ng-model="a.manufacturerPrice" placeholder="Manufacturer price" class="form-control">
-                                        <label>
-                                            Fitting name
-                                        </label>
-                                        <input required ng-model="a.fittingName" placeholder="Fitting name" class="form-control">
-                                        <label>
-                                            Originality
-                                        </label>
-                                        <input required ng-model="a.originality" placeholder="Originality" class="form-control">
-                                        <label>
-                                            Fabrication year
-                                        </label>
-                                        <input required ng-model="a.fablicationYear" placeholder="Fablication year" class="form-control">
-                                        <hr>
-                                        <button ng-click="updateSparePart(a)" class="btn btn-success pull-right" style="margin-left: 1%;">
-                                            Update</button> <button ng-click="a.edit = false" class="btn btn-default pull-right">
-                                        Cancel</button>
-                                    </div>
-                                    </div>
                                     </div>
                                 </div>
                                     <!-- Modal -->
                                 <div id="myModal{{a.id}}" class="modal fade" role="dialog">
                                     <div class="modal-dialog">
-
                                             <!-- Modal content-->
                                         <div class="modal-content">
                                             <form ng-submit="disableSparePart(a)" >
@@ -213,7 +211,6 @@
 
                                     </div>
                                 </div>
-                                    <!-- Modal -->
                                 <div id="myModalEdit{{a.id}}" class="modal fade" role="dialog">
                                     <div class="modal-dialog">
                                             <!-- Modal content-->
@@ -232,7 +229,7 @@
                                                             Photo upload ....
                                                             <input type="file" ng-model="image" onchange="angular.element(this).scope().uploadPhoto(this.files)" name="image" style='position:absolute ; z-index:2 ; top:0 ; left:0 ; filter: alpha(opacity=0) ; -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)" ; opacity:0 ; background-color:transparent ; color:transparent ;' name="file_source" size="40" >
                                                         </a>
-                                                        &nbsp;
+                                                            &nbsp;
                                                         <img ng-show="btnSubmit" src="@routes.Assets.at("images/{{getphoto}}")" style="width: 40px ; height: 40px ;" class="img-responsive img-thumbnail">
                                                         <div ng-if="getphoto=='Error'" class="msgcv.class">
                                                             {{msgcv.message}}</div>
@@ -248,28 +245,21 @@
 
                                     </div>
                                 </div>
-                            </td><td ><a href="#" data-toggle="modal" data-target="#myModalEdit{{a.id}}" ><img ng-if="a.image ==''" src="@routes.Assets.at("images/avatar.png")" style="width: 40px ; height: 40px ;" class="img-responsive img-thumbnail"><img ng-if="a.image !=''" src="@routes.Assets.at("images/{{a.image}}")" style="width: 40px ; height: 40px ;" class="img-responsive img-thumbnail"></a></td><td>{{a.partType.typeName}}</td><td>{{a.partName}}</td><td>
-                            {{a.modelNumber}}</td><td >
-                            {{a.manufacturerPrice}}</td><td >{{a.fittingName}}</td><td >{{a.originality}}</td><td >
-                            {{a.fablicationYear}}</td><td >{{a.doneBy}}</td><td >
-                            {{a.doneAt|date}}</td><td><button type="button" data-toggle="modal" data-target="#myModal{{a.id}}" class="btn btn-default pull-right" ><span style="color: red;" class=" glyphicon glyphicon-remove"></span></button></td>
+                            </td><td ><a href="#" data-toggle="modal" data-target="#myModalEdit{{a.id}}" ><img ng-if="a.image ==''" src="@routes.Assets.at("images/avatar.png")" style="width: 40px ; height: 40px ;" class="img-responsive img-thumbnail"><img ng-if="a.image !=''" src="@routes.Assets.at("images/{{a.image}}")" style="width: 40px ; height: 40px ;" class="img-responsive img-thumbnail"></a></td><td>
+                            {{a.modelNumber}}</td><td>{{a.partType.typeName}}</td><td>{{a.partName}}</td><td >
+                            {{a.manufacturerPrice}}</td><td >
+                            {{a.fablicationYear}}</td><td><button type="button" data-toggle="modal" data-target="#myModal{{a.id}}" class="btn btn-default" ><span style="color: red ;" class=" glyphicon glyphicon-remove"></span></button></td>
                         </tr>
                         <tr class="success">
-                            <th>Edit</th><th>image</th><th>Type</th><th>Part name</th><th>Model</th><th>price</th><th>
-                            Fitting</th><th>Originality</th><th>Fabrication year</th><th >Done by</th><th >
-                            date</th><th></th>
+                            <th>Edit</th><th>image</th><th>Part No</th><th>Part name</th><th>Part type</th><th>
+                            Manuf. price</th><th>Fab year</th><th>Delete</th>
                         </tr>
                     </table>
                     <div style="margin-top: -3% ;" class="pull-right">
                         <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="/assets/partials/tables/dirPagination.tpl.html"></dir-pagination-controls>
                     </div>
-
-
                 </div>
-
-
             </div>
-
         </div>
         <div class="col-lg-2"></div>
     </div>

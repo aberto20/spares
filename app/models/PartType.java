@@ -26,7 +26,7 @@ public class PartType extends Model {
     public Timestamp doneAt = new Timestamp(new Date().getTime());
 
     @ManyToOne(cascade = CascadeType.ALL)
-    public Series series;
+    public VehicleModel vehicleModel;
 
     public static Model.Finder<Long, PartType> find = new Model.Finder<Long, PartType>(Long.class, PartType.class);
     public static List<PartType> all(){

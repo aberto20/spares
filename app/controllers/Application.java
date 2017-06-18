@@ -1,6 +1,7 @@
 package controllers;
 import models.*;
 import play.data.Form;
+import play.db.ebean.Model;
 import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Http;
@@ -27,13 +28,13 @@ public class Application extends Controller {
               user.active=true;
               user.doneAt=new Timestamp(new Date().getTime());
               user.doneBy="default";
-              user.firstName="Bayingana";
-              user.lastName="Abel";
+              user.firstName="NKUNDIMANA";
+              user.lastName="Evalist";
               user.role="admin";
-              user.email="aberto20@gmail.com";
+              user.email="nkundimana@gmail.com";
               user.password="admin";
               user.username="admin";
-              user.phone="0785185421";
+              user.phone="0788885368";
               user.save();
           }
         return ok(views.html.login.render());
@@ -88,12 +89,6 @@ public class Application extends Controller {
             return ok(views.html.login.render());
         }
         return ok(vehicle.render());
-    }
-    public static Result SeriesPage(){
-        if(session("userId")==null ||session("userId").equals("") ){
-            return ok(views.html.login.render());
-        }
-        return ok(views.html.series.render());
     }
     public static Result dashboarAdmin(){
         if(session("userId")==null ||session("userId").equals("") ){
@@ -160,18 +155,20 @@ public class Application extends Controller {
             user.update();
 
             return ok("ok");
-
     }
     public static Result updatePartImage(long id){
         Form<SparePart>sparePartForm=Form.form(SparePart.class).bindFromRequest();
-
-
         SparePart sparePart=SparePart.finderById(id);
         sparePart.image=sparePartForm.field("image").value();
         sparePart.update();
-
             return ok("ok");
-
+    }
+    public static Result updateBlandImage(long id){
+        Form<Bland> blandForm = Form.form(Bland.class).bindFromRequest();
+        Bland bland = Bland.finderById(id);
+        bland.image=blandForm.field("image").value();
+        bland.update();
+            return ok("ok");
     }
     public static Result updateTypeImage(long id){
         Form<PartType>partTypeForm=Form.form(PartType.class).bindFromRequest();
@@ -184,14 +181,17 @@ public class Application extends Controller {
             return ok("ok");
 
     }
-    public static Result updateVehicleImage(long id){
-        Form<Vehicle>vehicleForm=Form.form(Vehicle.class).bindFromRequest();
-        Vehicle vehicle=Vehicle.finderById(id);
-            vehicle.image=vehicleForm.field("image").value();
-            vehicle.update();
+    public static Result updateModelImage(long id){
+        Form<VehicleModel>vehicleModelForm=Form.form(VehicleModel.class).bindFromRequest();
+
+
+        VehicleModel vehicleModel=VehicleModel.finderById(id);
+        vehicleModel.image=vehicleModelForm.field("image").value();
+        vehicleModel.update();
 
             return ok("ok");
-}
+
+    }
     public static Result UsernameExist(String username){
         User user=User.findByUsername(username);
        if(user ==null){
@@ -202,6 +202,10 @@ public class Application extends Controller {
     public static play.mvc.Result loadBlands(){
             List<Bland> bland = Bland.all();
             return ok(Json.toJson(bland));
+    }
+    public static play.mvc.Result loadModel(){
+        List<VehicleModel> vehicleModels = VehicleModel.all();
+        return ok(Json.toJson(vehicleModels));
     }
     public static Result saveBland(){
         Form<Bland> blandForm = Form.form(Bland.class).bindFromRequest();
@@ -218,6 +222,31 @@ public class Application extends Controller {
             List<Bland> blands = Bland.all();
             return ok(Json.toJson(blands));
     }
+    public static Result saveModel(){
+        Form<VehicleModel> vehicleModelForm = Form.form(VehicleModel.class).bindFromRequest();
+        VehicleModel vehicleModel = vehicleModelForm.get();
+        vehicleModel.doneBy = User.findByUsername(session("userId")).username;
+        vehicleModel.modelName = vehicleModelForm.field("modelName").value();
+        vehicleModel.description = vehicleModelForm.field("description").value();
+        vehicleModel.bland = Bland.finderById(Long.parseLong(vehicleModelForm.field("blandId").value()));
+        vehicleModel.save();
+        System.out.println("-------------- \n Model saved successfully");
+        List<VehicleModel> vehicleModels = VehicleModel.all();
+        return ok(Json.toJson(vehicleModels));
+    }
+    public static Result saveAddBland(){
+            Form<PartDetails> partDetailsForm = Form.form(PartDetails.class).bindFromRequest();
+            PartDetails partDetails = partDetailsForm.get();
+            long pId = Long.parseLong(partDetailsForm.field("sparePartId").value());
+            long bId = Long.parseLong(partDetailsForm.field("blandId").value());
+            partDetails.sparePart = SparePart.finderById(pId);
+            partDetails.bland = Bland.finderById(bId);
+            partDetails.doneBy = User.findByUsername(session("userId")).username;
+            partDetails.save();
+            System.out.println("-------------- \n part details saved successfully");
+            List<PartDetails> partDetailses = PartDetails.all();
+            return ok(Json.toJson(partDetailses));
+    }
     public static Result updateBland(){
         Form<Bland> blandForm = Form.form(Bland.class).bindFromRequest();
         long id=Long.parseLong(blandForm.field("id").value());
@@ -230,6 +259,32 @@ public class Application extends Controller {
         List<Bland> blandList = Bland.all();
         return ok(Json.toJson(blandList));
     }
+    public static Result updateModel(){
+        Form<VehicleModel> vehicleModelForm = Form.form(VehicleModel.class).bindFromRequest();
+        long id=Long.parseLong(vehicleModelForm.field("id").value());
+        VehicleModel vehicleModel = VehicleModel.finderById(id);
+        vehicleModel.modelName = vehicleModelForm.field("modelName").value();
+        vehicleModel.description = vehicleModelForm.field("description").value();
+        vehicleModel.bland = Bland.finderById(Long.parseLong(vehicleModelForm.field("blandId").value()));
+        vehicleModel.doneBy = User.findByUsername(session("userId")).username;
+        vehicleModel.update();
+        System.out.println("----------------------- \n Vehicle mode list after update");
+        List<VehicleModel> vehicleModels = VehicleModel.all();
+        return ok(Json.toJson(vehicleModels));
+    }
+    public static Result updateAddBland(){
+        Form<PartDetails> partDetailsForm = Form.form(PartDetails.class).bindFromRequest();
+        long id = Long.parseLong(partDetailsForm.field("id").value());
+        PartDetails partDetails = PartDetails.finderById(id);
+        long sId = Long.parseLong(partDetailsForm.field("sparePartId").value());
+        partDetails.sparePart = SparePart.finderById(sId);
+        partDetails.bland = Bland.finderById(Long.parseLong(partDetailsForm.field("blandId").value()));
+        partDetails.doneBy = User.findByUsername(session("userId")).username;
+        partDetails.update();
+        System.out.println("----------------------- \n part details list after update");
+        List<PartDetails> partDetailses = PartDetails.all();
+        return ok(Json.toJson(partDetailses));
+    }
     public static Result deleteBland(long id){
         Form<Bland> blandForm = Form.form(Bland.class).bindFromRequest();
         Bland bland1 = Bland.finderById(id);
@@ -240,6 +295,27 @@ public class Application extends Controller {
         System.out.println("---------------- \n bland deleted succesfully");
         List<Bland> blandList = Bland.all();
         return ok(Json.toJson(blandList));
+    }
+    public static Result deleteModel(long id){
+        Form<VehicleModel> vehicleModelForm = Form.form(VehicleModel.class).bindFromRequest();
+        VehicleModel vehicleModel = VehicleModel.finderById(id);
+        vehicleModel.deleteStatus = true;
+        vehicleModel.doneBy = User.findByUsername(session("userId")).username;
+        vehicleModel.deleteReason = vehicleModelForm.field("deleteReason").value();
+        vehicleModel.save();
+        System.out.println("---------------- \n Vehicle model deleted successfully");
+        List<VehicleModel> vehicleModels = VehicleModel.all();
+        return ok(Json.toJson(vehicleModels));
+    }
+    public static Result deleteAddBland(long id){
+        Form<PartDetails> partDetailsForm = Form.form(PartDetails.class).bindFromRequest();
+        PartDetails partDetails = PartDetails.finderById(id);
+        partDetails.deleteStatus = true;
+        partDetails.doneBy = User.findByUsername(session("userId")).username;
+        partDetails.save();
+        System.out.println("---------------- \n Part details deleted successfully");
+        List<PartDetails> partDetailses = PartDetails.all();
+        return ok(Json.toJson(partDetailses));
     }
     public static Result updateUser(){
         Form<User> userForm=Form.form(User.class).bindFromRequest();
@@ -279,89 +355,6 @@ public class Application extends Controller {
         List<User> userList=User.all();
         return ok(Json.toJson(userList));
     }
-    public static Result loadVehicles(){
-        List<Vehicle> vehicles = Vehicle.all();
-        return ok(Json.toJson(vehicles));
-    }
-    public static Result saveVehicle(){
-        Form<Vehicle> vehicleFrom = Form.form(Vehicle.class).bindFromRequest();
-        Vehicle vehicle = vehicleFrom.get();
-        long blandId=Long.parseLong(vehicleFrom.field("blandId").value());
-        vehicle.bland = Bland.finderById(blandId);
-        vehicle.doneBy=User.findByUsername(session("userId")).username;
-        System.out.println("------------------- \n vehicle saved successfully");
-        vehicle.save();
-        List<Vehicle> vehiclesList = Vehicle.all();
-        return ok(Json.toJson(vehiclesList));
-    }
-    public static Result updateVehicle(){
-        Form<Vehicle> vehicleForm = Form.form(Vehicle.class).bindFromRequest();
-        long id=Long.parseLong(vehicleForm.field("id").value());
-        long blandId=Long.parseLong(vehicleForm.field("blandId").value());
-        Vehicle vehicle1 = Vehicle.finderById(id);
-        vehicle1.vehicleName = vehicleForm.field("vehicleName").value();
-        vehicle1.description = vehicleForm.field("description").value();
-        vehicle1.fablicationYear =vehicleForm.field("fablicationYear").value();
-        vehicle1.doneBy = User.findByUsername(session("userId")).username;
-        vehicle1.bland = Bland.finderById(blandId);
-        System.out.println("------------------- \n vehicle updated successfully");
-        vehicle1.update();
-        List<Vehicle> vehicles = Vehicle.all();
-        return ok(Json.toJson(vehicles));
-    }
-    public static Result deleteVehicle(long id){
-        Form<Vehicle> vehicleForm = Form.form(Vehicle.class).bindFromRequest();
-        Vehicle vehicle1 = Vehicle.finderById(id);
-        vehicle1.deleteStatus = true;
-        vehicle1.deleteReason =vehicleForm.field("deleteReason").value();
-        vehicle1.doneBy = User.findByUsername(session("userId")).username;
-        System.out.println("------------------- \n vehicle deleted successfully");
-        vehicle1.update();
-        List<Vehicle> vehicles = Vehicle.all();
-        return ok(Json.toJson(vehicles));
-    }
-    public static Result loadSeries(){
-        List<Series> seriesList = Series.all();
-        return ok(Json.toJson(seriesList));
-    }
-    public static Result saveSeries(){
-        Form<Series> seriesForm = Form.form(Series.class).bindFromRequest();
-        Series series = seriesForm.get();
-        Series s = Series.findBySeries(series.serieName);
-        long vehicleId=Long.parseLong(seriesForm.field("vehicleId").value());
-        series.vehicle=Vehicle.finderById(vehicleId);
-        series.doneBy = User.byUsername(session("userId")).username;
-        System.out.println("------------------- \n series saved successfully");
-        series.save();
-        List<Series> seriesList = Series.all();
-        return ok(Json.toJson(seriesList));
-    }
-    public static Result updateSeries(){
-        Form<Series> seriesForm = Form.form(Series.class).bindFromRequest();
-        long vehicleId=Long.parseLong(seriesForm.field("vehicleId").value());
-        Series series1 = Series.finderById(Long.parseLong(seriesForm.field("id").value()));
-
-        series1.serieNo =seriesForm.field("serieNo").value();
-        series1.serieName = seriesForm.field("serieName").value();
-        series1.fablicationYear =seriesForm.field("fablicationYear").value();
-        series1.doneBy = User.findByUsername(session("userId")).username;
-        series1.vehicle = Vehicle.finderById(vehicleId);
-        series1.update();
-        System.out.println("------------------- \n series updated successfully");
-        List<Series> seriesList = Series.all();
-        return ok(Json.toJson(seriesList));
-    }
-    public static Result deleteSeries(long id){
-        Form<Series> seriesForm = Form.form(Series.class).bindFromRequest();
-        Series series1 = Series.finderById(id);
-        series1.deleteStatus = true;
-        series1.deleteReason =seriesForm.field("deleteReason").value();
-        series1.doneBy =User.byUsername(session("userId")).username;
-        series1.update();
-        System.out.println("------------------- \n series successfully");
-        List<Series> seriesList = Series.all();
-        return ok(Json.toJson(seriesList));
-    }
     public static Result loadPartType(){
         List<PartType> partTypeList = PartType.all();
         return ok(Json.toJson(partTypeList));
@@ -371,18 +364,24 @@ public class Application extends Controller {
             return ok(views.html.login.render());
         }
         return ok(views.html.partype.render());
+    }
+    public static Result models(){
+        if(session("userId")==null ||session("userId").equals("") ){
+            return ok(views.html.login.render());
+        }
+        return ok(views.html.vehicleModels.render());
+    }
+    public static Result details(){
+        if(session("userId")==null ||session("userId").equals("") ){
+            return ok(views.html.login.render());
+        }
+        return ok(views.html.details.render());
 
     }
-
     public static Result savePartType(){
         Form<PartType> partTypeForm = Form.form(PartType.class).bindFromRequest();
         PartType partType = partTypeForm.get();
-        long serieId=Long.parseLong(partTypeForm.field("serieId").value());
-        PartType p = PartType.findByPartType(partType.typeName);
-        if (p != null){
-            return ok("partTypeExists");
-        }
-        partType.series = Series.finderById(serieId);
+        partType.vehicleModel = VehicleModel.finderById(Long.parseLong(partTypeForm.field("modelId").value()));
         partType.doneBy =User.findByUsername(session("userId")).username;
         System.out.println("------------------- \n part type saved successfully");
         partType.save();
@@ -392,15 +391,14 @@ public class Application extends Controller {
     public static Result updatePartType(){
         Form<PartType> partTypeForm = Form.form(PartType.class).bindFromRequest();
         long id=Long.parseLong(partTypeForm.field("id").value());
-        long serieId=Long.parseLong(partTypeForm.field("serieId").value());
         PartType partType1 = PartType.finderById(id);
         partType1.typeName = partTypeForm.field("typeName").value();
         partType1.image =partTypeForm.field("image").value();
         partType1.description =partTypeForm.field("description").value();
         partType1.doneBy = User.byUsername(session("userId")).username;
-        partType1.series = Series.finderById(serieId);
+        partType1.vehicleModel = VehicleModel.finderById(Long.parseLong(partTypeForm.field("modelId").value()));
         partType1.update();
-        System.out.println("------------------- \n part type updated successfully");
+        System.out.println("------------------- \n Vehicle model updated successfully");
         List<PartType> partTypeList = PartType.all();
         return ok(Json.toJson(partTypeList));
     }
@@ -419,14 +417,14 @@ public class Application extends Controller {
         List<SparePart> sparePartList = SparePart.all();
         return ok(Json.toJson(sparePartList));
     }
+    public static Result loadPartDetails(){
+        List<PartDetails> partDetails = PartDetails.all();
+        return ok(Json.toJson(partDetails));
+    }
     public static Result saveSparePart(){
         Form<SparePart> sparePartForm = Form.form(SparePart.class).bindFromRequest();
         SparePart sparePart = sparePartForm.get();
         long partTypeId=Long.parseLong(sparePartForm.field("partTypeId").value());
-        SparePart s = SparePart.findByPartName(sparePart.partName);
-        if (s != null){
-            return ok("partNameExists");
-        }
         sparePart.partType=PartType.finderById(partTypeId);
         sparePart.doneBy=User.byUsername(session("userId")).username;
         sparePart.save();
@@ -440,7 +438,8 @@ public class Application extends Controller {
         long partTypeId=Long.parseLong(sparePartForm.field("partTypeId").value());
         SparePart sparePart1 = SparePart.finderById(id);
         sparePart1.partName = sparePartForm.field("partName").value();
-        sparePart1.description = sparePartForm.field("description").value();
+        sparePart1.country = sparePartForm.field("country").value();
+        sparePart1.manufacturer = sparePartForm.field("manufacturer").value();
         sparePart1.modelNumber = sparePartForm.field("modelNumber").value();
         sparePart1.manufacturerPrice =sparePartForm.field("manufacturerPrice").value();
         sparePart1.fittingName = sparePartForm.field("fittingName").value();
@@ -465,21 +464,25 @@ public class Application extends Controller {
         List<SparePart> sparePartList = SparePart.all();
         return ok(Json.toJson(sparePartList));
     }
-    public static Result vehicleByBland(long id){
-        List<Vehicle> vehicle=Vehicle.find.where().eq("bland_id",id).findList();
-        return ok(Json.toJson(vehicle));
-    }
-    public static Result vehicleBySerie(long id){
-        List<Series> seriesList=Series.find.where().eq("vehicle_id",id).findList();
-        return ok(Json.toJson(seriesList));
-    }
     public static Result vehicleByPartType(long id){
-        List<PartType> partTypes=PartType.find.where().eq("series_id",id).findList();
+        List<PartType> partTypes = PartType.find.where().eq("vehicle_model_id",id).findList();
         return ok(Json.toJson(partTypes));
+    }
+    public static Result vehicleByBland(long id){
+        List<VehicleModel> vehicleModels = VehicleModel.find.where().eq("bland_id",id).findList();
+        return ok(Json.toJson(vehicleModels));
     }
     public static Result vehicleBySparePart(long id){
         List<SparePart> spareParts=SparePart.find.where().eq("part_type_id",id).findList();
         return ok(Json.toJson(spareParts));
+    }
+    public static Result sparePartByPartType(long id){
+        List<SparePart> spareParts=SparePart.find.where().eq("part_type_id",id).findList();
+        return ok(Json.toJson(spareParts));
+    }
+    public static Result modelByBland(long id){
+        List<VehicleModel> vehicleModels = VehicleModel.find.where().eq("bland_id",id).findList();
+        return ok(Json.toJson(vehicleModels));
     }
     public static Result findByPartModel(String model){
         SparePart sp;
