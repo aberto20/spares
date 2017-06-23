@@ -18,13 +18,12 @@
     <div  >
         <table style="width: 100%;height: 100%">
             <tr>
-                <td>
-                    <center>{{getVehicleByBlandIndex.modelName}}</center>
-                </td>
-            </tr>
+        <tr>
+            <td> <center><img src="@routes.Assets.at("images/{{getVehicleByBlandIndex.image}}")" class="img-responsive" style="height: 80px;width:80px"></center></td>
+        </tr>
             <tr>
                 <td>
-                    <center>{{getVehicleByBlandIndex.fabYear}}</center>
+                    <center>{{getVehicleByBlandIndex.modelName}}</center>
                 </td>
             </tr>
 
@@ -32,9 +31,12 @@
         <hr >
     </div>
 </div>
-<div ng-show="showParttype" class="list-group success">
+<div ng-show="showParttypes" class="list-group success">
     <div  >
         <table style="width: 100%;height: 100%">
+            <tr>
+                <td> <center><img src="@routes.Assets.at("images/{{getParttypeIndex.image}}")" class="img-responsive" style="height: 80px;width:80px"></center></td>
+            </tr>
             <tr>
                 <td>
                     <center>{{getParttypeIndex.typeName}}</center>
@@ -42,39 +44,39 @@
             </tr>
             <tr>
                 <td>
-                    <center>{{getParttypeIndex.vehicleModel.fabYear}}</center>
+                    <center>{{getParttypeIndex.description}}</center>
                 </td>
             </tr>
         </table>
         <hr >
     </div>
 </div>
-<div ng-show="showSpareParties" class="list-group success">
-    <div  >
-        <table style="width: 100%;height: 100%">
+@*<div ng-show="showSparePartyDetailss" class="list-group success">*@
+    @*<div  >*@
+        @*<table style="width: 100%;height: 100%">*@
 
-            <tr>
-                <td> <center><img src="@routes.Assets.at("images/{{getSparePartties.partType.image}}")" class="img-responsive" style="height: 80px;width:80px"></center></td>
-            </tr>
-            <tr>
-                <td>
-                    <center>{{getSparePartties.partType.typeName}}</center>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <center>{{getSparePartties.modelNumber}}</center>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <center>{{getSparePartties.fablicationYear}}</center>
-                </td>
-            </tr>
-        </table>
-        <hr >
-    </div>
-</div>
+            @*<tr>*@
+                @*<td> <center><img src="@routes.Assets.at("images/{{getSparePartties.partType.image}}")" class="img-responsive" style="height: 80px;width:80px"></center></td>*@
+            @*</tr>*@
+            @*<tr>*@
+                @*<td>*@
+                    @*<center>{{getSparePartties.partType.typeName}}</center>*@
+                @*</td>*@
+            @*</tr>*@
+            @*<tr>*@
+                @*<td>*@
+                    @*<center>{{getSparePartties.partType.description}}</center>*@
+                @*</td>*@
+            @*</tr>*@
+            @*<tr>*@
+                @*<td>*@
+                    @*<center>{{getSparePartties.fablicationYear}}</center>*@
+                @*</td>*@
+            @*</tr>*@
+        @*</table>*@
+        @*<hr >*@
+    @*</div>*@
+@*</div>*@
 <div ng-show="showSpareparts" class="list-group success">
 
     <div >
@@ -98,17 +100,35 @@
     <div>
         <table style="width: 100%;height: 100%">
             <tr>
-                <td><center><img src="@routes.Assets.at("images/{{getSparePartIndex.image}}")" class="img-responsive" style="height: 80px;width:80px"></center></td>
+                <td><center><img src="@routes.Assets.at("images/{{getSparePartIndex.partType.vehicleModel.bland.image}}")" class="img-responsive" style="height: 80px;width:80px"></center></td>
             </tr>
             <tr>
                 <td>
-                    <center>Bland name: <span style="color: #61af50;"> {{getSparePartIndex.partType.typeName}}</span></center>
+                    <center>Bland name: <span style="color: #61af50;"> {{getSparePartIndex.partType.vehicleModel.bland.blandName}}</span></center>
                 </td>
             </tr>
         </table>
         <hr >
-        <center ><b>Part type details</b></center>
         <table style="width: 100%;height: 100%">
+            <tr>
+                <td><center><img src="@routes.Assets.at("images/{{getSparePartIndex.partType.vehicleModel.image}}")" class="img-responsive" style="height: 80px;width:80px"></center></td>
+            </tr>
+            <tr>
+                <td>
+                    <center>Model name: <span style="color: #61af50;"> {{getSparePartIndex.partType.vehicleModel.modelName}}</span></center>
+                </td>
+            </tr>
+        </table>
+        <hr >
+        <table style="width: 100%;height: 100%">
+            <tr>
+                <td><center><img src="@routes.Assets.at("images/{{getSparePartIndex.partType.image}}")" class="img-responsive" style="height: 80px;width:80px"></center></td>
+            </tr>
+            <tr>
+                <td>
+                    Part type name: <span style="color: #61af50;">{{getSparePartIndex.partType.typeName}}</span>
+                </td>
+            </tr>
             <tr>
                 <td>
                     Part type description: <span style="color: #61af50;">{{getSparePartIndex.partType.description}}</span>

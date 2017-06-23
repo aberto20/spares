@@ -7,42 +7,50 @@
     $scope.showBlandPage=function(){
         $scope.showBland=true;
         $scope.showBlands=true;
+        $scope.showModel = false;
         $scope.showModels = false;
         $scope.showBlands = false;
         $scope.showParttypes=false;
         $scope.showSpareparts=false;
+        $scope.showSpareParties=false;
         $scope.showParttype=false;
         $scope.showSparepart=false;
         $scope.showSparepartDetails=false;
         $scope.showSearch=false;
         $scope.showsearchDetails=false;
+        $scope.showSparePartyDetails=false;
+        $scope.showSparePartyDetailss=false;
     };
     $scope.showModelPage=function(){
         $scope.showModel = true;
-        $scope.showModels = true;
+        $scope.showModels = false;
         $scope.showBland = false;
         $scope.showBlands = true;
-        $scope.showBlands=true;
         $scope.showParttypes=false;
         $scope.showSpareparts=false;
         $scope.showParttype = false;
+        $scope.showSpareParties = false;
         $scope.showSparepart = false;
         $scope.showSparepartDetails = false;
         $scope.showSearch = false;
         $scope.showsearchDetails = false;
+        $scope.showSparePartyDetails=false;
+        $scope.showSparePartyDetailss=false;
     };
     $scope.showParttypePage=function(){
         $scope.showBland=false;
         $scope.showBlands=true;
         $scope.showModels = true;
         $scope.showParttype=true;
-        $scope.showParttypes=true;
-        $scope.showBlands=true;
+        $scope.showParttypes=false;
         $scope.showSpareparts=false;
+        $scope.showSpareParties=false;
         $scope.showSparepart=false;
         $scope.showSparepartDetails=false;
         $scope.showSearch=false;
         $scope.showsearchDetails=false;
+        $scope.showSparePartyDetails=false;
+        $scope.showSparePartyDetailss=false;
     };
     $scope.showsparepartyPage=function(){
         $scope.showBland=false;
@@ -51,9 +59,12 @@
         $scope.showParttypes=true;
         $scope.showSparepart=true;
         $scope.showSpareparts=true;
+        $scope.showSpareParties=false;
         $scope.showSparepartDetails=false;
         $scope.showSearch=false;
         $scope.showsearchDetails=false;
+        $scope.showSparePartyDetails=false;
+        $scope.showSparePartyDetailss=false;
     };
     $scope.selectPartTypeabel=function(id){
         $http.get('/vehicleByPartType/'+id).success(function (data, status, headers, config){
@@ -77,6 +88,8 @@
             $scope.showSparepartDetails=false;
             $scope.showSearch=false;
             $scope.showsearchDetails=false;
+            $scope.showSparePartyDetails=false;
+            $scope.showSparePartyDetailss=false;
         });
     };
 
@@ -97,11 +110,16 @@
             if(data!=""){
                 $scope.getSparePartIndex=data;
                 $scope.showBland=false;
+                $scope.showBlands=false;
                 $scope.showSearch=true;
                 $scope.showParttype=false;
+                $scope.showParttypes=false;
                 $scope.showSparepart=false;
+                $scope.showSpareparts=false;
                 $scope.showsearchDetails=true;
                 $scope.showSparepartDetails=false;
+                $scope.showSparePartyDetails=false;
+                $scope.showSparePartyDetailss=false;
             }
 
 
@@ -115,6 +133,8 @@
                     $scope.getSparePartties= data[d];
                 }
             }
+            $scope.showSparePartyDetails=false;
+            $scope.showSparePartyDetailss=false;
             $scope.sparepartss=data;
             $scope.showBland=false;
             $scope.showBlands=true;
@@ -138,6 +158,8 @@
                     $scope.getSparePartIndex= data[d];
                 }
             }
+            $scope.showSparePartyDetails=true;
+            $scope.showSparePartyDetailss=true;
             $scope.sparepartss=data;
             $scope.showBland=false;
             $scope.showBlands=true;
@@ -146,7 +168,7 @@
             $scope.showSpareParties=false;
             $scope.showSparePartiess=false;
             $scope.showSparepart=true;
-            $scope.showSpareparts=true;
+            $scope.showSpareparts=false;
             $scope.showSparepartDetails=false;
             $scope.showSearch=false;
             $scope.showsearchDetails=false;
@@ -166,6 +188,7 @@
             $scope.showBlands=true;
             $scope.showBland=false;
             $scope.showParttype=false;
+            $scope.showParttypes=false;
             $scope.showSpareParties=false;
             $scope.showSparePartiess=false;
             $scope.showSparepart=false;
@@ -188,6 +211,7 @@
             $scope.showBland=false;
             $scope.showParttype=false;
             $scope.showSparepart=false;
+            $scope.showParttypes=false;
             $scope.showSpareParties=false;
             $scope.showSparePartiess=false;
             $scope.showSparepartDetails=false;
